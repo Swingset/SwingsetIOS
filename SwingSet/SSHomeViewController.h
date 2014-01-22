@@ -8,6 +8,6 @@
 
 #import "SSViewController.h"
 
-@interface SSHomeViewController : SSViewController
+@interface SSHomeViewController : SSViewController <UIScrollViewDelegate>
 
 @end
