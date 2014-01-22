@@ -11,6 +11,7 @@
 @interface SSHomeViewController ()
 @property (strong, nonatomic) NSMutableArray *publicQuestions;
 @property (strong, nonatomic) UIScrollView *questionsContainer;
+@property (strong, nonatomic) SSQuestion *currentQuestion;
 @property (nonatomic) int questionIndex;
 @end
 
@@ -35,6 +36,7 @@
     
     CGFloat y = 0.0f;
     self.questionsContainer = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, frame.size.height)];
+    self.questionsContainer.delegate = self;
     self.questionsContainer.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
     self.questionsContainer.backgroundColor = [UIColor clearColor];
     self.questionsContainer.pagingEnabled = YES;
@@ -86,7 +88,6 @@
                 NSDictionary *questionInfo = [questions objectAtIndex:i];
                 [self.publicQuestions addObject:[SSQuestion questionWithInfo:questionInfo]];
                 [self layoutQuestions];
-                
             }
         }
         else{
@@ -107,6 +108,7 @@
         SSQuestionView *questionView = [[SSQuestionView alloc] initWithFrame:CGRectMake(i*frame.size.width, 0.0f, frame.size.width, frame.size.height)];
         [questionView addTarget:self forAction:@selector(optionSelected:)];
         questionView.lblQuestion.text = question.text;
+        
         
         for (int k=0; k<question.options.count; k++) {
             NSDictionary *option = [question.options objectAtIndex:k];
@@ -139,7 +141,6 @@
         return;
 
     NSLog(@"OPTION SELECTED: %ld", index);
-    
 }
 
 - (void)nextQuestion
@@ -147,6 +148,47 @@
     self.questionIndex = (self.questionIndex+1) % self.publicQuestions.count;
     NSLog(@"nextQuestion: %d", self.questionIndex);
 }
+
+- (void)setQuestionIndex:(int)questionIndex
+{
+    if (_questionIndex==questionIndex)
+        return;
+    
+    _questionIndex = questionIndex;
+    self.currentQuestion = [self.publicQuestions objectAtIndex:_questionIndex];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+{
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    double p = self.questionsContainer.contentOffset.x / self.questionsContainer.frame.size.width;
+    
+    self.questionIndex = (int)p;
+    NSLog(@"scrollViewDidEndDecelerating: %d", self.questionIndex);
+    NSLog(@"%@", self.currentQuestion.text);
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    NSLog(@"scrollViewDidEndScrollingAnimation:");
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {
