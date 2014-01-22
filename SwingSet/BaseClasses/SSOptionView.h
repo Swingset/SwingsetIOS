@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) UIColor *barColor;
 @property (nonatomic, strong) UILabel *lblText;
+@property (nonatomic, strong) UIImageView *badge;
+@property (nonatomic) BOOL isHilighted;
 @property (assign) id parent;
 + (SSOptionView *)optionViewWithFrame:(CGRect)frame;
 @end
