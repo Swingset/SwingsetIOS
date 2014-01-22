@@ -105,6 +105,7 @@
         SSQuestion *question = [self.publicQuestions objectAtIndex:i];
         
         SSQuestionView *questionView = [[SSQuestionView alloc] initWithFrame:CGRectMake(i*frame.size.width, 0.0f, frame.size.width, frame.size.height)];
+        [questionView addTarget:self forAction:@selector(optionSelected:)];
         questionView.lblQuestion.text = question.text;
         
         for (int k=0; k<question.options.count; k++) {
@@ -129,6 +130,16 @@
         
         [self.questionsContainer addSubview:questionView];
     }
+}
+
+- (void)optionSelected:(NSNumber *)tag
+{
+    long index = [tag longValue]-1000;
+    if (index < 0)
+        return;
+
+    NSLog(@"OPTION SELECTED: %ld", index);
+    
 }
 
 - (void)nextQuestion
