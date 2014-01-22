@@ -158,20 +158,21 @@
     self.currentQuestion = [self.publicQuestions objectAtIndex:_questionIndex];
 }
 
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 {
-    
+//    NSLog(@"scrollViewDidScroll:");
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    
+//    NSLog(@"scrollViewWillBeginDragging:");
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    
+//    NSLog(@"scrollViewDidEndDragging:");
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -185,7 +186,7 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSLog(@"scrollViewDidEndScrollingAnimation:");
+//    NSLog(@"scrollViewDidEndScrollingAnimation:");
 }
 
 
