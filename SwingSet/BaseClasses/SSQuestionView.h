@@ -22,4 +22,8 @@
 @property (strong, nonatomic) SSOptionView *option2View;
 @property (strong, nonatomic) SSOptionView *option3View;
 @property (strong, nonatomic) SSOptionView *option4View;
+@property (assign) id target;
+@property (nonatomic) SEL action;
+
+- (void)addTarget:(id)t forAction:(SEL)a;
 @end

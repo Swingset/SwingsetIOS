@@ -19,6 +19,8 @@
 @synthesize option2View;
 @synthesize option3View;
 @synthesize option4View;
+@synthesize target;
+@synthesize action;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -67,27 +69,55 @@
         CGFloat w = frame.size.width-2*padding;
         
         self.option1View = [SSOptionView optionViewWithFrame:CGRectMake(padding, y, w, h)];
+        self.option1View.tag = 1000;
         self.option1View.barColor = [UIColor blueColor];
+        self.option1View.parent = self;
         [self addSubview:self.option1View];
         y += h+padding;
         
         self.option2View = [SSOptionView optionViewWithFrame:CGRectMake(padding, y, w, h)];
+        self.option2View.tag = 1001;
+        self.option2View.parent = self;
         self.option2View.barColor = [UIColor redColor];
         [self addSubview:self.option2View];
         y += h+padding;
 
         self.option3View = [SSOptionView optionViewWithFrame:CGRectMake(padding, y, w, h)];
+        self.option3View.tag = 1002;
+        self.option3View.parent = self;
         self.option3View.barColor = [UIColor blackColor];
         [self addSubview:self.option3View];
         y += h+padding;
 
         self.option4View = [SSOptionView optionViewWithFrame:CGRectMake(padding, y, w, h)];
+        self.option4View.tag = 1003;
+        self.option4View.parent = self;
         self.option4View.barColor = [UIColor greenColor];
         [self addSubview:self.option4View];
 
     }
     return self;
 }
+
+- (void)addTarget:(id)t forAction:(SEL)a
+{
+    self.target = t;
+    self.action = a;
+}
+
+
+#pragma mark - SSOptionViewDelegate
+- (void)optionViewSelected:(NSInteger)tag
+{
+    NSLog(@"optionViewSelected: %d", (int)tag);
+    if (!self.target)
+        return;
+    
+    [self.target performSelector:self.action
+                      withObject:[NSNumber numberWithLong:tag]
+                      afterDelay:0];
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
