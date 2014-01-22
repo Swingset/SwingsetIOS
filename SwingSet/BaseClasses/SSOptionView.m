@@ -15,6 +15,7 @@
 
 @implementation SSOptionView
 @synthesize lblText;
+@synthesize parent;
 //@synthesize barColor = _barColor;
 
 - (id)initWithFrame:(CGRect)frame
@@ -94,6 +95,10 @@
 {
     NSLog(@"touchesEnded:");
     [self applyTranformAnimation:CGAffineTransformIdentity duration:0.2f completion:NULL];
+    
+    if ([self.parent respondsToSelector:@selector(optionViewSelected:)]){
+        [self.parent optionViewSelected:self.tag];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

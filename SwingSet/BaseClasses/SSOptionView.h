@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SSOptionViewDelegate
+- (void)optionViewSelected:(NSInteger)tag;
+@end
+
 @interface SSOptionView : UIView
 
 @property (nonatomic, strong) UIColor *barColor;
 @property (nonatomic, strong) UILabel *lblText;
+@property (assign) id parent;
 + (SSOptionView *)optionViewWithFrame:(CGRect)frame;
 @end
