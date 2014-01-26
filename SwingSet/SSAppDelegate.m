@@ -7,8 +7,6 @@
 //
 
 #import "SSAppDelegate.h"
-//#import "SSRegisterViewController.h"
-//#import "SSNavigationController.h"
 #import "SSContainerViewController.h"
 
 
@@ -19,15 +17,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_white.png"]];
     
-//    SSRegisterViewController *registerVc = [[SSRegisterViewController alloc] init];
-//    SSNavigationController *navController = [[SSNavigationController alloc] initWithRootViewController:registerVc];
-    
     SSContainerViewController *containerVc = [[SSContainerViewController alloc] init];
     self.window.rootViewController = containerVc;
-    
-    
-//    self.window.rootViewController = navController;
-    
     
     [self.window makeKeyAndVisible];
     return YES;
