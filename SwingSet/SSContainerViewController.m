@@ -9,6 +9,7 @@
 #import "SSContainerViewController.h"
 #import "SSRegisterViewController.h"
 #import "SSNavigationController.h"
+#import "SSQuestionsViewController.h"
 #import "SSHomeViewController.h"
 #import "SSGroupsViewController.h"
 #import "SSConfirmViewController.h"
@@ -19,7 +20,7 @@
 @property (strong, nonatomic) UITableView *sectionsTable;
 @property (strong, nonatomic) NSArray *sections;
 @property (strong, nonatomic) SSNavigationController *navCtr;
-@property (strong, nonatomic) SSHomeViewController *homeVc;
+@property (strong, nonatomic) SSQuestionsViewController *homeVc;
 @property (strong, nonatomic) SSGroupsViewController *groupsVc;
 @property (strong, nonatomic) SSViewController *currentVC;
 @end
@@ -67,7 +68,7 @@
     [view addSubview:questionView];
 
     
-    self.homeVc = [[SSHomeViewController alloc] init];
+    self.homeVc = [[SSQuestionsViewController alloc] init];
     self.currentVC = self.homeVc;
     self.navCtr = [[SSNavigationController alloc] initWithRootViewController:self.homeVc];
     self.navCtr.view.frame = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
