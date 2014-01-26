@@ -11,31 +11,15 @@
 
 @interface SSGroupViewController ()
 
-// UIViews
-
 @property (strong, nonatomic) UIView *topView;
 @property (strong, nonatomic) UIView *bottomView;
-
-@property (strong, nonatomic) UIImageView *topImageView;
-@property (strong, nonatomic) UIImageView *bottomImageView;
-
-// Button
-
 @property (strong, nonatomic) SSButton *btnAddMember;
 @property (strong, nonatomic) SSButton *btnRemoveMember;
 @property (strong, nonatomic) SSButton *btnLeaveGroup;
 @property (strong, nonatomic) SSButton *btnNotification;
-
-// Labels
-
 @property (strong, nonatomic) UILabel *lblGroupName;
 @property (strong, nonatomic) UILabel *lblGroupMembers;
-
-// Table
-
 @property (strong, nonatomic) UITableView *theTableView;
-
-// Dummy Data
 
 @property (strong, nonatomic) NSArray *dummyData;
 @property (strong, nonatomic) NSString *groupName;
@@ -48,12 +32,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         
         self.edgesForExtendedLayout = UIRectEdgeAll;
         
         // populate dummy data
-        
         self.dummyData = [NSArray arrayWithObjects:@"@first lastname",
                           @"@second lastname",
                           @"@third lastname",
@@ -79,112 +61,106 @@
 {
     UIView *view = [self baseView:YES];
     CGRect frame = view.frame;
-    int elemWidth, elemHeight;
     
-    self.topView = [[UIView alloc] initWithFrame:CGRectMake(-5,64,frame.size.width+10, 84)];
-    _topView.layer.borderWidth = 1.0;
-    _topView.layer.borderColor = kGrayBorder.CGColor;
+    self.topView = [[UIView alloc] initWithFrame:CGRectMake(-5.0f, 0.0f, frame.size.width+10.0f, 84.0f)];
+    self.topView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
+    self.topView.layer.borderWidth = 1.0f;
+    self.topView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_whiter.png"]];
+    self.topView.layer.borderColor = kGrayBorder.CGColor;
     
-    self.topImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,frame.size.width+10, 84)];
-    _topImageView.image = [UIImage imageNamed:@"hb_bg_whiter@2x.png"];
-    
-    
-    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0,frame.size.height,frame.size.width,64)];
-    self.bottomView.backgroundColor = kDarkGray;
-    self.bottomImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,frame.size.height,frame.size.width,64)];
-    
-    self.lblGroupName = [[UILabel alloc] initWithFrame:CGRectMake(20,0,frame.size.width/2,30)];
-    self.lblGroupName.text = _groupName;
+    CGFloat y = 0.0f;
+    self.lblGroupName = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, y, frame.size.width/2.0f, 30.0f)];
+    self.lblGroupName.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
+    self.lblGroupName.text = self.groupName;
+    self.lblGroupName.text = @"GROUP NAME";
     self.lblGroupName.textColor = [UIColor blackColor];
     self.lblGroupName.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:16.0f];
-    self.lblGroupName.backgroundColor = [UIColor clearColor];
+    [self.topView addSubview:self.lblGroupName];
     
-    elemWidth = 90;
-    self.lblGroupMembers = [[UILabel alloc] initWithFrame:CGRectMake(238, 0, elemWidth, 30)];
-    self.lblGroupMembers.text = [NSString stringWithFormat:@"%d Members",[_dummyData count]];
+    CGFloat elemWidth = 90.0f;
+    self.lblGroupMembers = [[UILabel alloc] initWithFrame:CGRectMake(238.0f, y, elemWidth, 30.0f)];
+    self.lblGroupMembers.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
+    self.lblGroupMembers.text = [NSString stringWithFormat:@"%d Members", (int)[self.dummyData count]];
     self.lblGroupMembers.textColor = [UIColor grayColor];
     self.lblGroupMembers.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:13.0f];
+    self.lblGroupMembers.text = [NSString stringWithFormat:@"15 members"];
     self.lblGroupMembers.backgroundColor = [UIColor clearColor];
-    
+    [self.topView addSubview:self.lblGroupMembers];
+
     // Add Buttons
+    elemWidth = 110.0f;
+    CGFloat elemHeight = 30.0f;
     
-    elemWidth = 110;
-    elemHeight = 30;
+    self.btnAddMember = [SSButton buttonWithFrame:CGRectMake(20.0f, 35.0f, elemWidth, elemHeight) title:@"Add Member" textMode:TextModeDefault];
+    self.btnAddMember.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
+    self.btnAddMember.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+    [self.btnAddMember setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 0.0f)];
+    self.btnAddMember.backgroundColor = kMidGrayButton;
+    self.btnAddMember.layer.cornerRadius = 2.0f;
+
     
-    UIImage *plusImg = [UIImage imageNamed:@"plusIconWhite.png"];
-    UIImage *bellImg = [UIImage imageNamed:@"whiteBellIcon@2x.png"];
+    UIImage *plusIcon = [UIImage imageNamed:@"plusIconWhite.png"];
+    UIImageView *plusImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 7.0f, 15.0f, 15.0f)];
+    plusImgView.image = plusIcon;
+    [self.btnAddMember addSubview:plusImgView];
+    [self.btnAddMember addTarget:self action:@selector(btnAddMemberAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.topView addSubview:self.btnAddMember];
     
-    self.btnAddMember = [SSButton buttonWithFrame:CGRectMake(20, 35, elemWidth, elemHeight) title:@"Add Member" textMode:TextModeDefault];
-    _btnAddMember.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-    [_btnAddMember setTitleEdgeInsets:UIEdgeInsetsMake(0, 13, 0, 0)];
-    _btnAddMember.backgroundColor = kMidGrayButton;
-    _btnAddMember.layer.cornerRadius = 2.0;
+    self.btnRemoveMember = [SSButton buttonWithFrame:CGRectMake(180.0f, 35.0f, elemWidth+20.0f, elemHeight) title:@"Remove Member" textMode:TextModeDefault];
+    self.btnRemoveMember.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
+    self.btnRemoveMember.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+    [self.btnRemoveMember setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 13.0f, 0.0f, 0.0f)];
+    self.btnRemoveMember.backgroundColor = kMidGrayButton;
+    self.btnRemoveMember.layer.cornerRadius = 2.0f;
+
+    UIImageView *plusImgView2 = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 7.0f, 15.0f, 15.0f)];
+    plusImgView2.image = plusIcon;
+    [self.btnRemoveMember addSubview:plusImgView2];
+    [self.btnRemoveMember addTarget:self action:@selector(btnRemoveMemberAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.topView addSubview:self.btnRemoveMember];
+
+    [view addSubview:self.topView];
+    y += self.topView.frame.size.height;
+
     
+    self.theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, frame.size.height-y-64.0f)];
+    self.theTableView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
+    self.theTableView.backgroundColor = kGrayTable;
+    self.theTableView.delegate = self;
+    self.theTableView.dataSource = self;
+    self.theTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.theTableView.separatorInset = UIEdgeInsetsZero;
+    [view addSubview:self.theTableView];
+    y += self.theTableView.frame.size.height;
     
-    UIImageView *plusImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5,7,15,15)];
-    plusImgView.image = plusImg;
-    [_btnAddMember addSubview:plusImgView];
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, frame.size.height-y)];
+    self.bottomView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
+    self.bottomView.backgroundColor = kDarkGray;
+
     
-    [_btnAddMember addTarget:self
-                      action:@selector(btnAddMemberAction:)
-            forControlEvents:UIControlEventTouchUpInside];
-    
-    self.btnRemoveMember = [SSButton buttonWithFrame:CGRectMake(180, 35, elemWidth + 20, elemHeight) title:@"Remove Member" textMode:TextModeDefault];
-    _btnRemoveMember.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-    [_btnRemoveMember setTitleEdgeInsets:UIEdgeInsetsMake(0, 13, 0, 0)];
-    _btnRemoveMember.backgroundColor = kMidGrayButton;
-    _btnRemoveMember.layer.cornerRadius = 2.0;
-    
-    UIImageView *plusImgView2 = [[UIImageView alloc] initWithFrame:CGRectMake(5,7,15,15)];
-    plusImgView2.image = plusImg;
-    [_btnRemoveMember addSubview:plusImgView2];
-    
-    [_btnRemoveMember addTarget:self
-                         action:@selector(btnRemoveMemberAction:)
-               forControlEvents:UIControlEventTouchUpInside];
-    
-    self.btnLeaveGroup = [SSButton buttonWithFrame:CGRectMake(15, 10, 80, 20) title:@"Leave Group" textMode:TextModeDefault];
-    _btnLeaveGroup.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-    _btnLeaveGroup.backgroundColor = kDarkGrayButton;
-    _btnLeaveGroup.layer.cornerRadius = 2.0;
-    [_btnLeaveGroup addTarget:self
-                       action:@selector(btnLeaveGroupAction:)
-             forControlEvents:UIControlEventTouchUpInside];
+    self.btnLeaveGroup = [SSButton buttonWithFrame:CGRectMake(15.0f, 10.0f, 80.0f, 20.0f) title:@"Leave Group" textMode:TextModeDefault];
+    self.btnLeaveGroup.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+    self.btnLeaveGroup.backgroundColor = kDarkGrayButton;
+    self.btnLeaveGroup.layer.cornerRadius = 2.0;
+    [self.btnLeaveGroup addTarget:self action:@selector(btnLeaveGroupAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:self.btnLeaveGroup];
+
     
     self.btnNotification = [SSButton buttonWithFrame:CGRectMake(180, 10, 120, 20) title:@"Notifications On" textMode:TextModeDefault];
-    _btnNotification.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-    [_btnNotification setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
-    _btnNotification.backgroundColor = kGreenNext;
-    _btnNotification.layer.cornerRadius = 2.0;
+    self.btnNotification.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+    [self.btnNotification setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
+    self.btnNotification.backgroundColor = kGreenNext;
+    self.btnNotification.layer.cornerRadius = 2.0;
     
-    UIImageView *bellImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5,4,12,12)];
-    bellImgView.image = bellImg;
-    [_btnNotification addSubview:bellImgView];
+    UIImageView *bellImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5.0f, 4.0f, 12.0f, 12.0f)];
+    bellImgView.image = [UIImage imageNamed:@"whiteBellIcon@2x.png"];
+    [self.btnNotification addSubview:bellImgView];
     
-    [_btnNotification addTarget:self
-                         action:@selector(btnNotificationAction:)
-               forControlEvents:UIControlEventTouchUpInside];
+    [_btnNotification addTarget:self action:@selector(btnNotificationAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    self.theTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,160,frame.size.width,frame.size.height - 160)];
-    _theTableView.backgroundColor = kGrayTable;
-    _theTableView.delegate = self;
-    _theTableView.dataSource = self;
-    _theTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    _theTableView.separatorInset = UIEdgeInsetsZero;
-    
-    [_topView addSubview:_topImageView];
-    [_topView addSubview:_lblGroupName];
-    [_topView addSubview:_lblGroupMembers];
-    [_topView addSubview:_btnAddMember];
-    [_topView addSubview:_btnRemoveMember];
-    
-    [_bottomView addSubview:_btnLeaveGroup];
-    [_bottomView addSubview:_btnNotification];
-    
-    [view addSubview:_topView];
-    [view addSubview:_bottomView];
-    [view addSubview:_theTableView];
+    [self.bottomView addSubview:self.btnNotification];
+    [view addSubview:self.bottomView];
+
     
     self.view = view;
 }
@@ -192,13 +168,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark UITable Delegate/Datasource methods
@@ -214,26 +189,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
-        
-        
-        UIImageView *cellBackImageView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 100)];
-        cellBackImageView.backgroundColor=[UIColor clearColor];
-        
-        
-        cellBackImageView.image = [UIImage imageNamed:@"hb_background_white@2x.png"];
-        cell.backgroundView = cellBackImageView;
+        cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_white@2x.png"]];
         cell.imageView.image = [UIImage imageNamed:@"personIcon.png"];
+        cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Black" size:14.0];
+        cell.textLabel.textColor = kLightBlue;
+        cell.backgroundColor = kGrayTable;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = [_dummyData objectAtIndex:indexPath.row];
-    cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Black" size:14.0];
-    cell.textLabel.textColor = kLightBlue;
-    cell.backgroundColor = kGrayTable;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    
+    cell.textLabel.text = [self.dummyData objectAtIndex:indexPath.row];
     return cell;
 }
 
