@@ -134,7 +134,7 @@
     UIImage *imgNext = [UIImage imageNamed:@"NextButton.png"];
     CGRect tempFrame = CGRectMake(0.5f*(frame.size.width-imgNext.size.width), y, imgNext.size.width, 0.70*imgNext.size.height);
     
-    SSButton *btnNext = [SSButton buttonWithFrame:tempFrame title:@"Next"];
+    SSButton *btnNext = [SSButton buttonWithFrame:tempFrame title:@"Next" textMode:TextModeUpperCase];
     [btnNext addTarget:self action:@selector(btnNextAction:) forControlEvents:UIControlEventTouchUpInside];
     btnNext.backgroundColor = kGreenNext;
 

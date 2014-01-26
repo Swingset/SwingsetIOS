@@ -72,7 +72,7 @@
 
     
     UIImage *imgNext = [UIImage imageNamed:@"NextButton.png"];
-    SSButton *btnNext = [SSButton buttonWithFrame:CGRectMake(0.5f*(frame.size.width-imgNext.size.width), y, imgNext.size.width, 0.70*imgNext.size.height) title:@"All Done!"];
+    SSButton *btnNext = [SSButton buttonWithFrame:CGRectMake(0.5f*(frame.size.width-imgNext.size.width), y, imgNext.size.width, 0.70*imgNext.size.height) title:@"All Done!" textMode:TextModeUpperCase];
     btnNext.backgroundColor = kGreenNext;
     [btnNext addTarget:self action:@selector(btnSubmitAction:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btnNext];

@@ -24,22 +24,35 @@
     return self;
 }
 
-+ (SSButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title
++ (SSButton *)buttonWithFrame:(CGRect)frame title:(NSString *)title textMode:(TextMode)textMode
 {
     
     SSButton *button = [[SSButton alloc] initWithFrame:frame];
-    [button setTitle:[title uppercaseString] forState:UIControlStateNormal];
+    
+    if ( textMode == TextModeLowerCase)
+    {
+        [button setTitle:[title lowercaseString] forState:UIControlStateNormal];
+    }
+    else if ( textMode == TextModeUpperCase)
+    {
+        [button setTitle:[title uppercaseString] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [button setTitle:title forState:UIControlStateNormal];
+    }
+    
     return button;
     
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

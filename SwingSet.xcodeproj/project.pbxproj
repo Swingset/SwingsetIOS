@@ -46,6 +46,7 @@
 		5C74FAC7188CB28B0010FA58 /* SSContentBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C74FAC6188CB28B0010FA58 /* SSContentBackground.m */; };
 		5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D2687188F3BA50032EF28 /* SSQuestionView.m */; };
 		5C7D268B188F490C0032EF28 /* SSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D268A188F490C0032EF28 /* SSQuestion.m */; };
+		5C85DEB61894F05500B7F580 /* SSGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C85DEB51894F05500B7F580 /* SSGroupViewController.m */; };
 		5C930174188CE717007F8865 /* SSLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C930173188CE717007F8865 /* SSLoadingIndicator.m */; };
 		5CB4C1E2188F6B920059B332 /* SSOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB4C1E1188F6B920059B332 /* SSOptionView.m */; };
 		5CB4C1E6188F78030059B332 /* SSGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB4C1E5188F78030059B332 /* SSGroupsViewController.m */; };
@@ -211,6 +212,8 @@
 		5C7D2687188F3BA50032EF28 /* SSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestionView.m; sourceTree = "<group>"; };
 		5C7D2689188F490C0032EF28 /* SSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestion.h; sourceTree = "<group>"; };
 		5C7D268A188F490C0032EF28 /* SSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestion.m; sourceTree = "<group>"; };
+		5C85DEB41894F05500B7F580 /* SSGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroupViewController.h; sourceTree = "<group>"; };
+		5C85DEB51894F05500B7F580 /* SSGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGroupViewController.m; sourceTree = "<group>"; };
 		5C930172188CE717007F8865 /* SSLoadingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoadingIndicator.h; sourceTree = "<group>"; };
 		5C930173188CE717007F8865 /* SSLoadingIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoadingIndicator.m; sourceTree = "<group>"; };
 		5CB4C1E0188F6B920059B332 /* SSOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOptionView.h; sourceTree = "<group>"; };
@@ -544,6 +547,8 @@
 			children = (
 				5CB4C1E4188F78030059B332 /* SSGroupsViewController.h */,
 				5CB4C1E5188F78030059B332 /* SSGroupsViewController.m */,
+				5C85DEB41894F05500B7F580 /* SSGroupViewController.h */,
+				5C85DEB51894F05500B7F580 /* SSGroupViewController.m */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -794,6 +799,7 @@
 				5C35FE81188EFFA300827D67 /* SSHomeViewController.m in Sources */,
 				5CFAC776188B9E8400940A00 /* SSProfile.m in Sources */,
 				5C35FE84188F094A00827D67 /* SSTableCell.m in Sources */,
+				5C85DEB61894F05500B7F580 /* SSGroupViewController.m in Sources */,
 				5C4CEEC6188B5783000B1BFD /* SSNavigationController.m in Sources */,
 				AA2F244E188DA3FF0025BC35 /* SSButton.m in Sources */,
 				5C4CEEB7188B52CD000B1BFD /* AFPropertyListRequestOperation.m in Sources */,

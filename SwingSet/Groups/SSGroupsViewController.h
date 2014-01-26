@@ -8,6 +8,6 @@
 
 #import "SSViewController.h"
 
-@interface SSGroupsViewController : SSViewController
+@interface SSGroupsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
