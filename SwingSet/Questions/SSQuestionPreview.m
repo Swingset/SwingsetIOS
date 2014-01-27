@@ -61,14 +61,14 @@ CGFloat randomRGB(){
         CGFloat w = 0.5*frame.size.width;
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, w, 20.0f)];
         self.lblDate.backgroundColor = [UIColor colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0f];
-        self.lblDate.text = @" Jan 26";
+        self.lblDate.text = @"   Jan 26";
         self.lblDate.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
         [self addSubview:self.lblDate];
 
         self.lblVotes = [[UILabel alloc] initWithFrame:CGRectMake(w, y, w, 20.0f)];
         self.lblVotes.font = self.lblDate.font;
         self.lblVotes.textAlignment = NSTextAlignmentRight;
-        self.lblVotes.text = @"15 votes ";
+        self.lblVotes.text = @"15 votes";
         self.lblVotes.backgroundColor = self.lblDate.backgroundColor;
         [self addSubview:self.lblVotes];
         y += self.lblVotes.frame.size.height+30.0f;
@@ -76,8 +76,9 @@ CGFloat randomRGB(){
 
         NSArray *colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
         CGFloat h = 36.0f;
+        CGFloat padding = 10.0f;
         for (int i=0; i<4; i++) {
-            SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(10, y, frame.size.width-20, h)];
+            SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(padding, y, frame.size.width-2*padding, h)];
             option.barColor = colors[i];
             option.parent = self;
             option.alpha = 1.0f;
@@ -86,10 +87,30 @@ CGFloat randomRGB(){
             y += h+10.0f;
         }
         
+        UIImage *imgComments = [UIImage imageNamed:@"CommentsButton.png"];
+        double scale = 0.4f;
+        w = scale*imgComments.size.width;
+        h = scale*imgComments.size.height;
+
+        UIButton *btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnComments.frame = CGRectMake(padding, frame.size.height-h-padding, w, h);
+        [btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
+        [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [btnComments setTitleColor:[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] forState:UIControlStateNormal];
+        [btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btnComments setImage:imgComments forState:UIControlStateNormal];
+        [self addSubview:btnComments];
+        
+        
     }
     return self;
 }
 
+
+- (void)btnCommentsAction:(UIButton *)btn
+{
+    [self.delegate viewComments];
+}
 
 - (UIColor *)getUIColorObjectFromHexString:(NSString *)hexStr alpha:(CGFloat)alpha
 {
