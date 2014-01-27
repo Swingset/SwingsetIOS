@@ -42,6 +42,7 @@
     
     self.backPreview = [[SSQuestionPreview alloc] initWithFrame:CGRectMake(padding, padding, w, frame.size.height-2*padding)];
     self.backPreview.tag = 1000;
+    self.backPreview.alpha = 0;
     self.backPreview.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     [view addSubview:self.backPreview];
 
@@ -128,6 +129,21 @@
     self.backPreview.transform = CGAffineTransformMakeScale(scale, scale);
     self.backPreview.alpha = pct;
     
+}
+
+- (void)viewComments
+{
+    NSLog(@"viewComments");
+    
+    [UIView transitionWithView:self.topPreview
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        self.topPreview.alpha = 1.0;
+                    }
+                    completion:^(BOOL finisehd){
+                        
+                    }];
 }
 
 - (void)checkPostion
