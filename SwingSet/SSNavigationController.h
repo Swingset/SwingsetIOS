@@ -10,7 +10,6 @@
 
 @protocol ContainerProtocol <NSObject>
 @optional
-- (void)childViewControllerMoved:(UIViewController *)vc distance:(CGFloat)delta;
 - (void)childViewControllerStopped:(UIViewController *)vc velocity:(double)vel;
 @end
 

@@ -38,7 +38,7 @@
 #pragma TouchResonders
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesBegan:");
+    NSLog(@"touchesBegan: %@", [self.class description]);
     UITouch *touch = [touches anyObject];
     if ([touch.view isEqual:self.navigationBar])
         NSLog(@"TOUCH NAV BAR!");
@@ -53,19 +53,20 @@
     
     CGPoint newLoc = [touch locationInView:self.parentViewController.view];
     CGFloat delta = newLoc.x - self.start.x;
+//    NSLog(@"DELTA: %.2f", delta);
+    if (delta < 0) //cannot move to left
+        return;
     
     self.start = newLoc;
     
-    if (!self.container) // no container
-        return;
+    CGPoint ctr = self.view.center;
+    self.view.center = CGPointMake(ctr.x+delta, ctr.y);
     
-    if ([self.container respondsToSelector:@selector(childViewControllerMoved:distance:)])
-        [self.container childViewControllerMoved:self distance:delta];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesEnded:");
+    NSLog(@"touchesEnded: %@", [self.class description]);
     if (![self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
         return;
     
@@ -80,16 +81,17 @@
     double velocity = distance / duration;
     //    NSLog(@"VELOCITY: %.2f", velocity);
     
-    [self.container childViewControllerStopped:self velocity:velocity];
+    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
+        [self.container childViewControllerStopped:self velocity:velocity];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesCancelled:");
+    NSLog(@"touchesCancelled: %@", [self.class description]);
     if (!self.container) // no container
         return;
 
-    if ([self.container respondsToSelector:@selector(childViewControllerStopped:)])
+    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
         [self.container childViewControllerStopped:self velocity:0.0f];
     
 }
