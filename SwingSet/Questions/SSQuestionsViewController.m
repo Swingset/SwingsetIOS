@@ -53,6 +53,7 @@
     self.topPreview.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     [view addSubview:self.topPreview];
     
+    [view addObserver:self forKeyPath:@"userInteractionEnabled" options:0 context:NULL];
 
     self.view = view;
 }
@@ -60,11 +61,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SSViewController *container = (SSViewController *)self.navigationController.parentViewController;
+//    SSViewController *container = (SSViewController *)self.navigationController.parentViewController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu"
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:container
-                                                                            action:@selector(toggleSections)];
+                                                                            target:self.navigationController
+                                                                            action:@selector(toggle)];
 
     self.backPreview.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
     self.center = 0.5f*self.view.frame.size.width;
@@ -110,6 +111,17 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    if ([object isEqual:self.view]){
+        if ([keyPath isEqualToString:@"userInteractionEnabled"]){
+            NSLog(@"TOGGLE USER INTERACTION ENABLED! ! ! ");
+            self.topPreview.userInteractionEnabled = self.view.userInteractionEnabled;
+            self.backPreview.userInteractionEnabled = self.view.userInteractionEnabled;
+        }
+        
+        
+    }
+    
+    
     if ([object isEqual:self.topPreview]==NO)
         return;
     
