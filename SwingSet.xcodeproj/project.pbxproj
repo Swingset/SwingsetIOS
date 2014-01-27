@@ -49,6 +49,7 @@
 		5C74FAC7188CB28B0010FA58 /* SSContentBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C74FAC6188CB28B0010FA58 /* SSContentBackground.m */; };
 		5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D2687188F3BA50032EF28 /* SSQuestionView.m */; };
 		5C7D268B188F490C0032EF28 /* SSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D268A188F490C0032EF28 /* SSQuestion.m */; };
+		5C8C599E1895DC6100A1CAF0 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C8C599D1895DC6100A1CAF0 /* placeholder.png */; };
 		5C930174188CE717007F8865 /* SSLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C930173188CE717007F8865 /* SSLoadingIndicator.m */; };
 		5CB4C1E2188F6B920059B332 /* SSOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB4C1E1188F6B920059B332 /* SSOptionView.m */; };
 		5CB4C1E6188F78030059B332 /* SSGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB4C1E5188F78030059B332 /* SSGroupsViewController.m */; };
@@ -220,6 +221,7 @@
 		5C7D2687188F3BA50032EF28 /* SSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestionView.m; sourceTree = "<group>"; };
 		5C7D2689188F490C0032EF28 /* SSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestion.h; sourceTree = "<group>"; };
 		5C7D268A188F490C0032EF28 /* SSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestion.m; sourceTree = "<group>"; };
+		5C8C599D1895DC6100A1CAF0 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		5C930172188CE717007F8865 /* SSLoadingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoadingIndicator.h; sourceTree = "<group>"; };
 		5C930173188CE717007F8865 /* SSLoadingIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoadingIndicator.m; sourceTree = "<group>"; };
 		5CB4C1E0188F6B920059B332 /* SSOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOptionView.h; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 		5C4CEEBF188B549D000B1BFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5C8C599D1895DC6100A1CAF0 /* placeholder.png */,
 				5C35F293188E27A300BE0F1C /* icon120.png */,
 				5C35F295188E27AC00BE0F1C /* icon80.png */,
 				5C35F297188E27B000BE0F1C /* icon58.png */,
@@ -715,6 +718,7 @@
 				5CFAC75F188B885400940A00 /* ProximaNova-Bold.otf in Resources */,
 				5CFAC769188B885400940A00 /* ProximaNova-SemiboldItalic.otf in Resources */,
 				5CFAC722188B882300940A00 /* hb_bg_ask@2x.png in Resources */,
+				5C8C599E1895DC6100A1CAF0 /* placeholder.png in Resources */,
 				5CFAC72D188B882300940A00 /* largebluepercentage.png in Resources */,
 				5CFAC762188B885400940A00 /* ProximaNova-Light 2.otf in Resources */,
 				5CFAC72E188B882300940A00 /* largeorangepercentage.png in Resources */,
