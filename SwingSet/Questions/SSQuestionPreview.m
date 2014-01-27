@@ -8,6 +8,7 @@
 
 #import "SSQuestionPreview.h"
 #import "Config.h"
+#import "SSOptionView.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -51,6 +52,12 @@ CGFloat randomRGB(){
         [self addSubview:self.lblText];
         y += iconDimen;
         
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-iconDimen, 0.0f, iconDimen, iconDimen)];
+        self.imageView.backgroundColor = [UIColor blackColor];
+        self.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+        [self addSubview:self.imageView];
+
+        
         CGFloat w = 0.5*frame.size.width;
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, w, 20.0f)];
         self.lblDate.backgroundColor = [UIColor colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0f];
@@ -64,13 +71,20 @@ CGFloat randomRGB(){
         self.lblVotes.text = @"15 votes ";
         self.lblVotes.backgroundColor = self.lblDate.backgroundColor;
         [self addSubview:self.lblVotes];
+        y += self.lblVotes.frame.size.height+30.0f;
+        
 
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-iconDimen, 0.0f, iconDimen, iconDimen)];
-        self.imageView.backgroundColor = [UIColor blackColor];
-        self.imageView.image = [UIImage imageNamed:@"placeholder.png"];
-        [self addSubview:self.imageView];
-        
-        
+        NSArray *colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
+        CGFloat h = 36.0f;
+        for (int i=0; i<4; i++) {
+            SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(10, y, frame.size.width-20, h)];
+            option.barColor = colors[i];
+            option.parent = self;
+            option.alpha = 1.0f;
+            option.tag = 1000+i;
+            [self addSubview:option];
+            y += h+10.0f;
+        }
         
     }
     return self;
@@ -111,14 +125,13 @@ CGFloat randomRGB(){
 }
 
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+
+#pragma mark - SSOptionViewDelegate
+- (void)optionViewSelected:(NSInteger)tag
 {
-    // Drawing code
+    NSLog(@"optionViewSelected: %d", tag);
 }
-*/
+
 
 #pragma mark - UIResponder
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -155,6 +168,16 @@ CGFloat randomRGB(){
     
 }
 
+
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 
 @end
