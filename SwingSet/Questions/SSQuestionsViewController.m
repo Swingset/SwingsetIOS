@@ -73,6 +73,9 @@
 {
     [super viewDidAppear:animated];
     
+    if (self.questions.count > 0)
+        return;
+
     
     [[SSWebServices sharedInstance] fetchPublicQuestions:^(id result, NSError *error){
         if (error){
