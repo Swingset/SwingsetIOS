@@ -249,6 +249,7 @@
                                                                }
                                                                completion:^(BOOL finished){
                                                                    self.currentVC.view.userInteractionEnabled = YES;
+                                                                   
                                                                    [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
                                                                    [self.sectionsTable reloadData];
                                                                }];
