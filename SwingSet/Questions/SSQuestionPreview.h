@@ -11,6 +11,7 @@
 @protocol SSQuestionPreviewDelegate <NSObject>
 - (void)checkPostion;
 - (void)viewComments;
+- (void)optionSelected:(NSInteger)tag;
 @end
 
 @interface SSQuestionPreview : UIView

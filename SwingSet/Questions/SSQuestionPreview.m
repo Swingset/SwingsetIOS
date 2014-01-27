@@ -150,7 +150,8 @@ CGFloat randomRGB(){
 #pragma mark - SSOptionViewDelegate
 - (void)optionViewSelected:(NSInteger)tag
 {
-    NSLog(@"optionViewSelected: %d", tag);
+//    NSLog(@"optionViewSelected: %d", tag);
+    [self.delegate optionSelected:tag];
 }
 
 
