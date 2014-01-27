@@ -131,6 +131,44 @@
     
 }
 
+
+- (void)swapPreviews
+{
+    self.topPreview.delegate = nil;
+    [self.topPreview removeObserver:self forKeyPath:@"center"];
+    
+    if (self.topPreview.tag==1000){
+        self.topPreview = (SSQuestionPreview *)[self.view viewWithTag:2000];
+        self.backPreview = (SSQuestionPreview *)[self.view viewWithTag:1000];
+    }
+    else{
+        self.topPreview = (SSQuestionPreview *)[self.view viewWithTag:1000];
+        self.backPreview = (SSQuestionPreview *)[self.view viewWithTag:2000];
+    }
+    
+    self.topPreview.delegate = self;
+    [self.topPreview addObserver:self forKeyPath:@"center" options:0 context:NULL];
+}
+
+- (void)loadNextQuestion
+{
+    if (self.questionIndex+1 >= self.questions.count)
+        self.questionIndex = 0;
+    
+    SSQuestion *question = [self.questions objectAtIndex:self.questionIndex+1];
+    self.backPreview.lblText.text = question.text;
+}
+
+
+
+#pragma mark - SSQuestionPreviewDelegate
+- (void)optionSelected:(NSInteger)tag
+{
+    NSLog(@"optionSelected: %d", tag);
+    
+}
+
+
 - (void)viewComments
 {
     NSLog(@"viewComments");
@@ -262,32 +300,6 @@
 }
 
 
-- (void)swapPreviews
-{
-    self.topPreview.delegate = nil;
-    [self.topPreview removeObserver:self forKeyPath:@"center"];
-    
-    if (self.topPreview.tag==1000){
-        self.topPreview = (SSQuestionPreview *)[self.view viewWithTag:2000];
-        self.backPreview = (SSQuestionPreview *)[self.view viewWithTag:1000];
-    }
-    else{
-        self.topPreview = (SSQuestionPreview *)[self.view viewWithTag:1000];
-        self.backPreview = (SSQuestionPreview *)[self.view viewWithTag:2000];
-    }
-    
-    self.topPreview.delegate = self;
-    [self.topPreview addObserver:self forKeyPath:@"center" options:0 context:NULL];
-}
-
-- (void)loadNextQuestion
-{
-    if (self.questionIndex+1 >= self.questions.count)
-        self.questionIndex = 0;
-
-    SSQuestion *question = [self.questions objectAtIndex:self.questionIndex+1];
-    self.backPreview.lblText.text = question.text;
-}
 
 
 - (void)didReceiveMemoryWarning
