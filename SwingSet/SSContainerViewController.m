@@ -143,17 +143,6 @@
 
 
 #pragma mark - ContainerProtocol
-- (void)childViewControllerMoved:(UIViewController *)vc distance:(CGFloat)delta
-{
-    CGPoint ctr = self.navCtr.view.center;
-    ctr.x += delta;
-    
-    if (ctr.x < self.view.center.x)
-        return;
-    
-    self.navCtr.view.center = ctr;
-}
-
 - (void)childViewControllerStopped:(UIViewController *)vc velocity:(double)vel;
 {
     //    NSLog(@"childViewControllerStopped: velocity = %.2f", vel);
