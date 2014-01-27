@@ -50,11 +50,11 @@
 {
     [super viewDidLoad];
     
-    SSViewController *container = (SSViewController *)self.navigationController.parentViewController;
+//    SSViewController *container = (SSViewController *)self.navigationController.parentViewController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu"
                                                                 style:UIBarButtonItemStylePlain
-                                                               target:container
-                                                               action:@selector(toggleSections)];
+                                                               target:self.navigationController
+                                                               action:@selector(toggle)];
     
     
     
