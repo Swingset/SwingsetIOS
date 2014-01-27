@@ -38,7 +38,7 @@
         self.percentBar.backgroundColor = [UIColor lightGrayColor];
         [self.baseView addSubview:self.percentBar];
         
-        self.barView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 10.0f, self.bounds.size.height)];
+        self.barView = [[UIView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, 9.0f, self.bounds.size.height-2.0f)];
         self.barView.backgroundColor = [UIColor clearColor];
         [self.baseView addSubview:self.barView];
         
@@ -61,7 +61,7 @@
         badgeFrame.size.width *= scale;
         badgeFrame.size.height *= scale;
         badgeFrame.origin.x = frame.size.width-30;
-        badgeFrame.origin.y = 2.5f;
+        badgeFrame.origin.y = 0.5*(frame.size.height-badgeFrame.size.height);
         self.badge.frame = badgeFrame;
         self.badge.alpha = 0;
         
