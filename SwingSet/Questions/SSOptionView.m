@@ -19,6 +19,7 @@
 @synthesize lblText;
 @synthesize parent;
 @synthesize badge;
+@synthesize lblPercentage;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -65,7 +66,16 @@
         self.badge.frame = badgeFrame;
         self.badge.alpha = 0;
         
+        self.lblPercentage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, badgeFrame.size.width, badgeFrame.size.height)];
+        self.lblPercentage.backgroundColor = [UIColor clearColor];
+        self.lblPercentage.textColor = [UIColor whiteColor];
+        self.lblPercentage.text = @"50.0";
+        self.lblPercentage.textAlignment = NSTextAlignmentCenter;
+        self.lblPercentage.font = [UIFont fontWithName:@"ProximaNova-Bold" size:12.0f];
+        [self.badge addSubview:self.lblPercentage];
+
         [self addSubview:self.badge];
+        
         
         self.alpha = 0;
         
