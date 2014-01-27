@@ -81,7 +81,7 @@ CGFloat randomRGB(){
             option.barColor = colors[i];
             option.parent = self;
             option.alpha = 1.0f;
-            option.tag = 1000+i;
+            option.tag = 5000+i;
             [self addSubview:option];
             y += h+10.0f;
         }
