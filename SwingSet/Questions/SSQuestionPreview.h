@@ -10,6 +10,7 @@
 
 @protocol SSQuestionPreviewDelegate <NSObject>
 - (void)checkPostion;
+- (void)viewComments;
 @end
 
 @interface SSQuestionPreview : UIView
