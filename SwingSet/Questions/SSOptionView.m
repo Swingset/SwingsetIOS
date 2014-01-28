@@ -32,7 +32,7 @@
         self.baseView.backgroundColor = [UIColor whiteColor];
         self.baseView.layer.borderColor = [[UIColor colorWithRed:0.84f green:0.84f blue:0.84f alpha:1.0f] CGColor];
         self.baseView.layer.cornerRadius = 6.0f;
-        self.baseView.layer.borderWidth = 1.0f;
+        self.baseView.layer.borderWidth = 0.5f;
         self.baseView.layer.masksToBounds = YES;
         
         self.percentBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, self.bounds.size.height)];
