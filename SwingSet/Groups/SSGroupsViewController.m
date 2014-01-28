@@ -36,9 +36,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    SSNavigationController *navController = (SSNavigationController *)self.navigationController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu"
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:self.navigationController
+                                                                            target:navController
                                                                             action:@selector(toggle)];
 }
 
