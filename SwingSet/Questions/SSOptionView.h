@@ -23,4 +23,5 @@
 @property (nonatomic) BOOL isHilighted;
 @property (assign) id parent;
 + (SSOptionView *)optionViewWithFrame:(CGRect)frame;
+- (void)showPercentage:(double)pct;
 @end
