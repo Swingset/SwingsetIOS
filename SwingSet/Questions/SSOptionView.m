@@ -180,7 +180,10 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded:");
-    [self applyTranformAnimation:CGAffineTransformIdentity duration:0.2f completion:NULL];
+    [self applyTranformAnimation:CGAffineTransformIdentity duration:0.2f completion:^(BOOL finisehd){
+        self.baseView.layer.borderColor = [self.barView.backgroundColor CGColor];
+
+    }];
     
     self.isHilighted = YES;
     if ([self.parent respondsToSelector:@selector(optionViewSelected:)]){
