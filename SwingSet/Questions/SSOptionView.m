@@ -168,18 +168,18 @@
 #pragma mark - UIResponder
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesBegan:");
+//    NSLog(@"touchesBegan:");
     [self applyTranformAnimation:CGAffineTransformMakeScale(1.05f, 1.1f) duration:0.2f completion:NULL];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesMoved:");
+//    NSLog(@"touchesMoved:");
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesEnded:");
+//    NSLog(@"touchesEnded:");
     [self applyTranformAnimation:CGAffineTransformIdentity duration:0.2f completion:^(BOOL finisehd){
         self.baseView.layer.borderColor = [self.barView.backgroundColor CGColor];
 
@@ -193,7 +193,7 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesCancelled:");
+//    NSLog(@"touchesCancelled:");
     [self applyTranformAnimation:CGAffineTransformIdentity duration:0.2f completion:NULL];
 }
 
