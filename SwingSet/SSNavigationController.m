@@ -34,6 +34,106 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)motionStopped:(double)velocity
+{
+    if (self.view.frame.origin.x==0)
+        return;
+    
+    static double threshold = 15.0f;
+    if (velocity < -threshold){
+        [self slideIn];
+        return;
+    }
+
+    if (velocity > threshold){
+        NSLog(@"SHOW SECTIONS ! !");
+        [self slideOut];
+        return;
+    }
+    
+    (self.view.center.x >= 0.8f*self.view.frame.size.width) ? [self slideOut] : [self slideIn];
+}
+
+
+- (void)slideIn
+{
+    [UIView animateWithDuration:0.2f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         CGRect frame = self.view.frame;
+                         frame.origin.x = 0.0f;
+                         self.view.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                         //bounce out:
+                         [UIView animateWithDuration:0.06f
+                                               delay:0.0f
+                                             options:UIViewAnimationOptionCurveLinear
+                                          animations:^{
+                                              CGRect frame = self.view.frame;
+                                              frame.origin.x = 8.0f;
+                                              self.view.frame = frame;
+                                          }
+                                          completion:^(BOOL finished){
+                                              [UIView animateWithDuration:0.06f
+                                                                    delay:0.0f
+                                                                  options:UIViewAnimationOptionCurveLinear
+                                                               animations:^{
+                                                                   CGRect frame = self.view.frame;
+                                                                   frame.origin.x = 0.0f;
+                                                                   self.view.frame = frame;
+                                                               }
+                                                               completion:^(BOOL finished){
+                                                                   
+                                                                   //TODO: alert delegate that animation is done.
+                                                                   
+//                                                                   self.currentVC.view.userInteractionEnabled = YES;
+                                                                   
+//                                                                   [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
+//                                                                   [self.sectionsTable reloadData];
+                                                               }];
+                                          }];
+                     }];
+}
+
+
+- (void)slideOut
+{
+    CGPoint ctr = self.view.center;
+    ctr.x = 1.4f*self.view.frame.size.width;
+    
+    [UIView animateWithDuration:0.20f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         self.view.center = ctr;
+                     }
+                     completion:^(BOOL finished){
+                         if (finished){
+                             [UIView animateWithDuration:0.20f
+                                                   delay:0.06f
+                                                 options:UIViewAnimationOptionCurveEaseIn
+                                              animations:^{
+                                                  CGPoint ctr = self.view.center;
+                                                  ctr.x = 1.3f*self.view.frame.size.width;
+                                                  self.view.center = ctr;
+                                              }
+                                              completion:^(BOOL finished){
+                                                  //TODO: alert delegate that animation is done.
+//                                                  self.currentVC.view.userInteractionEnabled = NO;
+                                              }];
+                         }
+                         
+                     }];
+}
+
+- (void)toggle
+{
+    (self.view.frame.origin.x > 0) ? [self slideIn] : [self slideOut];
+}
+
 
 #pragma TouchResonders
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -81,8 +181,10 @@
     double velocity = distance / duration;
     //    NSLog(@"VELOCITY: %.2f", velocity);
     
-    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
-        [self.container childViewControllerStopped:self velocity:velocity];
+    [self motionStopped:velocity];
+    
+//    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
+//        [self.container childViewControllerStopped:self velocity:velocity];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -91,8 +193,8 @@
     if (!self.container) // no container
         return;
 
-    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
-        [self.container childViewControllerStopped:self velocity:0.0f];
+//    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
+//        [self.container childViewControllerStopped:self velocity:0.0f];
     
 }
 
