@@ -139,111 +139,14 @@
 {
     NSString *section = [self.sections objectAtIndex:indexPath.row];
     [self navigateToSection:section];
-}
-
-
-#pragma mark - ContainerProtocol
-- (void)childViewControllerStopped:(UIViewController *)vc velocity:(double)vel;
-{
-    //    NSLog(@"childViewControllerStopped: velocity = %.2f", vel);
-    if (self.navCtr.view.frame.origin.x==0)
-        return;
+    [self performSelector:@selector(resetTable) withObject:nil afterDelay:1.0f];
     
-    double threshold = 15.0f;
-    if (vel < -threshold){
-        [self slideIn];
-        return;
-    }
-    
-    if (vel > threshold){
-        [self showSections];
-        return;
-    }
-    
-    (self.navCtr.view.center.x >= 0.8f*self.view.frame.size.width) ? [self showSections] : [self slideIn];
 }
 
-
-- (void)toggleSections
+- (void)resetTable
 {
-    (self.navCtr.view.frame.origin.x > 0) ? [self slideIn] : [self showSections];
-}
-
-- (void)slidingStopped
-{
-    (self.navCtr.view.frame.origin.x < 0.5*kSectionsIndent) ? [self slideIn] : [self showSections];
-}
-
-
-
-- (void)showSections
-{
-    CGPoint ctr = self.navCtr.view.center;
-    ctr.x = 1.4f*self.view.frame.size.width;
-    
-    [UIView animateWithDuration:0.20f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.navCtr.view.center = ctr;
-                     }
-                     completion:^(BOOL finished){
-                         if (finished){
-                             [UIView animateWithDuration:0.20f
-                                                   delay:0.06f
-                                                 options:UIViewAnimationOptionCurveEaseIn
-                                              animations:^{
-                                                  CGPoint ctr = self.navCtr.view.center;
-                                                  ctr.x = 1.3f*self.view.frame.size.width;
-                                                  self.navCtr.view.center = ctr;
-                                              }
-                                              completion:^(BOOL finished){
-                                                  self.currentVC.view.userInteractionEnabled = NO;
-                                              }];
-                         }
-                         
-                     }];
-}
-
-
-- (void)slideIn
-{
-    [UIView animateWithDuration:0.2f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         CGRect frame = self.navCtr.view.frame;
-                         frame.origin.x = 0.0f;
-                         self.navCtr.view.frame = frame;
-                     }
-                     completion:^(BOOL finished){
-                         
-                         //bounce out:
-                         [UIView animateWithDuration:0.06f
-                                               delay:0.0f
-                                             options:UIViewAnimationOptionCurveLinear
-                                          animations:^{
-                                              CGRect frame = self.navCtr.view.frame;
-                                              frame.origin.x = 8.0f;
-                                              self.navCtr.view.frame = frame;
-                                          }
-                                          completion:^(BOOL finished){
-                                              [UIView animateWithDuration:0.06f
-                                                                    delay:0.0f
-                                                                  options:UIViewAnimationOptionCurveLinear
-                                                               animations:^{
-                                                                   CGRect frame = self.navCtr.view.frame;
-                                                                   frame.origin.x = 0.0f;
-                                                                   self.navCtr.view.frame = frame;
-                                                               }
-                                                               completion:^(BOOL finished){
-                                                                   self.currentVC.view.userInteractionEnabled = YES;
-                                                                   
-                                                                   [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
-                                                                   [self.sectionsTable reloadData];
-                                                               }];
-                                          }];
-                     }];
+    [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
+    [self.sectionsTable reloadData];
 }
 
 
@@ -261,17 +164,6 @@
         [self slideOut:self.groupsVc];
     }
     
-//    if ([section isEqualToString:about]){
-//        if (!self.aboutVc)
-//            self.aboutVc = [[[AboutViewController alloc] initWithManager:self.butterflyMgr] autorelease];
-//        [self slideOut:self.aboutVc];
-//    }
-//    
-//    if ([section isEqualToString:tracks]){
-//        if (!self.topTracksVc)
-//            self.topTracksVc = [[[TopTracksViewController alloc] initWithManager:self.butterflyMgr] autorelease];
-//        [self slideOut:self.topTracksVc];
-//    }
     
     /*
     if ([section isEqualToString:account]){
@@ -312,7 +204,7 @@
 - (void)slideOut:(SSViewController *)destinationVc
 {
     if ([self.currentVC isEqual:destinationVc]){
-        [self slideIn];
+        [self.navCtr slideIn];
         return;
     }
     
@@ -333,7 +225,7 @@
                          if (![destinationVc isEqual:self.homeVc])
                              [self.navCtr pushViewController:destinationVc animated:NO];
                          
-                         [self performSelector:@selector(slideIn)
+                         [self.navCtr performSelector:@selector(slideIn)
                                     withObject:nil
                                     afterDelay:0.07f];
                      }];
