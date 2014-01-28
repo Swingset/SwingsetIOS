@@ -70,6 +70,7 @@
         self.lblPercentage.backgroundColor = [UIColor clearColor];
         self.lblPercentage.textColor = [UIColor whiteColor];
         self.lblPercentage.text = @"50.0";
+        self.lblPercentage.adjustsFontSizeToFitWidth = YES;
         self.lblPercentage.textAlignment = NSTextAlignmentCenter;
         self.lblPercentage.font = [UIFont fontWithName:@"ProximaNova-Bold" size:12.0f];
         [self.badge addSubview:self.lblPercentage];
@@ -110,16 +111,18 @@
 	}
 }
 
-- (void)showPercentage
+- (void)showPercentage:(double)pct
 {
     NSLog(@"SHOW PERCENTAGE");
+    
+    self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
     double duration = 0.65f;
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          CGRect frame = self.percentBar.frame;
-                         frame.size.width = 0.5f*self.bounds.size.width;
+                         frame.size.width = pct*self.bounds.size.width;
                          self.percentBar.frame = frame;
                      }
                      completion:^(BOOL finished){
@@ -155,7 +158,7 @@
     
     _isHilighted = isHilighted;
     if (_isHilighted==YES)
-        [self showPercentage];
+        [self showPercentage:0.543f];
 }
 
 #pragma mark - UIResponder
