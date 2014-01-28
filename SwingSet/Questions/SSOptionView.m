@@ -154,12 +154,8 @@
         return;
     
     _isHilighted = isHilighted;
-    if (_isHilighted==YES){
-        self.layer.borderColor = [self.barView.backgroundColor CGColor];
+    if (_isHilighted==YES)
         [self showPercentage];
-    }
-    
-    
 }
 
 #pragma mark - UIResponder
