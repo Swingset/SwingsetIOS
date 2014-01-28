@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SSProfile.h"
+#import "SSQuestion.h"
 
 typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
@@ -18,4 +19,5 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)registerProfile:(SSProfile *)profile completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)confirmPIN:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 @end

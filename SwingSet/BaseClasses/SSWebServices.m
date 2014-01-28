@@ -20,6 +20,7 @@
 #define kPathProfile @"/api/profile/"
 #define kPathImages @"/site/images/"
 #define kPathQuestions @"/api/questions/"
+#define kPathResponses @"/api/responses/"
 
 + (SSWebServices *)sharedInstance
 {
@@ -153,6 +154,50 @@
                      if (completionBlock)
                          completionBlock(nil, error);
                  }];
+}
+
+- (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+    NSDictionary *params = @{@"profile":profile.uniqueId, @"question":question.uniqueId, @"selection":[NSString stringWithFormat:@"%d", index]};
+    
+    [httpClient postPath:kPathResponses
+              parameters:params
+                 success:^(AFHTTPRequestOperation *operation, id responseObject){
+                     NSError *error = nil;
+                     NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                                       options:NSJSONReadingMutableContainers
+                                                                                                         error:&error];
+                     
+                     if (error){
+                         NSLog(@"SUCCESS BLOCK: ERROR - %@", [error localizedDescription]);
+                     }
+                     else{
+                         //                         NSLog(@"SUCCESS BLOCK: %@", [responseDictionary description]);
+                         NSDictionary *results = [responseDictionary objectForKey:@"results"];
+                         NSString *confirmation = [results objectForKey:@"confirmation"];
+                         
+                         if ([confirmation isEqualToString:@"success"]){ // profile successfully registered
+                             if (completionBlock)
+                                 completionBlock(results, error);
+                         }
+                         else{ // registration failed.
+                             if (completionBlock)
+                                 completionBlock(nil, nil);
+                         }
+                     }
+                 }
+     
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                     NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                     if (completionBlock)
+                         completionBlock(nil, error);
+                 }];
+    
 }
 
 
