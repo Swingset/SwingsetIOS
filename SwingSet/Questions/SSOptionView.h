@@ -14,6 +14,8 @@
 
 @interface SSOptionView : UIView
 
+@property (nonatomic, strong) UIView *baseView;
+@property (nonatomic, strong) UIView *percentBar;
 @property (nonatomic, strong) UIColor *barColor;
 @property (nonatomic, strong) UILabel *lblText;
 @property (nonatomic, strong) UIImageView *badge;

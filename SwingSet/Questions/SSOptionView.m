@@ -10,12 +10,12 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface SSOptionView ()
-@property (nonatomic, strong) UIView *baseView;
 @property (nonatomic, strong) UIView *barView;
-@property (nonatomic, strong) UIView *percentBar;
 @end
 
 @implementation SSOptionView
+@synthesize baseView;
+@synthesize percentBar;
 @synthesize lblText;
 @synthesize parent;
 @synthesize badge;
@@ -112,6 +112,7 @@
 
 - (void)showPercentage
 {
+    NSLog(@"SHOW PERCENTAGE");
     double duration = 0.65f;
     [UIView animateWithDuration:duration
                           delay:0.0f
