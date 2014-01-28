@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C3163AA189797D70048D4A8 /* SSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3163A9189797D70048D4A8 /* SSQuestion.m */; };
 		5C3259631895A2F50048B588 /* SSQuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259621895A2F50048B588 /* SSQuestionsViewController.m */; };
 		5C3259661895A37B0048B588 /* SSQuestionPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259651895A37B0048B588 /* SSQuestionPreview.m */; };
 		5C3259691895B73A0048B588 /* SSFoldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259681895B73A0048B588 /* SSFoldViewController.m */; };
@@ -48,7 +49,6 @@
 		5C74FAC0188CAAE90010FA58 /* bg_textfield.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C74FABF188CAAE90010FA58 /* bg_textfield.png */; };
 		5C74FAC7188CB28B0010FA58 /* SSContentBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C74FAC6188CB28B0010FA58 /* SSContentBackground.m */; };
 		5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D2687188F3BA50032EF28 /* SSQuestionView.m */; };
-		5C7D268B188F490C0032EF28 /* SSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D268A188F490C0032EF28 /* SSQuestion.m */; };
 		5C82C14918970A6E005F73DD /* SSOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C82C14818970A6E005F73DD /* SSOptionView.m */; };
 		5C8C599E1895DC6100A1CAF0 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C8C599D1895DC6100A1CAF0 /* placeholder.png */; };
 		5C930174188CE717007F8865 /* SSLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C930173188CE717007F8865 /* SSLoadingIndicator.m */; };
@@ -151,6 +151,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C3163A8189797D70048D4A8 /* SSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestion.h; sourceTree = "<group>"; };
+		5C3163A9189797D70048D4A8 /* SSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestion.m; sourceTree = "<group>"; };
 		5C3259611895A2F50048B588 /* SSQuestionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestionsViewController.h; sourceTree = "<group>"; };
 		5C3259621895A2F50048B588 /* SSQuestionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestionsViewController.m; sourceTree = "<group>"; };
 		5C3259641895A37B0048B588 /* SSQuestionPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestionPreview.h; sourceTree = "<group>"; };
@@ -219,8 +221,6 @@
 		5C74FAC6188CB28B0010FA58 /* SSContentBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSContentBackground.m; sourceTree = "<group>"; };
 		5C7D2686188F3BA50032EF28 /* SSQuestionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestionView.h; sourceTree = "<group>"; };
 		5C7D2687188F3BA50032EF28 /* SSQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestionView.m; sourceTree = "<group>"; };
-		5C7D2689188F490C0032EF28 /* SSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestion.h; sourceTree = "<group>"; };
-		5C7D268A188F490C0032EF28 /* SSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestion.m; sourceTree = "<group>"; };
 		5C82C14718970A6E005F73DD /* SSOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOptionView.h; sourceTree = "<group>"; };
 		5C82C14818970A6E005F73DD /* SSOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOptionView.m; sourceTree = "<group>"; };
 		5C8C599D1895DC6100A1CAF0 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
@@ -348,6 +348,8 @@
 		5C3259601895A2B10048B588 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
+				5C3163A8189797D70048D4A8 /* SSQuestion.h */,
+				5C3163A9189797D70048D4A8 /* SSQuestion.m */,
 				5C3259611895A2F50048B588 /* SSQuestionsViewController.h */,
 				5C3259621895A2F50048B588 /* SSQuestionsViewController.m */,
 				5C3259641895A37B0048B588 /* SSQuestionPreview.h */,
@@ -623,8 +625,6 @@
 				5C35FE83188F094A00827D67 /* SSTableCell.m */,
 				5C7D2686188F3BA50032EF28 /* SSQuestionView.h */,
 				5C7D2687188F3BA50032EF28 /* SSQuestionView.m */,
-				5C7D2689188F490C0032EF28 /* SSQuestion.h */,
-				5C7D268A188F490C0032EF28 /* SSQuestion.m */,
 			);
 			path = BaseClasses;
 			sourceTree = "<group>";
@@ -820,6 +820,7 @@
 				5C35FE6D188EF5CE00827D67 /* SSContainerViewController.m in Sources */,
 				5CFAC779188BAED900940A00 /* SSWebServices.m in Sources */,
 				5C35FE81188EFFA300827D67 /* SSHomeViewController.m in Sources */,
+				5C3163AA189797D70048D4A8 /* SSQuestion.m in Sources */,
 				5CFAC776188B9E8400940A00 /* SSProfile.m in Sources */,
 				5C35FE84188F094A00827D67 /* SSTableCell.m in Sources */,
 				5C4CEEC6188B5783000B1BFD /* SSNavigationController.m in Sources */,
@@ -834,7 +835,6 @@
 				5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */,
 				5C4CEEBA188B52CD000B1BFD /* UIImageView+AFNetworking.m in Sources */,
 				5C930174188CE717007F8865 /* SSLoadingIndicator.m in Sources */,
-				5C7D268B188F490C0032EF28 /* SSQuestion.m in Sources */,
 				5C82C14918970A6E005F73DD /* SSOptionView.m in Sources */,
 				5C74FABE188CA84A0010FA58 /* SSTextField.m in Sources */,
 				5C4CEEB6188B52CD000B1BFD /* AFNetworkActivityIndicatorManager.m in Sources */,
