@@ -27,12 +27,15 @@ CGFloat randomRGB(){
 @synthesize delegate;
 @synthesize lblText;
 @synthesize imageView;
+@synthesize optionsViews;
 
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.optionsViews = [NSMutableArray array];
+        
         self.backgroundColor = [self getUIColorObjectFromHexString:@"#f9f9f9" alpha:1];
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 4.0f;
@@ -81,9 +84,10 @@ CGFloat randomRGB(){
             SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(padding, y, frame.size.width-2*padding, h)];
             option.barColor = colors[i];
             option.parent = self;
-            option.alpha = 1.0f;
+            option.alpha = 0.0f;
             option.tag = 5000+i;
             [self addSubview:option];
+            [self.optionsViews addObject:option];
             y += h+10.0f;
         }
         
