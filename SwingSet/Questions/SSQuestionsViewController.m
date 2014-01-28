@@ -96,8 +96,9 @@
                 [self.questions addObject:[SSQuestion questionWithInfo:questionInfo]];
             }
             
+            // load first question:
             SSQuestion *question = [self.questions objectAtIndex:self.questionIndex];
-            self.topPreview.lblText.text = question.text;
+            [self populatePreview:self.topPreview withQuestion:question];
             [self loadNextQuestion];
         }
         else{
@@ -168,7 +169,33 @@
         self.questionIndex = 0;
     
     SSQuestion *question = [self.questions objectAtIndex:self.questionIndex+1];
-    self.backPreview.lblText.text = question.text;
+    [self populatePreview:self.backPreview withQuestion:question];
+}
+
+- (void)populatePreview:(SSQuestionPreview *)preview withQuestion:(SSQuestion *)question
+{
+    preview.lblText.text = question.text;
+    
+    
+    for (int i=0; i<preview.optionsViews.count; i++) {
+        SSOptionView *optionView = [preview.optionsViews objectAtIndex:i];
+        if (i < question.options.count){
+            NSDictionary *option = [question.options objectAtIndex:i];
+            optionView.lblText.text = option[@"text"];
+            
+            [UIView animateWithDuration:0.3f
+                                  delay:0
+                                options:UIViewAnimationOptionCurveLinear
+                             animations:^{
+                                 optionView.alpha = 1.0f;
+                             }
+                             completion:NULL];
+            
+        }
+        else{
+            optionView.alpha = 0.0f;
+        }
+    }
 }
 
 
