@@ -13,6 +13,7 @@
 @property (assign) id container;
 - (void)slideOut;
 - (void)slideIn;
+- (void)toggle;
 @end
 
 
