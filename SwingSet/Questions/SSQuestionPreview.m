@@ -190,9 +190,9 @@ CGFloat randomRGB(){
 //    NSLog(@"touchesMoved: %.2f", delta);
     
     if (delta > 0){ // cannot move to the right:
-        self.userInteractionEnabled = NO;
+//        self.userInteractionEnabled = NO;
         
-        return;
+//        return;
     }
 
 
