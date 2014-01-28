@@ -204,8 +204,6 @@
 #pragma mark - SSQuestionPreviewDelegate
 - (void)optionSelected:(NSInteger)tag
 {
-//    NSLog(@"optionSelected: %lu", tag);
-    
     long i = tag-5000;
     if (i < 0)
         return;
@@ -213,6 +211,8 @@
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
     NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
     NSLog(@"optionSelected: %@", option[@"text"]);
+    
+    //TODO: post submitted vote to backend
 }
 
 
