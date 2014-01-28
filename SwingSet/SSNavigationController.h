@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ContainerProtocol <NSObject>
-@optional
-- (void)childViewControllerStopped:(UIViewController *)vc velocity:(double)vel;
-@end
-
 @interface SSNavigationController : UINavigationController
 
 @property (assign) id container;

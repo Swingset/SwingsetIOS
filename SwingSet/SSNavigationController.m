@@ -86,13 +86,7 @@
                                                                    self.view.frame = frame;
                                                                }
                                                                completion:^(BOOL finished){
-                                                                   
-                                                                   //TODO: alert delegate that animation is done.
-                                                                   
-//                                                                   self.currentVC.view.userInteractionEnabled = YES;
-                                                                   
-//                                                                   [self.sectionsTable deselectRowAtIndexPath:[self.sectionsTable indexPathForSelectedRow] animated:NO];
-//                                                                   [self.sectionsTable reloadData];
+                                                                   self.visibleViewController.view.userInteractionEnabled = YES;
                                                                }];
                                           }];
                      }];
@@ -121,8 +115,7 @@
                                                   self.view.center = ctr;
                                               }
                                               completion:^(BOOL finished){
-                                                  //TODO: alert delegate that animation is done.
-//                                                  self.currentVC.view.userInteractionEnabled = NO;
+                                                  self.visibleViewController.view.userInteractionEnabled = NO;
                                               }];
                          }
                          
@@ -167,9 +160,6 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded: %@", [self.class description]);
-    if (![self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
-        return;
-    
     
     UITouch *touch = [touches anyObject];
     CGPoint endLoc = [touch locationInView:self.parentViewController.view];
@@ -182,9 +172,6 @@
     //    NSLog(@"VELOCITY: %.2f", velocity);
     
     [self motionStopped:velocity];
-    
-//    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
-//        [self.container childViewControllerStopped:self velocity:velocity];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -192,10 +179,6 @@
     NSLog(@"touchesCancelled: %@", [self.class description]);
     if (!self.container) // no container
         return;
-
-//    if ([self.container respondsToSelector:@selector(childViewControllerStopped:velocity:)])
-//        [self.container childViewControllerStopped:self velocity:0.0f];
-    
 }
 
 
