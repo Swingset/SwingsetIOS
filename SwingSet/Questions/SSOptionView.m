@@ -76,10 +76,6 @@
 
         [self addSubview:self.badge];
         
-        
-        self.alpha = 0;
-        
-
     }
     return self;
 }
