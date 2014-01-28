@@ -149,7 +149,21 @@ CGFloat randomRGB(){
     return hexInt;
 }
 
-
+- (void)reset
+{
+    CGRect frame;
+    for (SSOptionView *optionView in self.optionsViews) {
+        optionView.alpha = 0;
+        
+        optionView.badge.alpha = 0;
+        optionView.baseView.layer.borderColor = [[UIColor colorWithRed:0.84f green:0.84f blue:0.84f alpha:1.0f] CGColor];
+        
+        frame = optionView.percentBar.frame;
+        frame.size.width = 0.0f;
+        optionView.percentBar.frame = frame;
+        optionView.isHilighted = NO;
+    }
+}
 
 #pragma mark - SSOptionViewDelegate
 - (void)optionViewSelected:(NSInteger)tag
