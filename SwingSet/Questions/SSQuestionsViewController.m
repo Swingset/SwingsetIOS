@@ -142,7 +142,6 @@
     double scale = (0.2f*pct)+0.80f;
     self.backPreview.transform = CGAffineTransformMakeScale(scale, scale);
     self.backPreview.alpha = pct;
-    
 }
 
 
@@ -162,6 +161,7 @@
     
     self.topPreview.delegate = self;
     [self.topPreview addObserver:self forKeyPath:@"center" options:0 context:NULL];
+    [self.backPreview reset];
 }
 
 - (void)loadNextQuestion
@@ -204,15 +204,21 @@
 #pragma mark - SSQuestionPreviewDelegate
 - (void)optionSelected:(NSInteger)tag
 {
-    NSLog(@"optionSelected: %lu", tag);
+//    NSLog(@"optionSelected: %lu", tag);
     
+    long i = tag-5000;
+    if (i < 0)
+        return;
     
+    SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
+    NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
+    NSLog(@"optionSelected: %@", option[@"text"]);
 }
 
 
 - (void)viewComments
 {
-    NSLog(@"viewComments");
+//    NSLog(@"viewComments");
     
     [UIView transitionWithView:self.topPreview
                       duration:0.6f
