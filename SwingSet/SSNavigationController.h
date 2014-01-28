@@ -16,7 +16,8 @@
 @interface SSNavigationController : UINavigationController
 
 @property (assign) id container;
-
+- (void)slideOut;
+- (void)slideIn;
 @end
 
 
