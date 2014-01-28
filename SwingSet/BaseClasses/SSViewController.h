@@ -16,6 +16,7 @@
 #import "SSLoadingIndicator.h"
 #import "SSButton.h"
 #import "SSQuestionView.h"
+#import "SSNavigationController.h"
 
 
 @interface SSViewController : UIViewController
