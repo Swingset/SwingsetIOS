@@ -158,26 +158,33 @@ CGFloat randomRGB(){
 #pragma mark - UIResponder
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    NSLog(@"touchesBegan:");
+    NSLog(@"touchesBegan: %@", [self.class description]);
     UITouch *touch = [touches anyObject];
     self.startPoint = [touch locationInView:self.superview];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"touchesMoved: %@", [self.class description]);
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:self.superview];
     CGFloat delta = p.x-self.startPoint.x;
 //    NSLog(@"touchesMoved: %.2f", delta);
+    
+    if (delta > 0){ // cannot move to the right:
+        self.userInteractionEnabled = NO;
+        
+        return;
+    }
+
 
     self.center = CGPointMake(self.center.x+delta, self.center.y);
-
     self.startPoint = p;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//    NSLog(@"touchesEnded:");
+    NSLog(@"touchesEnded: %@", [self.class description]);
     
     if ([self.delegate respondsToSelector:@selector(checkPostion)])
         [self.delegate checkPostion];
