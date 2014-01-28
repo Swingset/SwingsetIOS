@@ -166,10 +166,12 @@
 
 - (void)loadNextQuestion
 {
-    if (self.questionIndex+1 >= self.questions.count)
-        self.questionIndex = 0;
-    
-    SSQuestion *question = [self.questions objectAtIndex:self.questionIndex+1];
+
+    int index = self.questionIndex+1;
+    if (index >= self.questions.count)
+        index = 0;
+
+    SSQuestion *question = [self.questions objectAtIndex:index];
     [self populatePreview:self.backPreview withQuestion:question];
 }
 
@@ -208,11 +210,25 @@
     if (i < 0)
         return;
     
+    NSLog(@"TEST 1: %lu", i);
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
+    NSLog(@"TEST 2");
     NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
     NSLog(@"optionSelected: %@", option[@"text"]);
     
-    //TODO: post submitted vote to backend
+    //post submitted vote to backend
+    
+    [[SSWebServices sharedInstance] submitVote:self.profile withQuestion:question withSelection:i completionBlock:^(id result, NSError *error){
+        if (error){
+            // TODO: handle error
+            [self showAlert:@"Error" withMessage:[error localizedDescription]];
+        }
+        else{
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+        }
+        
+    }];
 }
 
 
@@ -295,7 +311,9 @@
                                                                                         }
                                                                                         completion:^(BOOL finished){
                                                                                             [self swapPreviews];
+                                                                                            
                                                                                             self.questionIndex++;
+                                                                                            self.questionIndex = self.questionIndex%self.questions.count;
                                                                                             [self loadNextQuestion];
                                                                                         }];
                                                                        
