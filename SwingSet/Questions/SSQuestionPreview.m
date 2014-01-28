@@ -38,8 +38,8 @@ CGFloat randomRGB(){
         
         self.backgroundColor = [self getUIColorObjectFromHexString:@"#f9f9f9" alpha:1];
         self.layer.masksToBounds = YES;
-        self.layer.cornerRadius = 4.0f;
-        self.layer.borderWidth = 1.0f;
+        self.layer.cornerRadius = 3.0f;
+        self.layer.borderWidth = 0.5f;
         self.layer.borderColor = [[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] CGColor];
         
         CGFloat iconDimen = 100.0f;
