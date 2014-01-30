@@ -117,7 +117,8 @@
     
     self.userInteractionEnabled = NO;
     self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
-    double duration = 0.65f;
+//    double duration = 0.65f;
+    double duration = 0.25f;
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut
