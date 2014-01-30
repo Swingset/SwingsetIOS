@@ -37,7 +37,7 @@
     UIView *view = [self baseView:YES];
     CGRect frame = view.frame;
     
-    CGFloat padding = 20.0f;
+    CGFloat padding = 15.0f;
     CGFloat w = frame.size.width-2*padding;
     
     self.backPreview = [[SSQuestionPreview alloc] initWithFrame:CGRectMake(padding, padding, w, frame.size.height-2*padding)];
