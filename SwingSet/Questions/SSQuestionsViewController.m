@@ -210,14 +210,40 @@
     if (i < 0)
         return;
     
-    NSLog(@"TEST 1: %lu", i);
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
-    NSLog(@"TEST 2");
+    if ([question.votes containsObject:self.profile.uniqueId]==YES){
+        [self showAlert:@"Already Voted" withMessage:@"You already voted on this question."];
+        return;
+    }
+        
+    
+    
     NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
     NSLog(@"optionSelected: %@", option[@"text"]);
     
-    //post submitted vote to backend
+    for (int j=0; j<self.topPreview.optionsViews.count; j++) {
+        SSOptionView *optionView = [self.topPreview.optionsViews objectAtIndex:j];
+        
+        if (j < question.options.count){ // just to be safe. this shouldn't be necessary.
+            NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:j];
+            double pct = [option[@"percentage"] doubleValue];
+            NSUInteger newVoteTotal = question.votes.count+1;
+            
+             // update the percentage locally:
+            if (j==i){
+                pct += (1.0f / newVoteTotal);
+            }
+            else{
+                NSArray *optionVotes = option[@"votes"];
+                pct = ((double)optionVotes.count / newVoteTotal);
+            }
+            
+            [optionView showPercentage:pct];
+        }
+    }
     
+    
+    //post submitted vote to backend:
     [[SSWebServices sharedInstance] submitVote:self.profile withQuestion:question withSelection:i completionBlock:^(id result, NSError *error){
         if (error){
             // TODO: handle error
@@ -227,7 +253,6 @@
             NSDictionary *results = (NSDictionary *)result;
             NSLog(@"%@", [results description]);
         }
-        
     }];
 }
 
