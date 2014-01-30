@@ -115,6 +115,7 @@
 {
     NSLog(@"SHOW PERCENTAGE");
     
+    self.userInteractionEnabled = NO;
     self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
     double duration = 0.65f;
     [UIView animateWithDuration:duration
@@ -157,8 +158,6 @@
         return;
     
     _isHilighted = isHilighted;
-    if (_isHilighted==YES)
-        [self showPercentage:0.543f];
 }
 
 #pragma mark - UIResponder
@@ -182,9 +181,8 @@
     }];
     
     self.isHilighted = YES;
-    if ([self.parent respondsToSelector:@selector(optionViewSelected:)]){
+    if ([self.parent respondsToSelector:@selector(optionViewSelected:)])
         [self.parent optionViewSelected:self.tag];
-    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
