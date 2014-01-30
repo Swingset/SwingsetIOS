@@ -21,6 +21,7 @@ CGFloat randomRGB(){
 
 @interface SSQuestionPreview ()
 @property (nonatomic) CGPoint startPoint;
+@property (strong, nonatomic) NSArray *colors;
 @end
 
 @implementation SSQuestionPreview
@@ -34,6 +35,7 @@ CGFloat randomRGB(){
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
         self.optionsViews = [NSMutableArray array];
         
         self.backgroundColor = [self getUIColorObjectFromHexString:@"#f9f9f9" alpha:1];
@@ -74,15 +76,14 @@ CGFloat randomRGB(){
         self.lblVotes.text = @"15 votes";
         self.lblVotes.backgroundColor = self.lblDate.backgroundColor;
         [self addSubview:self.lblVotes];
-        y += self.lblVotes.frame.size.height+30.0f;
+        y += self.lblVotes.frame.size.height+10.0f;
         
 
-        NSArray *colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
         CGFloat h = 36.0f;
         CGFloat padding = 10.0f;
         for (int i=0; i<4; i++) {
             SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(padding, y, frame.size.width-2*padding, h)];
-            option.barColor = colors[i];
+            option.barColor = self.colors[i];
             option.parent = self;
             option.alpha = 0.0f;
             option.tag = 5000+i;
@@ -90,6 +91,19 @@ CGFloat randomRGB(){
             [self.optionsViews addObject:option];
             y += h+10.0f;
         }
+        
+        w = frame.size.width-2*padding;
+        UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
+        lblMale.backgroundColor = [UIColor redColor];
+        [self addSubview:lblMale];
+        y += lblMale.frame.size.height;
+
+        UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
+        lblFemale.backgroundColor = [UIColor greenColor];
+        [self addSubview:lblFemale];
+
+        
+        
         
         UIImage *imgComments = [UIImage imageNamed:@"CommentsButton.png"];
         double scale = 0.4f;
