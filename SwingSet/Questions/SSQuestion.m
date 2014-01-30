@@ -19,6 +19,15 @@
 @synthesize image;
 
 
+- (id)init
+{
+    self = [super init];
+    if (self){
+        
+    }
+    return self;
+}
+
 + (SSQuestion *)questionWithInfo:(NSDictionary *)info
 {
     SSQuestion *question = [[SSQuestion alloc] init];
@@ -54,9 +63,9 @@
 
 //        if ([key isEqualToString:@"timestamp"])
 //            self.timestamp = [info objectForKey:key];
-
     }
     
 }
+
 
 @end
