@@ -19,4 +19,5 @@
 @property (strong, nonatomic) NSArray *options;
 @property (strong, nonatomic) NSDate *timestamp;
 + (SSQuestion *)questionWithInfo:(NSDictionary *)info;
+- (void)populate:(NSDictionary *)info;
 @end
