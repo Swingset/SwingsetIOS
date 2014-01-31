@@ -15,9 +15,12 @@
 @property (copy, nonatomic) NSString *text;
 @property (copy, nonatomic) NSString *author;
 @property (copy, nonatomic) NSString *image;
-@property (strong, nonatomic) NSArray *votes;
-@property (strong, nonatomic) NSArray *options;
+@property (strong, nonatomic) NSMutableArray *votes;
+@property (strong, nonatomic) NSMutableArray *options;
 @property (strong, nonatomic) NSDate *timestamp;
+@property (nonatomic) int totalMaleVotes;
+@property (nonatomic) int totalFemaleVotes;
 + (SSQuestion *)questionWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)info;
+- (void)addVote:(int)index;
 @end
