@@ -23,6 +23,8 @@ CGFloat randomRGB(){
 @interface SSQuestionPreview ()
 @property (nonatomic) CGPoint startPoint;
 @property (strong, nonatomic) NSArray *colors;
+@property (strong, nonatomic) UILabel *lblMale;
+@property (strong, nonatomic) UILabel *lblFemale;
 @end
 
 @implementation SSQuestionPreview
@@ -115,34 +117,36 @@ CGFloat randomRGB(){
         // Male / Female labels:
         w = 45.0f;
         y = frame.size.height-h-kPadding-40.0f;
-        UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
-        lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        lblMale.text = @"Male";
-        lblMale.font = [UIFont fontWithName:@"Arial" size:12.0f];
-        lblMale.backgroundColor = [UIColor clearColor];
-        lblMale.textColor = [UIColor blackColor];
-        [self addSubview:lblMale];
+        self.lblMale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
+        self.lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        self.lblMale.text = @"Male";
+        self.lblMale.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        self.lblMale.backgroundColor = [UIColor clearColor];
+        self.lblMale.textColor = [UIColor blackColor];
+        self.lblMale.alpha = 0;
+        [self addSubview:self.lblMale];
         
         CGFloat x = w+kPadding;
         for (int i=0; i<self.colors.count; i++) {
-            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, lblMale.frame.size.height)];
+            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblMale.frame.size.height)];
             pctView.backgroundColor = self.colors[i];
             [self addSubview:pctView];
             [self.malePercentViews addObject:pctView];
         }
         
-        y += lblMale.frame.size.height;
+        y += self.lblMale.frame.size.height;
         
-        UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
-        lblFemale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        lblFemale.backgroundColor = [UIColor clearColor];
-        lblFemale.font = [UIFont fontWithName:@"Arial" size:12.0f];
-        lblFemale.text = @"Female";
-        lblFemale.textColor = [UIColor blackColor];
-        [self addSubview:lblFemale];
+        self.lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
+        self.lblFemale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        self.lblFemale.backgroundColor = [UIColor clearColor];
+        self.lblFemale.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        self.lblFemale.text = @"Female";
+        self.lblFemale.textColor = [UIColor blackColor];
+        self.lblFemale.alpha = 0;
+        [self addSubview:self.lblFemale];
 
         for (int i=0; i<self.colors.count; i++) {
-            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, lblFemale.frame.size.height)];
+            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblFemale.frame.size.height)];
             pctView.backgroundColor = self.colors[i];
             [self addSubview:pctView];
             [self.femalePercentViews addObject:pctView];
@@ -174,6 +178,7 @@ CGFloat randomRGB(){
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
                              percentView.frame = frame;
+                             self.lblMale.alpha = 1;
                          }
                          completion:^(BOOL finished){
                              
@@ -198,6 +203,7 @@ CGFloat randomRGB(){
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
                              percentView.frame = frame;
+                             self.lblFemale.alpha = 1;
                          }
                          completion:^(BOOL finished){
                              
@@ -275,7 +281,9 @@ CGFloat randomRGB(){
         frame.origin.x = x;
         percentView.frame = frame;
     }
-
+    
+    self.lblFemale.alpha = 0;
+    self.lblMale.alpha = 0;
 }
 
 #pragma mark - SSOptionViewDelegate
