@@ -24,5 +24,6 @@
 @property (strong, nonatomic) NSMutableArray *optionsViews;
 @property (strong, nonatomic) NSMutableArray *malePercentViews;
 @property (strong, nonatomic) NSMutableArray *femalePercentViews;
+- (void)displayGenderPercents:(NSDictionary *)percents;
 - (void)reset;
 @end

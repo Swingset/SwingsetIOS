@@ -11,6 +11,7 @@
 #import "SSOptionView.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define kPadding 10.0f
 
 CGFloat randomRGB(){
     UInt32 i = arc4random() % 256;
@@ -84,9 +85,8 @@ CGFloat randomRGB(){
         
 
         CGFloat h = 36.0f;
-        CGFloat padding = 10.0f;
         for (int i=0; i<4; i++) {
-            SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(padding, y, frame.size.width-2*padding, h)];
+            SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(kPadding, y, frame.size.width-2*kPadding, h)];
             option.barColor = self.colors[i];
             option.parent = self;
             option.alpha = 0.0f;
@@ -103,7 +103,7 @@ CGFloat randomRGB(){
         h = scale*imgComments.size.height;
 
         UIButton *btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnComments.frame = CGRectMake(padding, frame.size.height-h-padding, w, h);
+        btnComments.frame = CGRectMake(kPadding, frame.size.height-h-kPadding, w, h);
         [btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
         [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
 //        [btnComments setTitleColor:[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] forState:UIControlStateNormal];
@@ -114,8 +114,8 @@ CGFloat randomRGB(){
         
         // Male / Female labels:
         w = 45.0f;
-        y = frame.size.height-h-padding-40.0f;
-        UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
+        y = frame.size.height-h-kPadding-40.0f;
+        UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
         lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         lblMale.text = @"Male";
         lblMale.font = [UIFont fontWithName:@"Arial" size:12.0f];
@@ -123,8 +123,7 @@ CGFloat randomRGB(){
         lblMale.textColor = [UIColor blackColor];
         [self addSubview:lblMale];
         
-        CGFloat x = w+padding;
-        // 100% == frame.size.width-x-padding
+        CGFloat x = w+kPadding;
         for (int i=0; i<self.colors.count; i++) {
             UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, lblMale.frame.size.height)];
             pctView.backgroundColor = self.colors[i];
@@ -134,7 +133,7 @@ CGFloat randomRGB(){
         
         y += lblMale.frame.size.height;
         
-        UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
+        UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
         lblFemale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         lblFemale.backgroundColor = [UIColor clearColor];
         lblFemale.font = [UIFont fontWithName:@"Arial" size:12.0f];
@@ -152,6 +151,59 @@ CGFloat randomRGB(){
         
     }
     return self;
+}
+
+- (void)displayGenderPercents:(NSDictionary *)percents
+{
+    CGFloat x = 45.0f+kPadding;
+    CGFloat fullWidth = self.frame.size.width-x-kPadding; // this is 100% width
+    
+    NSArray *malePercents = percents[@"male"];
+    for (int i=0; i<malePercents.count; i++) {
+        NSNumber *pct = [malePercents objectAtIndex:i];
+        double p = [pct doubleValue];
+        UIView *percentView = [self.malePercentViews objectAtIndex:i];
+        
+        CGRect frame = percentView.frame;
+        frame.size.width = p*fullWidth;
+        frame.origin.x = x;
+        x += frame.size.width;
+        
+        [UIView animateWithDuration:0.25f
+                              delay:0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^{
+                             percentView.frame = frame;
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+    }
+    
+    
+    x = 45.0f+kPadding;
+    NSArray *femalePercents = percents[@"female"];
+    for (int i=0; i<femalePercents.count; i++) {
+        NSNumber *pct = [femalePercents objectAtIndex:i];
+        double p = [pct doubleValue];
+        UIView *percentView = [self.femalePercentViews objectAtIndex:i];
+        
+        CGRect frame = percentView.frame;
+        frame.size.width = p*fullWidth;
+        frame.origin.x = x;
+        x += frame.size.width;
+        
+        [UIView animateWithDuration:0.25f
+                              delay:0
+                            options:UIViewAnimationOptionCurveLinear
+                         animations:^{
+                             percentView.frame = frame;
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }];
+    }
+
 }
 
 
@@ -207,6 +259,23 @@ CGFloat randomRGB(){
         optionView.percentBar.frame = frame;
         optionView.isHilighted = NO;
     }
+    
+    
+    CGFloat x = 45.0f+kPadding;
+    for (UIView *percentView in self.malePercentViews) {
+        frame = percentView.frame;
+        frame.size.width = 0;
+        frame.origin.x = x;
+        percentView.frame = frame;
+    }
+    
+    for (UIView *percentView in self.femalePercentViews) {
+        frame = percentView.frame;
+        frame.size.width = 0;
+        frame.origin.x = x;
+        percentView.frame = frame;
+    }
+
 }
 
 #pragma mark - SSOptionViewDelegate
