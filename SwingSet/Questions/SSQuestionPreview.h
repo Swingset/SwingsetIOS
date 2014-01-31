@@ -22,5 +22,7 @@
 @property (strong, nonatomic) UILabel *lblVotes;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) NSMutableArray *optionsViews;
+@property (strong, nonatomic) NSMutableArray *malePercentViews;
+@property (strong, nonatomic) NSMutableArray *femalePercentViews;
 - (void)reset;
 @end

@@ -29,6 +29,8 @@ CGFloat randomRGB(){
 @synthesize lblText;
 @synthesize imageView;
 @synthesize optionsViews;
+@synthesize malePercentViews;
+@synthesize femalePercentViews;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -37,6 +39,8 @@ CGFloat randomRGB(){
     if (self) {
         self.colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
         self.optionsViews = [NSMutableArray array];
+        self.malePercentViews = [NSMutableArray array];
+        self.femalePercentViews = [NSMutableArray array];
         
         self.backgroundColor = [self getUIColorObjectFromHexString:@"#f9f9f9" alpha:1];
         self.layer.masksToBounds = YES;
@@ -92,18 +96,6 @@ CGFloat randomRGB(){
             y += h+10.0f;
         }
         
-        w = frame.size.width-2*padding;
-        UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
-        lblMale.backgroundColor = [UIColor redColor];
-        [self addSubview:lblMale];
-        y += lblMale.frame.size.height;
-
-        UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
-        lblFemale.backgroundColor = [UIColor greenColor];
-        [self addSubview:lblFemale];
-
-        
-        
         
         UIImage *imgComments = [UIImage imageNamed:@"CommentsButton.png"];
         double scale = 0.4f;
@@ -118,6 +110,44 @@ CGFloat randomRGB(){
         [btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [btnComments setImage:imgComments forState:UIControlStateNormal];
         [self addSubview:btnComments];
+        
+        
+        // Male / Female labels:
+        w = 45.0f;
+        y = frame.size.height-h-padding-40.0f;
+        UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
+        lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        lblMale.text = @"Male";
+        lblMale.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        lblMale.backgroundColor = [UIColor clearColor];
+        lblMale.textColor = [UIColor blackColor];
+        [self addSubview:lblMale];
+        
+        CGFloat x = w+padding;
+        // 100% == frame.size.width-x-padding
+        for (int i=0; i<self.colors.count; i++) {
+            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, lblMale.frame.size.height)];
+            pctView.backgroundColor = self.colors[i];
+            [self addSubview:pctView];
+            [self.malePercentViews addObject:pctView];
+        }
+        
+        y += lblMale.frame.size.height;
+        
+        UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, w, 15.0f)];
+        lblFemale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        lblFemale.backgroundColor = [UIColor clearColor];
+        lblFemale.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        lblFemale.text = @"Female";
+        lblFemale.textColor = [UIColor blackColor];
+        [self addSubview:lblFemale];
+
+        for (int i=0; i<self.colors.count; i++) {
+            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, lblFemale.frame.size.height)];
+            pctView.backgroundColor = self.colors[i];
+            [self addSubview:pctView];
+            [self.femalePercentViews addObject:pctView];
+        }
         
         
     }
