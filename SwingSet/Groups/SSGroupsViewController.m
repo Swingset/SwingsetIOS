@@ -9,6 +9,7 @@
 #import "SSGroupsViewController.h"
 #import "SSGroupViewController.h"
 #import "SSButton.h"
+#import "SSNavigationController.h"
 
 @interface SSGroupsViewController ()
 
@@ -77,11 +78,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    SSViewController *container = (SSViewController *)self.navigationController.parentViewController;
+    SSNavigationController *navController = (SSNavigationController *)self.navigationController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu"
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:container
-                                                                            action:@selector(toggleSections)];
+                                                                            target:navController
+                                                                            action:@selector(toggle)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,7 +93,7 @@
 #pragma mark UITableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 100;
+    return self.dummyData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +110,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = [_dummyData objectAtIndex:(indexPath.row % [_dummyData count])];
+    cell.textLabel.text = [self.dummyData objectAtIndex:(indexPath.row % [self.dummyData count])];
     return cell;
 }
 
