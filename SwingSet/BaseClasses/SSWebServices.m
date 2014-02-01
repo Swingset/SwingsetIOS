@@ -163,7 +163,7 @@
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
-    NSDictionary *params = @{@"profile":profile.uniqueId, @"question":question.uniqueId, @"selection":[NSString stringWithFormat:@"%d", index]};
+    NSDictionary *params = @{@"profile":profile.uniqueId, @"question":question.uniqueId, @"selection":[NSString stringWithFormat:@"%lu", index]};
     
     [httpClient postPath:kPathResponses
               parameters:params
