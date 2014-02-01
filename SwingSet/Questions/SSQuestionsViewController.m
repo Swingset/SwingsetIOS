@@ -211,13 +211,13 @@
         return;
     
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
+    
     if ([question.votes containsObject:self.profile.uniqueId]==YES){
         [self showAlert:@"Already Voted" withMessage:@"You already voted on this question."];
         return;
     }
-        
     
-    
+    [question addVote:(int)i]; // this updates the question statistics locally
     NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
     NSLog(@"optionSelected: %@", option[@"text"]);
     
@@ -226,22 +226,52 @@
         
         if (j < question.options.count){ // just to be safe. this shouldn't be necessary.
             NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:j];
-            double pct = [option[@"percentage"] doubleValue];
-            NSUInteger newVoteTotal = question.votes.count+1;
-            
-             // update the percentage locally:
-            if (j==i){
-                pct += (1.0f / newVoteTotal);
-            }
-            else{
-                NSArray *optionVotes = option[@"votes"];
-                pct = ((double)optionVotes.count / newVoteTotal);
-            }
-            
+            double pct = [(NSString *)option[@"percentage"] doubleValue];
+
+            NSArray *optionVotes = (NSArray *)option[@"votes"];
+            pct = ((double)optionVotes.count / question.votes.count);
+
             [optionView showPercentage:pct];
         }
     }
     
+    NSMutableArray *malePercents = [NSMutableArray array];
+    NSMutableArray *femalePercents = [NSMutableArray array];
+    
+    static NSString *maleVotes = @"maleVotes";
+    static NSString *femaleVotes = @"femaleVotes";
+    for (int j=0; j<question.options.count; j++) {
+        NSDictionary *option = question.options[j];
+        if (option[maleVotes]){
+            if (question.totalMaleVotes > 0){
+                double malePct = [option[maleVotes] doubleValue] / (double)question.totalMaleVotes;
+                [malePercents addObject:[NSNumber numberWithDouble:malePct]];
+            }
+            else{
+                [malePercents addObject:[NSNumber numberWithDouble:0.0f]];
+            }
+        }
+
+        if (option[femaleVotes]){
+            if (question.totalFemaleVotes > 0){
+                double femalePct = [option[femaleVotes] doubleValue] / (double)question.totalFemaleVotes;
+                [femalePercents addObject:[NSNumber numberWithDouble:femalePct]];
+            }
+            else{
+                [femalePercents addObject:[NSNumber numberWithDouble:0.0f]];
+            }
+        }
+
+    }
+    
+
+    
+//    NSLog(@"MALE PERCENTS: %@", [malePercents description]);
+//    NSLog(@"FEMALE PERCENTS: %@", [femalePercents description]);
+    
+    [self.topPreview displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
+    
+//    return;
     
     //post submitted vote to backend:
     [[SSWebServices sharedInstance] submitVote:self.profile withQuestion:question withSelection:i completionBlock:^(id result, NSError *error){
@@ -252,6 +282,16 @@
         else{
             NSDictionary *results = (NSDictionary *)result;
             NSLog(@"%@", [results description]);
+            
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            if ([confirmation isEqualToString:@"success"]){
+                SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
+                NSDictionary *questionInfo = [results objectForKey:@"question"];
+                [question populate:questionInfo];
+            }
+
+            
+            //TODO: populate question with updated info
         }
     }];
 }
