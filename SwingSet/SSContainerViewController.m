@@ -14,6 +14,7 @@
 #import "SSGroupsViewController.h"
 #import "SSConfirmViewController.h"
 #import "SSTableCell.h"
+#import "SSCreateGroupViewController.h"
 
 
 @interface SSContainerViewController ()
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) SSQuestionsViewController *homeVc;
 @property (strong, nonatomic) SSQuestionsViewController *groupQuestionsVc;
 @property (strong, nonatomic) SSGroupsViewController *groupsVc;
+@property (strong, nonatomic) SSCreateGroupViewController *createGroupVc;
 @property (strong, nonatomic) SSViewController *currentVC;
 @end
 
@@ -198,6 +200,8 @@
 - (void)navigateToSection:(NSString *)section
 {
     NSLog(@"Navigate to Section: %@", section);
+    //    self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+    
 
     if ([section isEqualToString:@"Home"])
         [self slideOut:self.homeVc];
@@ -208,7 +212,13 @@
         [self slideOut:self.groupsVc];
     }
     
-    
+    if ([section isEqualToString:@"Create A New Group"]){
+        if (!self.createGroupVc)
+            self.createGroupVc = [[SSCreateGroupViewController alloc] init];
+        [self slideOut:self.createGroupVc];
+    }
+
+
     /*
     if ([section isEqualToString:account]){
         
