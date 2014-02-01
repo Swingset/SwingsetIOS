@@ -264,6 +264,7 @@ CGFloat randomRGB(){
         frame.size.width = 0.0f;
         optionView.percentBar.frame = frame;
         optionView.isHilighted = NO;
+        optionView.userInteractionEnabled = YES;
     }
     
     
