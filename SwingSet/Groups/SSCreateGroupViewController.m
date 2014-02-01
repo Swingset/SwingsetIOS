@@ -200,6 +200,20 @@
         return;
     }
     
+    NSDictionary *group = @{@"name":self.groupNameField.text, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text};
+    [[SSWebServices sharedInstance] createGroup:group completionBlock:^(id result, NSError *error){
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        
+        NSString *confirmation = [results objectForKey:@"confirmation"];
+        if ([confirmation isEqualToString:@"success"]) {
+            //TODO: go to invite members view controller.
+        }
+        else{
+            [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
+        }
+    }];
+    
 }
 
 #pragma mark - UITextFieldDelegate
