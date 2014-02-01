@@ -43,8 +43,6 @@
     
     view.backgroundColor = kDarkGray;
     
-//    self.lblSelect = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 65.0f, frame.size.width, 45.0f)];
-    
     CGFloat y = 0.0f;
     self.lblSelect = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, 45.0f)];
     self.lblSelect.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
@@ -56,17 +54,19 @@
     [view addSubview:self.lblSelect];
     y += self.lblSelect.frame.size.height;
     
-    self.groupsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, frame.size.height-y)];
+    self.groupsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, frame.size.height-y-80.0f)];
+    self.groupsTableView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     self.groupsTableView.backgroundColor = kGrayTable;
     self.groupsTableView.delegate = self;
     self.groupsTableView.dataSource = self;
     self.groupsTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.groupsTableView.separatorInset = UIEdgeInsetsZero;
     [view addSubview:self.groupsTableView];
+    y += self.groupsTableView.frame.size.height;
     
     int btnWidth = 200.0f;
-    self.btnAddNewGroup = [SSButton buttonWithFrame:CGRectMake(0.0f, 0.0f, btnWidth, 40.0f) title:@"Add a Group" textMode:TextModeUpperCase];
-    self.btnAddNewGroup.center = CGPointMake(frame.size.width/2.0f, frame.size.height+30.0f);
+    self.btnAddNewGroup = [SSButton buttonWithFrame:CGRectMake(0.5*(frame.size.width-btnWidth), frame.size.height-60.0f, btnWidth, 40.0f) title:@"Add a Group" textMode:TextModeUpperCase];
+    self.btnAddNewGroup.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     [self.btnAddNewGroup addTarget:self action:@selector(btnNewGroupAction:) forControlEvents:UIControlEventTouchUpInside];
     self.btnAddNewGroup.backgroundColor = kGreenNext;
     [view addSubview:self.btnAddNewGroup];
