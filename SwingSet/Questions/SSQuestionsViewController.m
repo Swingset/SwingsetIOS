@@ -61,10 +61,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    SSViewController *container = (SSViewController *)self.navigationController.parentViewController;
+    
+    SSNavigationController *navController = (SSNavigationController *)self.navigationController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu"
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:self.navigationController
+                                                                            target:navController
                                                                             action:@selector(toggle)];
 
     self.backPreview.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
@@ -203,7 +204,8 @@
 #pragma mark - SSQuestionPreviewDelegate
 - (void)optionSelected:(NSInteger)tag
 {
-    NSLog(@"optionSelected: %d", tag);
+    NSLog(@"optionSelected: %lu", tag);
+    
     
 }
 
