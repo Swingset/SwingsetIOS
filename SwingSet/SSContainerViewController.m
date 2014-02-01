@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSArray *sections;
 @property (strong, nonatomic) SSNavigationController *navCtr;
 @property (strong, nonatomic) SSQuestionsViewController *homeVc;
+@property (strong, nonatomic) SSQuestionsViewController *groupQuestionsVc;
 @property (strong, nonatomic) SSGroupsViewController *groupsVc;
 @property (strong, nonatomic) SSViewController *currentVC;
 @end
@@ -34,6 +35,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+        
+        // Test Groups:
+        self.profile.groups = @[@{@"name":@"group 1", @"id":@"1"}, @{@"name":@"group 2", @"id":@"2"}, @{@"name":@"group 3", @"id":@"3"}, @{@"name":@"group 4", @"id":@"4"}];
     }
     return self;
 }
@@ -119,7 +123,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.sections.count;
+//    return self.sections.count+self.profile.groups.count;
+    return self.sections.count+self.profile.groups.count;
 }
 
 
@@ -131,17 +136,48 @@
         cell = [[SSTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-    cell.textLabel.text = self.sections[indexPath.row];
+    // self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+    
+    if (indexPath.row < 2){ // Home, Groups
+        cell.textLabel.text = self.sections[indexPath.row];
+        return cell;
+    }
+    
+    NSUInteger groupSize = self.profile.groups.count;
+    long i = indexPath.row-2;
+    if (i < self.profile.groups.count){
+        NSDictionary *group = self.profile.groups[i];
+        cell.textLabel.text = group[@"name"];
+        return cell;
+    }
+    
+    cell.textLabel.text = self.sections[indexPath.row-groupSize];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *section = [self.sections objectAtIndex:indexPath.row];
+    if (indexPath.row < 2){
+        NSString *section = [self.sections objectAtIndex:indexPath.row];
+        [self navigateToSection:section];
+        [self performSelector:@selector(resetTable) withObject:nil afterDelay:1.0f];
+        return;
+    }
+    
+    NSUInteger groupSize = self.profile.groups.count;
+    
+    long i = indexPath.row-2;
+    if (i < self.profile.groups.count){
+        NSDictionary *group = self.profile.groups[i];
+        [self navigateToGroup:group];
+        return;
+    }
+    
+    NSString *section = [self.sections objectAtIndex:(indexPath.row-groupSize)];
     [self navigateToSection:section];
     [self performSelector:@selector(resetTable) withObject:nil afterDelay:1.0f];
-    
 }
+
 
 - (void)resetTable
 {
@@ -149,11 +185,19 @@
     [self.sectionsTable reloadData];
 }
 
+- (void)navigateToGroup:(NSDictionary *)group
+{
+    NSLog(@"NAVIGATE TO GROUP: %@", group[@"name"]);
+
+    if (!self.groupQuestionsVc)
+        self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
+    [self slideOut:self.groupQuestionsVc];
+}
 
 
 - (void)navigateToSection:(NSString *)section
 {
-    //        self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+    NSLog(@"Navigate to Section: %@", section);
 
     if ([section isEqualToString:@"Home"])
         [self slideOut:self.homeVc];
