@@ -37,9 +37,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
-        
-        // Test Groups:
-        self.profile.groups = @[@{@"name":@"group 1", @"id":@"1"}, @{@"name":@"group 2", @"id":@"2"}, @{@"name":@"group 3", @"id":@"3"}, @{@"name":@"group 4", @"id":@"4"}];
     }
     return self;
 }
@@ -92,6 +89,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[SSWebServices sharedInstance] fetchProfileInfo:^(id result, NSError *error){
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        
+        NSString *confirmation = [results objectForKey:@"confirmation"];
+        if ([confirmation isEqualToString:@"success"]){
+            NSDictionary *profileInfo = [results objectForKey:@"profile"];
+            [self.profile populate:profileInfo];
+            [self.sectionsTable reloadData];
+        }
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
