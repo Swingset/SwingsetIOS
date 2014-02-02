@@ -81,7 +81,7 @@
     [self.navCtr willMoveToParentViewController:self];
     [view addSubview:self.navCtr.view];
     
-
+    [self.profile addObserver:self forKeyPath:@"groups" options:0 context:NULL];
     
     self.view = view;
 }
@@ -98,7 +98,6 @@
         if ([confirmation isEqualToString:@"success"]){
             NSDictionary *profileInfo = [results objectForKey:@"profile"];
             [self.profile populate:profileInfo];
-            [self.sectionsTable reloadData];
         }
     }];
 }
@@ -129,6 +128,17 @@
 
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isEqual:self.profile]==NO)
+        return;
+    
+    if ([keyPath isEqualToString:@"groups"]==NO)
+        return;
+    
+    [self.sectionsTable reloadData];
+    
+}
 
 #pragma mark - TableviewMethods
 
