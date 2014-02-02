@@ -208,6 +208,10 @@
         NSString *confirmation = [results objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"success"]) {
             //TODO: go to invite members view controller.
+            
+            NSDictionary *group = [results objectForKey:@"group"];
+            [self.profile.groups addObject:group];
+            
         }
         else{
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
