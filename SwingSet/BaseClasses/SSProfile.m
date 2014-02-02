@@ -110,6 +110,9 @@
 
         if ([key isEqualToString:@"confirmed"])
             self.confirmed = [[info objectForKey:key] isEqualToString:@"yes"];
+        
+        if ([key isEqualToString:@"groups"])
+            self.groups = [NSMutableArray arrayWithArray:[info objectForKey:key]];
     }
     
     self.populated = YES;

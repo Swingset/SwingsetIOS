@@ -17,7 +17,7 @@
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *sex;
 @property (copy, nonatomic) NSString *pw;
-@property (copy, nonatomic) NSArray *groups;
+@property (copy, nonatomic) NSMutableArray *groups;
 @property (nonatomic) BOOL confirmed;
 @property (nonatomic) BOOL populated;
 + (SSProfile *)sharedProfile;
