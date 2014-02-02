@@ -16,7 +16,6 @@
 @property (strong, nonatomic) UITableView *groupsTableView;
 @property (strong, nonatomic) UILabel     *lblSelect;
 @property (strong, nonatomic) SSButton    *btnAddNewGroup;
-@property (strong, nonatomic) NSArray     *dummyData;
 
 @end
 
@@ -27,11 +26,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.edgesForExtendedLayout = UIRectEdgeAll;
-        self.dummyData = [NSArray arrayWithObjects:@"@first lastname",
-                          @"@second lastname",
-                          @"@third lastname",
-                          @"@firstname last",
-                          @"@first ln", nil];
     }
     return self;
 }
@@ -71,6 +65,7 @@
     self.btnAddNewGroup.backgroundColor = kGreenNext;
     [view addSubview:self.btnAddNewGroup];
     
+    [self.profile addObserver:self forKeyPath:@"groups" options:0 context:NULL];
     
     self.view = view;
 }
@@ -85,15 +80,24 @@
                                                                             action:@selector(toggle)];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [super didReceiveMemoryWarning];
+    if ([object isEqual:self.profile]==NO)
+        return;
+    
+    if ([keyPath isEqualToString:@"groups"]==NO)
+        return;
+    
+    [self.groupsTableView reloadData];
+    
 }
+
+
 
 #pragma mark UITableView Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dummyData.count;
+    return self.profile.groups.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -110,7 +114,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = [self.dummyData objectAtIndex:(indexPath.row % [self.dummyData count])];
+    NSDictionary *group = self.profile.groups[indexPath.row];
+    cell.textLabel.text = group[@"name"];
     return cell;
 }
 
@@ -128,5 +133,12 @@
     
     
 }
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
 
 @end
