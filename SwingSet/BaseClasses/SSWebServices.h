@@ -21,4 +21,6 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)createGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)fetchProfileInfo:(SSWebServiceRequestCompletionBlock)completionBlock;
+
 @end

@@ -17,7 +17,7 @@
 #define kBaseUrl @"http://swingsetlabs.appspot.com/"
 #define kSecureBaseUrl @"https://swingsetlabs.appspot.com/"
 //#define kSecureBaseUrl @"http://localhost:8888/"
-#define kPathProfile @"/api/profile/"
+#define kPathProfiles @"/api/profiles/"
 #define kPathImages @"/site/images/"
 #define kPathQuestions @"/api/questions/"
 #define kPathResponses @"/api/responses/"
@@ -44,7 +44,7 @@
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
-    [httpClient postPath:kPathProfile
+    [httpClient postPath:kPathProfiles
               parameters:[profile parametersDictionary]
                  success:^(AFHTTPRequestOperation *operation, id responseObject){
                      NSError *error = nil;
@@ -243,8 +243,45 @@
                      if (completionBlock)
                          completionBlock(nil, error);
                  }];
+}
+
+- (void)fetchProfileInfo:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    SSProfile *profile = [SSProfile sharedProfile];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     
-    
+    [httpClient getPath:[kPathProfiles stringByAppendingString:profile.uniqueId]
+             parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject){
+                    NSError *error = nil;
+                    NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                                      options:NSJSONReadingMutableContainers
+                                                                                                        error:&error];
+                    
+                    if (error){
+                        NSLog(@"SUCCESS BLOCK: ERROR - %@", [error localizedDescription]);
+                    }
+                    else{
+                        //NSLog(@"SUCCESS BLOCK: %@", [responseDictionary description]);
+                        NSDictionary *results = [responseDictionary objectForKey:@"results"];
+                        NSString *confirmation = [results objectForKey:@"confirmation"];
+                        
+                        if ([confirmation isEqualToString:@"success"]){ // profile successfully registered
+                            if (completionBlock)
+                                completionBlock(results, error);
+                        }
+                        else{ // registration failed.
+                            if (completionBlock)
+                                completionBlock(nil, nil);
+                        }
+                    }
+                }
+     
+                failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                    NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                    if (completionBlock)
+                        completionBlock(nil, error);
+                }];
 }
 
 
