@@ -209,8 +209,9 @@
         if ([confirmation isEqualToString:@"success"]) {
             //TODO: go to invite members view controller.
             
-            NSDictionary *group = [results objectForKey:@"group"];
-            [self.profile.groups addObject:group];
+            NSDictionary *profileInfo = [results objectForKey:@"profile"];
+            if (profileInfo)
+                [self.profile populate:profileInfo];
             
         }
         else{
