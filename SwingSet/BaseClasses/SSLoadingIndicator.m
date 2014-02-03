@@ -20,6 +20,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        
         self.darkScreen = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.6f*frame.size.width, 0.6f*frame.size.width)];
         self.darkScreen.center = CGPointMake(0.5f*frame.size.width, 0.3f*frame.size.height);
         self.darkScreen.backgroundColor = [UIColor blackColor];
