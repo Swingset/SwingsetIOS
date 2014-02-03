@@ -168,7 +168,7 @@
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
         NSDictionary *group = self.profile.groups[i];
-        cell.textLabel.text = group[@"name"];
+        cell.textLabel.text = group[@"displayName"];
         return cell;
     }
     
@@ -208,7 +208,7 @@
 
 - (void)navigateToGroup:(NSDictionary *)group
 {
-    NSLog(@"NAVIGATE TO GROUP: %@", group[@"name"]);
+    NSLog(@"NAVIGATE TO GROUP: %@", group[@"displayName"]);
 
     if (!self.groupQuestionsVc)
         self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
