@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C228DC4189F726900389C87 /* SSInviteMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */; };
+		5C228DC7189F749B00389C87 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C228DC5189F749B00389C87 /* AddressBook.framework */; };
+		5C228DC8189F749B00389C87 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C228DC6189F749B00389C87 /* AddressBookUI.framework */; };
 		5C3163AA189797D70048D4A8 /* SSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3163A9189797D70048D4A8 /* SSQuestion.m */; };
 		5C3259631895A2F50048B588 /* SSQuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259621895A2F50048B588 /* SSQuestionsViewController.m */; };
 		5C3259661895A37B0048B588 /* SSQuestionPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259651895A37B0048B588 /* SSQuestionPreview.m */; };
@@ -153,6 +156,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C228DC2189F726900389C87 /* SSInviteMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSInviteMembersViewController.h; sourceTree = "<group>"; };
+		5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSInviteMembersViewController.m; sourceTree = "<group>"; };
+		5C228DC5189F749B00389C87 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		5C228DC6189F749B00389C87 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		5C3163A8189797D70048D4A8 /* SSQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestion.h; sourceTree = "<group>"; };
 		5C3163A9189797D70048D4A8 /* SSQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestion.m; sourceTree = "<group>"; };
 		5C3259611895A2F50048B588 /* SSQuestionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestionsViewController.h; sourceTree = "<group>"; };
@@ -330,6 +337,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C228DC7189F749B00389C87 /* AddressBook.framework in Frameworks */,
+				5C228DC8189F749B00389C87 /* AddressBookUI.framework in Frameworks */,
 				5C4CEEBE188B532F000B1BFD /* MobileCoreServices.framework in Frameworks */,
 				5C4CEEBC188B530F000B1BFD /* SystemConfiguration.framework in Frameworks */,
 				5C4CEE50188B485F000B1BFD /* CoreGraphics.framework in Frameworks */,
@@ -401,6 +410,8 @@
 		5C4CEE4C188B485F000B1BFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C228DC5189F749B00389C87 /* AddressBook.framework */,
+				5C228DC6189F749B00389C87 /* AddressBookUI.framework */,
 				5C4CEEBD188B532F000B1BFD /* MobileCoreServices.framework */,
 				5C4CEEBB188B530F000B1BFD /* SystemConfiguration.framework */,
 				5C4CEE4D188B485F000B1BFD /* Foundation.framework */,
@@ -584,6 +595,8 @@
 				5C85DEB51894F05500B7F580 /* SSGroupViewController.m */,
 				5CED8386189CE3E50020277D /* SSCreateGroupViewController.h */,
 				5CED8387189CE3E50020277D /* SSCreateGroupViewController.m */,
+				5C228DC2189F726900389C87 /* SSInviteMembersViewController.h */,
+				5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -846,6 +859,7 @@
 				5C4CEEB5188B52CD000B1BFD /* AFJSONRequestOperation.m in Sources */,
 				5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */,
 				5C4CEEBA188B52CD000B1BFD /* UIImageView+AFNetworking.m in Sources */,
+				5C228DC4189F726900389C87 /* SSInviteMembersViewController.m in Sources */,
 				5C930174188CE717007F8865 /* SSLoadingIndicator.m in Sources */,
 				5C82C14918970A6E005F73DD /* SSOptionView.m in Sources */,
 				5C74FABE188CA84A0010FA58 /* SSTextField.m in Sources */,
