@@ -7,6 +7,7 @@
 //
 
 #import "SSCreateGroupViewController.h"
+#import "SSInviteMembersViewController.h"
 
 @interface SSCreateGroupViewController ()
 @property (strong, nonatomic) SSTextField *groupPWField;
@@ -200,7 +201,10 @@
     }
     
     NSDictionary *group = @{@"name":self.groupNameField.text, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text};
+    
     [self.loadingIndicator startLoading];
+
+    
     [[SSWebServices sharedInstance] createGroup:group completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         NSDictionary *results = (NSDictionary *)result;
@@ -208,12 +212,14 @@
         
         NSString *confirmation = [results objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"success"]) {
-            //TODO: go to invite members view controller.
             
             NSDictionary *profileInfo = [results objectForKey:@"profile"];
             if (profileInfo)
                 [self.profile populate:profileInfo];
             
+            // go to invite members view controller.
+            SSInviteMembersViewController *inviteVc = [[SSInviteMembersViewController alloc] init];
+            [self.navigationController pushViewController:inviteVc animated:YES];
         }
         else{
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
