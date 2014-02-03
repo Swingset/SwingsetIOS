@@ -8,6 +8,8 @@
 #import "SSGroupViewController.h"
 #import "SSButton.h"
 #import "Config.h"
+#import "SSInviteMembersViewController.h"
+
 
 @interface SSGroupViewController ()
 
@@ -215,7 +217,9 @@
 
 - (void)btnAddMemberAction:(UIButton *)btn
 {
-    NSLog(@"add member tapped");
+//    NSLog(@"add member tapped");
+    SSInviteMembersViewController *inviteVc = [[SSInviteMembersViewController alloc] init];
+    [self.navigationController pushViewController:inviteVc animated:YES];
     
     
     
