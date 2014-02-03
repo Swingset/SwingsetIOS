@@ -201,7 +201,9 @@
     }
     
     NSDictionary *group = @{@"name":self.groupNameField.text, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text};
+    [self.loadingIndicator startLoading];
     [[SSWebServices sharedInstance] createGroup:group completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
         NSDictionary *results = (NSDictionary *)result;
         NSLog(@"%@", [results description]);
         
