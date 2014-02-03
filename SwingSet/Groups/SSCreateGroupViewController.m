@@ -55,7 +55,6 @@
                                           keyboard:UIKeyboardTypeAlphabet];
     
     self.joinGroupNameField.delegate = self;
-    self.joinGroupNameField.text = self.profile.phone;
     [bgTop addSubview:self.joinGroupNameField];
     
     UILabel *atLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.joinGroupNameField.frame.origin.x-h-2.0f, y, h, h)];
