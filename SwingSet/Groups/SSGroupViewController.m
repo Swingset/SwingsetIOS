@@ -29,6 +29,7 @@
 @end
 
 @implementation SSGroupViewController
+@synthesize group;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -219,6 +220,7 @@
 {
 //    NSLog(@"add member tapped");
     SSInviteMembersViewController *inviteVc = [[SSInviteMembersViewController alloc] init];
+    inviteVc.group = self.group;
     [self.navigationController pushViewController:inviteVc animated:YES];
     
     

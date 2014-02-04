@@ -10,4 +10,5 @@
 
 @interface SSGroupViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) NSDictionary *group;
 @end
