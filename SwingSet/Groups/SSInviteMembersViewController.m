@@ -64,16 +64,32 @@
 
 - (void)inviteMembers:(UIBarButtonItem *)btn
 {
-    if (self.selectedContacts.count==0)
+    if (self.selectedContacts.count==0){
+        [self showAlert:@"No Contacts Selected" withMessage:@"Please select at least one contact to invite to Swingset."];
         return;
+    }
     
-//    NSLog(@"inviteMembers: %@", [self.selectedContacts description]);
+    [self.loadingIndicator startLoading];
     [[SSWebServices sharedInstance] inviteMembers:self.selectedContacts toGroup:self.group completionBlock:^(id result, NSError *error){
         
+        [self.loadingIndicator stopLoading];
         if (error){
             //TODO: handle error
+            [self showAlert:@"Error" withMessage:[error localizedDescription]];
+
         }
         else {
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+            
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            if ([confirmation isEqualToString:@"success"]){
+                [self showAlert:@"Members Invited!" withMessage:@"The selected contacted have been invited to your group and will receive a text invitation."];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
+            }
             
         }
         
