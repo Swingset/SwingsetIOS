@@ -8,6 +8,6 @@
 
 #import "SSViewController.h"
 
-@interface SSContainerViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SSContainerViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, SSNavigationControllerProtocol>
 
 @end
