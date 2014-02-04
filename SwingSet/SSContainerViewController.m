@@ -18,6 +18,7 @@
 
 
 @interface SSContainerViewController ()
+@property (strong, nonatomic) UIView *baseView;
 @property (strong, nonatomic) UITableView *sectionsTable;
 @property (strong, nonatomic) NSArray *sections;
 @property (strong, nonatomic) SSNavigationController *navCtr;
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) SSGroupsViewController *groupsVc;
 @property (strong, nonatomic) SSCreateGroupViewController *createGroupVc;
 @property (strong, nonatomic) SSViewController *currentVC;
+@property (nonatomic) CGFloat span;
 @end
 
 @implementation SSContainerViewController
@@ -37,6 +39,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+        self.span = 416.0f-160.0f;
     }
     return self;
 }
@@ -45,6 +48,13 @@
 {
     UIView *view = [self baseView:NO];
     CGRect frame = view.frame;
+    
+    view.backgroundColor = [UIColor blackColor];
+
+    
+    self.baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    self.baseView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
+    [view addSubview:self.baseView];
     
     self.sectionsTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height+20.0f)];
     self.sectionsTable.dataSource = self;
@@ -64,7 +74,7 @@
     self.sectionsTable.tableFooterView = footerView;
 
     
-    [view addSubview:self.sectionsTable];
+    [self.baseView addSubview:self.sectionsTable];
     
     UIView *questionView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-footerView.frame.size.height+20.0f, self.sectionsTable.frame.size.width, footerView.frame.size.height)];
     questionView.backgroundColor = self.sectionsTable.backgroundColor;
@@ -74,7 +84,7 @@
     [btnAskQuestion setTitle:@"Ask Question" forState:UIControlStateNormal];
     btnAskQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [questionView addSubview:btnAskQuestion];
-    [view addSubview:questionView];
+    [self.baseView addSubview:questionView];
 
     
     self.homeVc = [[SSQuestionsViewController alloc] init];
@@ -82,6 +92,8 @@
     self.navCtr = [[SSNavigationController alloc] initWithRootViewController:self.homeVc];
     self.navCtr.view.frame = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
     self.navCtr.container = self;
+    [self.navCtr.view addObserver:self forKeyPath:@"center" options:0 context:NULL];
+
 
     [self addChildViewController:self.navCtr];
     [self.navCtr willMoveToParentViewController:self];
@@ -136,6 +148,25 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    if ([object isEqual:self.navCtr.view]){
+        if ([keyPath isEqualToString:@"center"]==NO)
+            return;
+        
+        CGPoint ctr = self.navCtr.view.center;
+        
+        //min=160, max=416
+        CGFloat dist = ctr.x-160.0f;
+        double pct = 0.10f*(dist/self.span);
+        pct += 0.9f;
+        if (pct > 1.0f)
+            pct = 1.0f;
+        
+//        NSLog(@"PERCENT: %.2f", pct);
+        self.baseView.transform = CGAffineTransformMakeScale(pct, pct);
+    }
+
+    
+    
     if ([object isEqual:self.profile]==NO)
         return;
     
