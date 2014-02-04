@@ -19,6 +19,7 @@
 
 
 @implementation SSInviteMembersViewController
+@synthesize group;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,12 +57,28 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
     
-    [self requestAddresBookAccess];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(inviteMembers:)];
     
-//    NSArray *contacts = [self addressBookLoader];
-//    NSLog(@"CONTACTS: %@", [contacts description]);
+    [self requestAddresBookAccess];
+}
 
-
+- (void)inviteMembers:(UIBarButtonItem *)btn
+{
+    if (self.selectedContacts.count==0)
+        return;
+    
+//    NSLog(@"inviteMembers: %@", [self.selectedContacts description]);
+    [[SSWebServices sharedInstance] inviteMembers:self.selectedContacts toGroup:self.group completionBlock:^(id result, NSError *error){
+        
+        if (error){
+            //TODO: handle error
+        }
+        else {
+            
+        }
+        
+    }];
+    
 }
 
 - (void)requestAddresBookAccess

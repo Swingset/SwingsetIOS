@@ -10,4 +10,5 @@
 
 @interface SSInviteMembersViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) NSDictionary *group;
 @end
