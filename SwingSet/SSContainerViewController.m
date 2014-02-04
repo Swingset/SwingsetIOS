@@ -107,6 +107,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.baseView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
     
     [[SSWebServices sharedInstance] fetchProfileInfo:^(id result, NSError *error){
         NSDictionary *results = (NSDictionary *)result;
@@ -339,6 +340,20 @@
                                     withObject:nil
                                     afterDelay:0.07f];
                      }];
+}
+
+- (void)hideMenu
+{
+    [UIView animateWithDuration:0.2f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.baseView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
+                     }
+                     completion:^(BOOL finisehd){
+                         
+                     }];
+
 }
 
 
