@@ -67,7 +67,13 @@
     [view addSubview:self.sectionsTable];
     
     UIView *questionView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-footerView.frame.size.height+20.0f, self.sectionsTable.frame.size.width, footerView.frame.size.height)];
-    questionView.backgroundColor = [UIColor redColor];
+    questionView.backgroundColor = self.sectionsTable.backgroundColor;
+    
+    UIButton *btnAskQuestion = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnAskQuestion.frame = CGRectMake(15.0f, 0, questionView.frame.size.width, questionView.frame.size.height);
+    [btnAskQuestion setTitle:@"Ask Question" forState:UIControlStateNormal];
+    btnAskQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [questionView addSubview:btnAskQuestion];
     [view addSubview:questionView];
 
     
