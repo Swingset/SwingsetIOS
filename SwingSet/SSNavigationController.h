@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SSNavigationControllerProtocol <NSObject>
+@optional
+- (void)hideMenu;
+@end
+
 @interface SSNavigationController : UINavigationController
 
-@property (assign) id container;
+@property (assign) id<SSNavigationControllerProtocol> container;
 - (void)slideOut;
 - (void)slideIn;
 - (void)toggle;

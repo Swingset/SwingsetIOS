@@ -57,6 +57,9 @@
 
 - (void)slideIn
 {
+    if ([self.container respondsToSelector:@selector(hideMenu)])
+        [self.container hideMenu];
+    
     [UIView animateWithDuration:0.2f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseIn
