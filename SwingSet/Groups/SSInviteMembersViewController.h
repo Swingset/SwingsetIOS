@@ -8,6 +8,6 @@
 
 #import "SSViewController.h"
 
-@interface SSInviteMembersViewController : SSViewController
+@interface SSInviteMembersViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

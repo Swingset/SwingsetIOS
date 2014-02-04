@@ -13,6 +13,8 @@
 
 @interface SSInviteMembersViewController ()
 @property (strong, nonatomic) NSMutableArray *contactsList;
+@property (strong, nonatomic) UITableView *contactsTable;
+@property (strong, nonatomic) NSMutableArray *selectedContacts;
 @end
 
 
@@ -24,8 +26,7 @@
     if (self) {
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.contactsList = [NSMutableArray array];
-
-        
+        self.selectedContacts = [NSMutableArray array];
     }
     return self;
 }
@@ -33,8 +34,18 @@
 - (void)loadView
 {
     UIView *view = [self baseView:YES];
+    CGRect frame = view.frame;
     
     
+    self.contactsTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height) style:UITableViewStylePlain];
+    self.contactsTable.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
+    self.contactsTable.delegate = self;
+    self.contactsTable.dataSource = self;
+    self.contactsTable.backgroundColor = kGrayTable;
+    self.contactsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.contactsTable.separatorInset = UIEdgeInsetsZero;
+
+    [view addSubview:self.contactsTable];
     
     self.view = view;
 }
@@ -100,6 +111,17 @@
                         contactInfo[@"firstName"] = firstName;
                         contactInfo[@"phoneNumber"] = phoneNumber;
                         
+                        NSString *formattedNumber = @"";
+                        static NSString *numbers = @"0123456789";
+                        for (int i=0; i<phoneNumber.length; i++) {
+                            NSString *character = [phoneNumber substringWithRange:NSMakeRange(i, 1)];
+                            if ([numbers rangeOfString:character].location!=NSNotFound)
+                                formattedNumber = [formattedNumber stringByAppendingString:character];
+                        }
+                        
+                        contactInfo[@"formattedNumber"] = formattedNumber;
+
+                        
                         if (lastName != nil)
                             contactInfo[@"lastName"] = lastName;
                         
@@ -117,6 +139,7 @@
                 }
                 
                 NSLog(@"%@", [self.contactsList description]);
+                [self.contactsTable reloadData];
                 CFRelease(addressBook);
             }
             else {
@@ -129,6 +152,52 @@
 }
 
 
+
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.contactsList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"ID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell==nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Black" size:14.0];
+        cell.textLabel.textColor = kLightBlue;
+        cell.backgroundColor = kGrayTable;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    NSDictionary *contact = [self.contactsList objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", contact[@"firstName"]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", contact[@"phoneNumber"]];
+    cell.textLabel.textColor = ([self.selectedContacts containsObject:contact]==YES) ? kGreenNext : [UIColor blackColor];
+
+    
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *contact = [self.contactsList objectAtIndex:indexPath.row];
+    if (!contact)
+        return;
+
+    
+    NSLog(@"SELECTED: %@", [contact description]);
+    if ([self.selectedContacts containsObject:contact]==NO)
+        [self.selectedContacts addObject:contact];
+    else
+        [self.selectedContacts removeObject:contact];
+    
+    
+    [self.contactsTable reloadData];
+}
 
 
 - (void)didReceiveMemoryWarning
