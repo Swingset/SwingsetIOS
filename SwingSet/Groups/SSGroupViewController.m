@@ -22,10 +22,6 @@
 @property (strong, nonatomic) UILabel *lblGroupName;
 @property (strong, nonatomic) UILabel *lblGroupMembers;
 @property (strong, nonatomic) UITableView *theTableView;
-
-@property (strong, nonatomic) NSArray *dummyData;
-@property (strong, nonatomic) NSString *groupName;
-
 @end
 
 @implementation SSGroupViewController
@@ -37,24 +33,6 @@
     if (self) {
         
         self.edgesForExtendedLayout = UIRectEdgeAll;
-        
-        // populate dummy data
-        self.dummyData = [NSArray arrayWithObjects:@"@first lastname",
-                          @"@second lastname",
-                          @"@third lastname",
-                          @"@firstname last",
-                          @"@firstname last",
-                          @"@firstname lbub",
-                          @"@firstname yeah",
-                          @"@firstname someone",
-                          @"@firstname me",
-                          @"@firstname notyou",
-                          @"@firstname lucky",
-                          @"@firstname okbye",
-                          @"@firstname last",
-                          @"@first ln", nil];
-        
-        self.groupName = @"Some Group";
         
     }
     return self;
@@ -74,7 +52,7 @@
     CGFloat y = 0.0f;
     self.lblGroupName = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, y, frame.size.width/2.0f, 30.0f)];
     self.lblGroupName.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
-    self.lblGroupName.text = self.groupName;
+//    self.lblGroupName.text = self.groupName;
     self.lblGroupName.text = @"GROUP NAME";
     self.lblGroupName.textColor = [UIColor blackColor];
     self.lblGroupName.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:16.0f];
@@ -83,7 +61,7 @@
     CGFloat elemWidth = 90.0f;
     self.lblGroupMembers = [[UILabel alloc] initWithFrame:CGRectMake(238.0f, y, elemWidth, 30.0f)];
     self.lblGroupMembers.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
-    self.lblGroupMembers.text = [NSString stringWithFormat:@"%d Members", (int)[self.dummyData count]];
+//    self.lblGroupMembers.text = [NSString stringWithFormat:@"%d Members", (int)[self.dummyData count]];
     self.lblGroupMembers.textColor = [UIColor grayColor];
     self.lblGroupMembers.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:13.0f];
     self.lblGroupMembers.text = [NSString stringWithFormat:@"15 members"];
@@ -174,6 +152,28 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
     
+    [self.loadingIndicator startLoading];
+    [[SSWebServices sharedInstance] fetchGroupInfo:self.group completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error) {
+            
+        }
+        else {
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"results: %@", [results description]);
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            
+            if ([confirmation isEqualToString:@"success"]){
+                self.group = [results objectForKey:@"group"];
+                [self.theTableView reloadData];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
+            }
+        }
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -184,7 +184,8 @@
 #pragma mark UITable Delegate/Datasource methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_dummyData count];
+    NSArray *membersArray = self.group[@"members"];
+    return membersArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -203,7 +204,14 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = [self.dummyData objectAtIndex:indexPath.row];
+    NSArray *membersArray = self.group[@"members"];
+    id member = [membersArray objectAtIndex:indexPath.row];
+    NSLog(@"MEMBER: %@", [member description]);
+    if ([[member class] isSubclassOfClass:[NSDictionary class]]){
+        cell.textLabel.text = member[@"username"];
+    }
+    
+
     return cell;
 }
 
