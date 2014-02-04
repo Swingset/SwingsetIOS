@@ -107,7 +107,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
         cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Black" size:14.0];
         cell.textLabel.textColor = kLightBlue;
         cell.backgroundColor = kGrayTable;
