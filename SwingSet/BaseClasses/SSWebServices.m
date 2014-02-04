@@ -285,4 +285,9 @@
 }
 
 
+- (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    NSLog(@"inviteMembers: %@", [invitees description]);
+}
+
 @end
