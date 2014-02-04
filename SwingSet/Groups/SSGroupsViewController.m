@@ -122,6 +122,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SSGroupViewController *groupViewController = [[SSGroupViewController alloc] init];
+    NSDictionary *group = self.profile.groups[indexPath.row];
+    groupViewController.group = group;
     [self.navigationController pushViewController:groupViewController animated:YES];
 }
 
