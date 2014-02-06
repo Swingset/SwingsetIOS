@@ -348,7 +348,36 @@
                          frame.origin.x = -frame.size.width;
                          self.passwordEntryView.frame = frame;
                          
+                         
+                         [self performSelectorOnMainThread:@selector(joinExistingGroup) withObject:nil waitUntilDone:YES];
+                         
                      }];
+}
+
+- (void)joinExistingGroup
+{
+    [self.loadingIndicator startLoading];
+    [[SSWebServices sharedInstance] joinGroup:self.joinGroupNameField.text withPin:self.joinGroupPWField.text completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        
+        NSDictionary *results = (NSDictionary *)result;
+//        NSLog(@"%@", [results description]);
+        NSString *confirmation = [results objectForKey:@"confirmation"];
+        if ([confirmation isEqualToString:@"success"]){
+            
+            NSMutableArray *updatedGroups = [NSMutableArray arrayWithArray:self.profile.groups];
+            NSDictionary *newGroup = [results objectForKey:@"group"];
+            [updatedGroups addObject:newGroup];
+            self.profile.groups = updatedGroups;
+            
+            NSString *msg = [NSString stringWithFormat:@"You are now part of the %@ group.", newGroup[@"displayName"]];
+            [self showAlert:@"Success!" withMessage:msg];
+        }
+        else{
+            [self showAlert:@"Error" withMessage:results[@"message"]];
+        }
+        
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
