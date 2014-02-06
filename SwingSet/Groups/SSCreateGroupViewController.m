@@ -13,6 +13,9 @@
 @property (strong, nonatomic) SSTextField *groupPWField;
 @property (strong, nonatomic) SSTextField *groupNameField;
 @property (strong, nonatomic) SSTextField *joinGroupNameField;
+@property (strong, nonatomic) SSTextField *joinGroupPWField;
+@property (strong, nonatomic) UIView *passwordEntryView;
+@property (strong, nonatomic) UIView *darkScreen;
 @end
 
 @implementation SSCreateGroupViewController
@@ -66,6 +69,7 @@
     
     w = 0.5f*frame.size.width;
     SSButton *btnJoin = [SSButton buttonWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h) title:@"Join Group" textMode:TextModeUpperCase];
+    [btnJoin addTarget:self action:@selector(btnJoinAction:) forControlEvents:UIControlEventTouchUpInside];
     btnJoin.backgroundColor = kGreenNext;
     [bgTop addSubview:btnJoin];
     
@@ -125,6 +129,41 @@
     [view addGestureRecognizer:tap];
 
     
+    self.darkScreen = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height)];
+    self.darkScreen.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
+    self.darkScreen.backgroundColor = [UIColor blackColor];
+    self.darkScreen.alpha = 0.0f;
+    [view addSubview:self.darkScreen];
+    
+    
+    self.passwordEntryView = [[UIView alloc] initWithFrame:CGRectMake(-frame.size.width, 0, frame.size.width, frame.size.height)];
+    self.passwordEntryView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
+    self.passwordEntryView.backgroundColor = [UIColor clearColor];
+    w = 0.70f*frame.size.width;
+    UIView *passwordBox = [[UIView alloc] initWithFrame:CGRectMake(0.5f*(frame.size.width-w), 80.0f, w, 120.0f)];
+    passwordBox.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    passwordBox.backgroundColor = kGrayTable;
+    passwordBox.layer.cornerRadius = 4.0f;
+    passwordBox.layer.masksToBounds = YES;
+    
+    self.joinGroupPWField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"Group Password" keyboard:UIKeyboardTypeNumberPad];
+    [passwordBox addSubview:self.joinGroupPWField];
+    
+    [self.passwordEntryView addSubview:passwordBox];
+    
+    
+    y = passwordBox.frame.origin.y+passwordBox.frame.size.height+20.0f;
+    SSButton *btnJoinGroup = [SSButton buttonWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h) title:@"Join" textMode:TextModeUpperCase];
+    btnJoinGroup.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    [btnJoinGroup addTarget:self action:@selector(btnJoinGroupAction:) forControlEvents:UIControlEventTouchUpInside];
+    btnJoinGroup.backgroundColor = kGreenNext;
+    [self.passwordEntryView addSubview:btnJoinGroup];
+    
+
+    [view addSubview:self.passwordEntryView];
+    
+    
+    
     self.view = view;
 }
 
@@ -166,6 +205,7 @@
     [self.groupNameField resignFirstResponder];
     [self.groupPWField resignFirstResponder];
     [self.joinGroupNameField resignFirstResponder];
+    [self.joinGroupPWField resignFirstResponder];
     
     if (self.view.frame.origin.y == 0)
         return;
@@ -225,7 +265,90 @@
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
         }
     }];
+}
+
+
+- (void)btnJoinAction:(SSButton *)btn
+{
+    [self shiftBack];
+
+    if (self.joinGroupNameField.text.length==0){
+        [self showAlert:@"Error" withMessage:@"Please enter a group name."];
+        return;
+    }
     
+    // show password entry
+//    self.darkScreen.alpha = 0.45f;
+    
+    [UIView animateWithDuration:0.20f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.darkScreen.alpha = 0.45f;
+                         
+                         CGRect frame = self.darkScreen.frame;
+                         frame.origin.x = -10.0f;
+                         self.darkScreen.frame = frame;
+                         
+                         frame = self.passwordEntryView.frame;
+                         frame.origin.x = 10.0f;
+                         self.passwordEntryView.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+
+                         [UIView animateWithDuration:0.14f
+                                               delay:0.06f
+                                             options:UIViewAnimationOptionCurveLinear
+                                          animations:^{
+                                              CGRect frame = self.darkScreen.frame;
+                                              frame.origin.x = 0.0f;
+                                              self.darkScreen.frame = frame;
+                                              
+                                              self.passwordEntryView.frame = frame;
+                                              
+                                          }
+                                          completion:^(BOOL finished){
+                                              
+                                              
+                                          }];
+
+                         
+                     }];
+}
+
+- (void)btnJoinGroupAction:(SSButton *)btn
+{
+    [self.joinGroupPWField resignFirstResponder];
+    if (self.joinGroupPWField.text.length==0){
+        [self showAlert:@"Error" withMessage:@"Please enter the group PIN number."];
+        return;
+    }
+    
+    [UIView animateWithDuration:0.20f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         
+                         CGRect frame = self.darkScreen.frame;
+                         frame.origin.x = -frame.size.width;
+                         self.darkScreen.frame = frame;
+                         
+                         frame = self.passwordEntryView.frame;
+                         frame.origin.x = frame.size.width;
+                         self.passwordEntryView.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         self.darkScreen.alpha = 0.0f;
+                         
+                         CGRect frame = self.darkScreen.frame;
+                         frame.origin.x = frame.size.width;
+                         self.darkScreen.frame = frame;
+                         
+                         frame = self.passwordEntryView.frame;
+                         frame.origin.x = -frame.size.width;
+                         self.passwordEntryView.frame = frame;
+                         
+                     }];
 }
 
 #pragma mark - UITextFieldDelegate
