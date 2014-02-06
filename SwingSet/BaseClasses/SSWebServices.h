@@ -29,5 +29,5 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)fetchGroupInfo:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)createGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
-
+- (void)joinGroup:(NSString *)groupName withPin:(NSString *)pin completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 @end

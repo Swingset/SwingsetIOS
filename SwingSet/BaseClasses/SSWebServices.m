@@ -288,8 +288,6 @@
 - (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
 //    NSLog(@"inviteMembers: %@", [invitees description]);
-    
-    
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -343,8 +341,6 @@
 
 - (void)fetchGroupInfo:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
-//    SSProfile *profile = [SSProfile sharedProfile];
-    
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:[kPathGroups stringByAppendingString:group[@"id"]]
              parameters:nil
@@ -378,8 +374,58 @@
                     if (completionBlock)
                         completionBlock(nil, error);
                 }];
+}
 
+
+- (void)joinGroup:(NSString *)groupName withPin:(NSString *)pin completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    SSProfile *profile = [SSProfile sharedProfile];
+    params[@"profile"] = profile.uniqueId;
+    params[@"password"] = pin;
+    params[@"groupName"] = groupName;
+    params[@"action"] = @"join";
+    
+//    NSLog(@"inviteMembers: %@", [params description]);
+    
+    [httpClient putPath:kPathGroups
+             parameters:params
+                success:^(AFHTTPRequestOperation *operation, id responseObject){
+                    NSError *error = nil;
+                    NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                                      options:NSJSONReadingMutableContainers
+                                                                                                        error:&error];
+                    
+                    if (error){
+                        NSLog(@"SUCCESS BLOCK: ERROR - %@", [error localizedDescription]);
+                    }
+                    else{
+                        //                         NSLog(@"SUCCESS BLOCK: %@", [responseDictionary description]);
+                        NSDictionary *results = [responseDictionary objectForKey:@"results"];
+                        NSString *confirmation = [results objectForKey:@"confirmation"];
+                        
+                        if ([confirmation isEqualToString:@"success"]){ // profile successfully registered
+                            if (completionBlock)
+                                completionBlock(results, error);
+                        }
+                        else{ // registration failed.
+                            NSLog(@"%@", [results description]);
+                            if (completionBlock){
+                                completionBlock(results, nil);
+                            }
+                        }
+                    }
+                }
+     
+                failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                    NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                    if (completionBlock)
+                        completionBlock(nil, error);
+                }];
 }
 
 @end
