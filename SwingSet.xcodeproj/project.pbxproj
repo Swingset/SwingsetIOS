@@ -13,7 +13,6 @@
 		5C3163AA189797D70048D4A8 /* SSQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3163A9189797D70048D4A8 /* SSQuestion.m */; };
 		5C3259631895A2F50048B588 /* SSQuestionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259621895A2F50048B588 /* SSQuestionsViewController.m */; };
 		5C3259661895A37B0048B588 /* SSQuestionPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259651895A37B0048B588 /* SSQuestionPreview.m */; };
-		5C3259691895B73A0048B588 /* SSFoldViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3259681895B73A0048B588 /* SSFoldViewController.m */; };
 		5C35F294188E27A300BE0F1C /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C35F293188E27A300BE0F1C /* icon120.png */; };
 		5C35F296188E27AC00BE0F1C /* icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C35F295188E27AC00BE0F1C /* icon80.png */; };
 		5C35F298188E27B000BE0F1C /* icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C35F297188E27B000BE0F1C /* icon58.png */; };
@@ -166,8 +165,6 @@
 		5C3259621895A2F50048B588 /* SSQuestionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestionsViewController.m; sourceTree = "<group>"; };
 		5C3259641895A37B0048B588 /* SSQuestionPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSQuestionPreview.h; sourceTree = "<group>"; };
 		5C3259651895A37B0048B588 /* SSQuestionPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSQuestionPreview.m; sourceTree = "<group>"; };
-		5C3259671895B73A0048B588 /* SSFoldViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSFoldViewController.h; sourceTree = "<group>"; };
-		5C3259681895B73A0048B588 /* SSFoldViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSFoldViewController.m; sourceTree = "<group>"; };
 		5C35F293188E27A300BE0F1C /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
 		5C35F295188E27AC00BE0F1C /* icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon80.png; sourceTree = "<group>"; };
 		5C35F297188E27B000BE0F1C /* icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon58.png; sourceTree = "<group>"; };
@@ -371,8 +368,6 @@
 				5C3259651895A37B0048B588 /* SSQuestionPreview.m */,
 				5C82C14718970A6E005F73DD /* SSOptionView.h */,
 				5C82C14818970A6E005F73DD /* SSOptionView.m */,
-				5C3259671895B73A0048B588 /* SSFoldViewController.h */,
-				5C3259681895B73A0048B588 /* SSFoldViewController.m */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -836,7 +831,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C3259691895B73A0048B588 /* SSFoldViewController.m in Sources */,
 				5CB4C1E6188F78030059B332 /* SSGroupsViewController.m in Sources */,
 				5C4CEEB4188B52CD000B1BFD /* AFImageRequestOperation.m in Sources */,
 				5C4CEE5E188B485F000B1BFD /* SSAppDelegate.m in Sources */,
