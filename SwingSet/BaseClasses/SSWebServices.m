@@ -300,8 +300,6 @@
     
     NSLog(@"inviteMembers: %@", [params description]);
 
-//    return;
-    
     [httpClient putPath:[kPathGroups stringByAppendingString:group[@"id"]]
               parameters:params
                  success:^(AFHTTPRequestOperation *operation, id responseObject){
@@ -427,5 +425,49 @@
                         completionBlock(nil, error);
                 }];
 }
+
+- (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+//    SSProfile *profile = [SSProfile sharedProfile];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [httpClient postPath:kPathQuestions
+              parameters:[question parametersDictionary]
+                 success:^(AFHTTPRequestOperation *operation, id responseObject){
+                     NSError *error = nil;
+                     NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                                       options:NSJSONReadingMutableContainers
+                                                                                                         error:&error];
+                     
+                     if (error){
+                         NSLog(@"SUCCESS BLOCK: ERROR - %@", [error localizedDescription]);
+                     }
+                     else{
+                         //                         NSLog(@"SUCCESS BLOCK: %@", [responseDictionary description]);
+                         NSDictionary *results = [responseDictionary objectForKey:@"results"];
+                         NSString *confirmation = [results objectForKey:@"confirmation"];
+                         
+                         if ([confirmation isEqualToString:@"success"]){ // profile successfully registered
+                             if (completionBlock)
+                                 completionBlock(results, error);
+                         }
+                         else{ // registration failed.
+                             if (completionBlock)
+                                 completionBlock(results, nil);
+                         }
+                     }
+                 }
+     
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                     NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                     if (completionBlock)
+                         completionBlock(nil, error);
+                 }];
+}
+
+
 
 @end
