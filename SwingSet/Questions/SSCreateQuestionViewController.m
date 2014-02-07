@@ -7,11 +7,11 @@
 //
 
 #import "SSCreateQuestionViewController.h"
-//#import "UIView+SSView.h"
 #import "UIColor+SSColor.h"
 
 @interface SSCreateQuestionViewController ()
-
+@property (strong, nonatomic) UITextView *questionTextField;
+@property (strong, nonatomic) SSQuestion *question;
 @end
 
 @implementation SSCreateQuestionViewController
@@ -22,7 +22,10 @@
     if (self) {
         
         self.edgesForExtendedLayout = UIRectEdgeAll;
+        self.automaticallyAdjustsScrollViewInsets = NO;
         
+        self.question = [[SSQuestion alloc] init];
+        self.question.author = self.profile.uniqueId;
     }
     return self;
 }
@@ -41,7 +44,29 @@
     base.layer.masksToBounds = YES;
     base.layer.cornerRadius = 3.0f;
     base.layer.borderWidth = 0.5f;
-    base.layer.borderColor = [[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] CGColor];
+    base.layer.borderColor = [[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1.0f] CGColor];
+    
+    CGFloat iconDimen = 100.0f;
+    CGFloat y = 0.0f;
+    self.questionTextField = [[UITextView alloc] initWithFrame:CGRectMake(0, y, base.frame.size.width-iconDimen, iconDimen)];
+    self.questionTextField.delegate = self;
+    self.questionTextField.textAlignment = NSTextAlignmentCenter;
+    self.questionTextField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.questionTextField.backgroundColor = [UIColor redColor];
+    self.questionTextField.font = [UIFont fontWithName:@"ProximaNova-Black" size:16.0f];
+    [base addSubview:self.questionTextField];
+    y += iconDimen;
+    
+    
+    UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen, 0.0f, iconDimen, iconDimen)];
+    icon.userInteractionEnabled = YES;
+    icon.backgroundColor = [UIColor blackColor];
+    icon.image = [UIImage imageNamed:@"placeholder.png"];
+    [base addSubview:icon];
+
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    [base addGestureRecognizer:tap];
     
     [view addSubview:base];
     
@@ -64,6 +89,51 @@
                                                                             action:@selector(toggle)];
 
 }
+
+- (void)tapGesture:(UITapGestureRecognizer *)tap
+{
+    [self.questionTextField resignFirstResponder];
+}
+
+
+#pragma mark - UITextViewDelegate
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+//    NSLog(@"textViewShouldBeginEditing: %@", textView.text);
+    return YES;
+    
+}
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+//    NSLog(@"textViewShouldEndEditing: %@", textView.text);
+    [textView resignFirstResponder];
+    return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+//    NSLog(@"textViewDidEndEditing: %@", textView.text);
+    [textView resignFirstResponder];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    NSLog(@"textViewDidChange: %@", textView.text);
+    self.question.text = textView.text;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
