@@ -23,4 +23,5 @@
 + (SSQuestion *)questionWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)info;
 - (void)addVote:(int)index;
+- (NSMutableDictionary *)parametersDictionary;
 @end

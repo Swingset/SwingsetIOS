@@ -141,4 +141,12 @@
 }
 
 
+- (NSMutableDictionary *)parametersDictionary
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author}];
+    
+    return params;
+}
+
+
 @end
