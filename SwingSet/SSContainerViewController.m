@@ -15,6 +15,7 @@
 #import "SSConfirmViewController.h"
 #import "SSTableCell.h"
 #import "SSCreateGroupViewController.h"
+#import "SSCreateQuestionViewController.h"
 
 
 @interface SSContainerViewController ()
@@ -26,6 +27,7 @@
 @property (strong, nonatomic) SSQuestionsViewController *groupQuestionsVc;
 @property (strong, nonatomic) SSGroupsViewController *groupsVc;
 @property (strong, nonatomic) SSCreateGroupViewController *createGroupVc;
+@property (strong, nonatomic) SSCreateQuestionViewController *createQuestionVc;
 @property (strong, nonatomic) SSViewController *currentVC;
 @property (nonatomic) CGFloat span;
 @end
@@ -82,6 +84,7 @@
     UIButton *btnAskQuestion = [UIButton buttonWithType:UIButtonTypeCustom];
     btnAskQuestion.frame = CGRectMake(15.0f, 0, questionView.frame.size.width, questionView.frame.size.height);
     [btnAskQuestion setTitle:@"Ask Question" forState:UIControlStateNormal];
+    [btnAskQuestion addTarget:self action:@selector(createQuestion:) forControlEvents:UIControlEventTouchUpInside];
     btnAskQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [questionView addSubview:btnAskQuestion];
     [self.baseView addSubview:questionView];
@@ -176,6 +179,15 @@
     
     [self.sectionsTable reloadData];
     
+}
+
+- (void)createQuestion:(UIButton *)btn
+{
+    NSLog(@"createQuestion:");
+    
+    if (!self.createQuestionVc)
+        self.createQuestionVc = [[SSCreateQuestionViewController alloc] init];
+    [self slideOut:self.createQuestionVc];
 }
 
 #pragma mark - TableviewMethods
