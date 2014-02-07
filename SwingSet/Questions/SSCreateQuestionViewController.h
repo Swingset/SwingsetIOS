@@ -8,6 +8,6 @@
 
 #import "SSViewController.h"
 
-@interface SSCreateQuestionViewController : SSViewController <UITextViewDelegate>
+@interface SSCreateQuestionViewController : SSViewController <UITextViewDelegate, UITextFieldDelegate>
 
 @end
