@@ -7,6 +7,8 @@
 //
 
 #import "SSCreateQuestionViewController.h"
+//#import "UIView+SSView.h"
+#import "UIColor+SSColor.h"
 
 @interface SSCreateQuestionViewController ()
 
@@ -34,9 +36,8 @@
     CGFloat padding = 15.0f;
 
     UIView *base = [[UIView alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-2*padding, frame.size.height-2*padding-54.0f)];
-//    base.backgroundColor = [self getUIColorObjectFromHexString:@"#f9f9f9" alpha:1];
+    base.backgroundColor = [UIColor colorFromHexString:@"#f9f9f9" alpha:1.0f];
     base.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    base.backgroundColor = [UIColor lightGrayColor];
     base.layer.masksToBounds = YES;
     base.layer.cornerRadius = 3.0f;
     base.layer.borderWidth = 0.5f;

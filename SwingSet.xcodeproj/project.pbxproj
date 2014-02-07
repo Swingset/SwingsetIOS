@@ -54,7 +54,7 @@
 		5C82C14918970A6E005F73DD /* SSOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C82C14818970A6E005F73DD /* SSOptionView.m */; };
 		5C85DEB61894F05500B7F580 /* SSGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C85DEB51894F05500B7F580 /* SSGroupViewController.m */; };
 		5C8C599E1895DC6100A1CAF0 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C8C599D1895DC6100A1CAF0 /* placeholder.png */; };
-		5C9196C218A4C1FD005B94CA /* UIView+SSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9196C118A4C1FD005B94CA /* UIView+SSView.m */; };
+		5C9196C518A4C344005B94CA /* UIColor+SSColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C9196C418A4C344005B94CA /* UIColor+SSColor.m */; };
 		5C930174188CE717007F8865 /* SSLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C930173188CE717007F8865 /* SSLoadingIndicator.m */; };
 		5CB4C1E6188F78030059B332 /* SSGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB4C1E5188F78030059B332 /* SSGroupsViewController.m */; };
 		5CD4C63618A4BC480033A5AB /* SSCreateQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD4C63518A4BC480033A5AB /* SSCreateQuestionViewController.m */; };
@@ -234,8 +234,8 @@
 		5C85DEB41894F05500B7F580 /* SSGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroupViewController.h; sourceTree = "<group>"; };
 		5C85DEB51894F05500B7F580 /* SSGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGroupViewController.m; sourceTree = "<group>"; };
 		5C8C599D1895DC6100A1CAF0 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
-		5C9196C018A4C1FD005B94CA /* UIView+SSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SSView.h"; sourceTree = "<group>"; };
-		5C9196C118A4C1FD005B94CA /* UIView+SSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SSView.m"; sourceTree = "<group>"; };
+		5C9196C318A4C344005B94CA /* UIColor+SSColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+SSColor.h"; sourceTree = "<group>"; };
+		5C9196C418A4C344005B94CA /* UIColor+SSColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SSColor.m"; sourceTree = "<group>"; };
 		5C930172188CE717007F8865 /* SSLoadingIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoadingIndicator.h; sourceTree = "<group>"; };
 		5C930173188CE717007F8865 /* SSLoadingIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoadingIndicator.m; sourceTree = "<group>"; };
 		5CB4C1E4188F78030059B332 /* SSGroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroupsViewController.h; sourceTree = "<group>"; };
@@ -651,8 +651,8 @@
 				5C35FE83188F094A00827D67 /* SSTableCell.m */,
 				5C7D2686188F3BA50032EF28 /* SSQuestionView.h */,
 				5C7D2687188F3BA50032EF28 /* SSQuestionView.m */,
-				5C9196C018A4C1FD005B94CA /* UIView+SSView.h */,
-				5C9196C118A4C1FD005B94CA /* UIView+SSView.m */,
+				5C9196C318A4C344005B94CA /* UIColor+SSColor.h */,
+				5C9196C418A4C344005B94CA /* UIColor+SSColor.m */,
 			);
 			path = BaseClasses;
 			sourceTree = "<group>";
@@ -854,6 +854,7 @@
 				5CD4C63618A4BC480033A5AB /* SSCreateQuestionViewController.m in Sources */,
 				5C85DEB61894F05500B7F580 /* SSGroupViewController.m in Sources */,
 				5C4CEEC6188B5783000B1BFD /* SSNavigationController.m in Sources */,
+				5C9196C518A4C344005B94CA /* UIColor+SSColor.m in Sources */,
 				AA2F244E188DA3FF0025BC35 /* SSButton.m in Sources */,
 				5C4CEEB7188B52CD000B1BFD /* AFPropertyListRequestOperation.m in Sources */,
 				5C4CEE5A188B485F000B1BFD /* main.m in Sources */,
@@ -870,7 +871,6 @@
 				5C74FABE188CA84A0010FA58 /* SSTextField.m in Sources */,
 				5C4CEEB6188B52CD000B1BFD /* AFNetworkActivityIndicatorManager.m in Sources */,
 				5CFAC773188B93D300940A00 /* SSViewController.m in Sources */,
-				5C9196C218A4C1FD005B94CA /* UIView+SSView.m in Sources */,
 				5C35FE7D188EF86F00827D67 /* SSConfirmViewController.m in Sources */,
 				5C4CEEB3188B52CD000B1BFD /* AFHTTPRequestOperation.m in Sources */,
 				5C35FE7E188EF86F00827D67 /* SSRegisterViewController.m in Sources */,

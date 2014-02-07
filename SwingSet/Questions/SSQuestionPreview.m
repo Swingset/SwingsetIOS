@@ -9,7 +9,7 @@
 #import "SSQuestionPreview.h"
 #import "Config.h"
 #import "SSOptionView.h"
-#import "UIView+SSView.h"
+#import "UIColor+SSColor.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kPadding 10.0f
@@ -46,7 +46,7 @@ CGFloat randomRGB(){
         self.malePercentViews = [NSMutableArray array];
         self.femalePercentViews = [NSMutableArray array];
         
-        self.backgroundColor = [self getUIColorObjectFromHexString:@"#f9f9f9" alpha:1];
+        self.backgroundColor = [UIColor colorFromHexString:@"#f9f9f9" alpha:1];
         self.layer.masksToBounds = YES;
         self.layer.cornerRadius = 3.0f;
         self.layer.borderWidth = 0.5f;
