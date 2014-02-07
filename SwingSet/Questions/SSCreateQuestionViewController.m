@@ -65,6 +65,8 @@
     icon.userInteractionEnabled = YES;
     icon.backgroundColor = [UIColor blackColor];
     icon.image = [UIImage imageNamed:@"placeholder.png"];
+    UITapGestureRecognizer *selectIcon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectIcon:)];
+    [icon addGestureRecognizer:selectIcon];
     [base addSubview:icon];
     y += iconDimen+padding;
 
@@ -139,26 +141,76 @@
     [self shiftBack];
 }
 
+- (void)selectIcon:(UITapGestureRecognizer *)tap
+{
+    NSLog(@"selectIcon:");
+}
+
 - (void)submitQuestion:(UIButton *)btn
 {
     NSLog(@"submitQuestion:");
+    
+    if (self.question.text.length < 5){
+        [self showAlert:@"Missing Question" withMessage:@"Please enter a valid question."];
+        return;
+    }
+    
+    if (!self.question.options){
+        [self showAlert:@"Missing Options" withMessage:@"Please enter at least two valid options."];
+        return;
+    }
+    
+    if (self.question.options.count < 2){
+        [self showAlert:@"Missing Options" withMessage:@"Please enter at least two valid options."];
+        return;
+    }
+    
+    [self.loadingIndicator startLoading];
+    [[SSWebServices sharedInstance] submitQuestion:self.question completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        
+    }];
 }
 
 - (void)updateOptions
 {
     NSMutableArray *options = [NSMutableArray array];
     for (int i=0; i<4; i++) {
-        if (i==0)
-            [options addObject:self.option1Field.text];
-        if (i==1)
-            [options addObject:self.option2Field.text];
-        if (i==3)
-            [options addObject:self.option3Field.text];
-        if (i==4)
-            [options addObject:self.option4Field.text];
+        NSDictionary *entry = nil;
+        if (i==0){
+            if (self.option1Field.text.length > 0){
+                //{"text":"1","percentage":"0.71","votes":[{"id":"30218619","sex":"m","usnerame":"Alex Vallorosi"},{"id":"61797282","sex":"m","usnerame":"Dan k"},...], "image":"none","maleVotes":"0","femaleVotes":"0"}
+                
+                entry = [self entryDictionaryWithQuestionText:self.option1Field.text];
+            }
+        }
+        if (i==1){
+            if (self.option2Field.text.length > 0)
+                entry = [self entryDictionaryWithQuestionText:self.option2Field.text];
+        }
+        if (i==2)
+            if (self.option3Field.text.length > 0){
+                entry = [self entryDictionaryWithQuestionText:self.option3Field.text];
+        }
+        if (i==3){
+            if (self.option4Field.text.length > 0)
+                entry = [self entryDictionaryWithQuestionText:self.option4Field.text];
+        }
+        
+        if (entry)
+            [options addObject:entry];
     }
     
     self.question.options = options;
+}
+
+- (NSDictionary *)entryDictionaryWithQuestionText:(NSString *)text
+{
+    NSDictionary *entry = @{@"text":text, @"percentage":@"0", @"votes":@[], @"maleVotes":@"0", @"femaleVotes":@"0", @"image":@"none"};
+    return entry;
 }
 
 
@@ -224,7 +276,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    NSLog(@"textField shouldChangeCharactersInRange:");
+//    NSLog(@"textField shouldChangeCharactersInRange:");
     [self performSelector:@selector(updateOptions) withObject:nil afterDelay:0.25f];
     return YES;
 }
@@ -264,7 +316,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"textViewDidChange: %@", textView.text);
+//    NSLog(@"textViewDidChange: %@", textView.text);
     if ([textView isEqual:self.questionTextField])
         self.question.text = textView.text;
     
