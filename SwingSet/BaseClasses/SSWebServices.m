@@ -516,12 +516,9 @@
     NSData *imageData = image[@"data"];
     NSString *imageName = image[@"name"];
     
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://swingsetlabs.appspot.com/"]];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-//    NSData *imageData = UIImageJPEGRepresentation(self.questionImg, 0.5f);
-    
     NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:uploadUrl parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-        [formData appendPartWithFileData:imageData name:@"MainMedia" fileName:imageName mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:imageData name:@"file" fileName:imageName mimeType:@"image/jpeg"];
     }];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
