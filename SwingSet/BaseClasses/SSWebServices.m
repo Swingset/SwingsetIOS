@@ -469,11 +469,11 @@
                  }];
 }
 
-- (void)fetchUploadString:(NSString *)resource forIdentifier:(NSString *)identifier completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+- (void)fetchUploadString:(int)count completion:(SSWebServiceRequestCompletionBlock)completionBlock
 {
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:kPathUpload
-             parameters:@{@"resource":resource, @"id":identifier}
+             parameters:@{@"count":[NSString stringWithFormat:@"%d", count]}
                 success:^(AFHTTPRequestOperation *operation, id responseObject){
                     NSError *error = nil;
                     NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
@@ -508,6 +508,49 @@
     
 }
 
+
+
+
+- (void)uploadImage:(NSDictionary *)image toUrl:(NSString *)uploadUrl completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    NSData *imageData = image[@"data"];
+    NSString *imageName = image[@"name"];
+    
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://swingsetlabs.appspot.com/"]];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+//    NSData *imageData = UIImageJPEGRepresentation(self.questionImg, 0.5f);
+    
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:uploadUrl parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData:imageData name:@"MainMedia" fileName:imageName mimeType:@"image/jpeg"];
+    }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite){
+        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+    }];
+    
+    
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject){
+        NSError *error = nil;
+        NSDictionary *response = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+        if (error){
+//            NSLog(@"JSON ERROR: %@", [error localizedDescription]);
+            completionBlock(responseObject, error);
+        }
+        else{
+//            NSLog(@"UPLOAD COMPLETE: %@", [response description]);
+            completionBlock(response, nil);
+
+        }
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error){
+//        NSLog(@"UPLOAD FAILED: %@", [error localizedDescription]);
+        completionBlock(nil, error);
+    }];
+    
+    
+    [operation start];
+}
 
 
 @end
