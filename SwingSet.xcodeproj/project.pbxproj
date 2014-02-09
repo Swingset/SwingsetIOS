@@ -12,6 +12,8 @@
 		5C1E0F0918A80E130059F170 /* nextarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0818A80E130059F170 /* nextarrow.png */; };
 		5C1E0F0B18A818000059F170 /* commentbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0A18A818000059F170 /* commentbubble.png */; };
 		5C1E0F0D18A81F170059F170 /* selectPhotoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0C18A81F170059F170 /* selectPhotoIcon.png */; };
+		5C1E0F0F18A8224C0059F170 /* answerTypePics@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0E18A8224C0059F170 /* answerTypePics@2x.png */; };
+		5C1E0F1118A824060059F170 /* answerTypeText.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F1018A824060059F170 /* answerTypeText.png */; };
 		5C228DC4189F726900389C87 /* SSInviteMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */; };
 		5C228DC7189F749B00389C87 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C228DC5189F749B00389C87 /* AddressBook.framework */; };
 		5C228DC8189F749B00389C87 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C228DC6189F749B00389C87 /* AddressBookUI.framework */; };
@@ -166,6 +168,8 @@
 		5C1E0F0818A80E130059F170 /* nextarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextarrow.png; sourceTree = "<group>"; };
 		5C1E0F0A18A818000059F170 /* commentbubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = commentbubble.png; sourceTree = "<group>"; };
 		5C1E0F0C18A81F170059F170 /* selectPhotoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectPhotoIcon.png; sourceTree = "<group>"; };
+		5C1E0F0E18A8224C0059F170 /* answerTypePics@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "answerTypePics@2x.png"; sourceTree = "<group>"; };
+		5C1E0F1018A824060059F170 /* answerTypeText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = answerTypeText.png; sourceTree = "<group>"; };
 		5C228DC2189F726900389C87 /* SSInviteMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSInviteMembersViewController.h; sourceTree = "<group>"; };
 		5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSInviteMembersViewController.m; sourceTree = "<group>"; };
 		5C228DC5189F749B00389C87 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -523,6 +527,8 @@
 		5C4CEEBF188B549D000B1BFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5C1E0F0E18A8224C0059F170 /* answerTypePics@2x.png */,
+				5C1E0F1018A824060059F170 /* answerTypeText.png */,
 				5C8C599D1895DC6100A1CAF0 /* placeholder.png */,
 				5C1E0F0A18A818000059F170 /* commentbubble.png */,
 				5C35F293188E27A300BE0F1C /* icon120.png */,
@@ -776,6 +782,8 @@
 				5C1E0F0D18A81F170059F170 /* selectPhotoIcon.png in Resources */,
 				5C35F296188E27AC00BE0F1C /* icon80.png in Resources */,
 				5C74FAC0188CAAE90010FA58 /* bg_textfield.png in Resources */,
+				5C1E0F1118A824060059F170 /* answerTypeText.png in Resources */,
+				5C1E0F0F18A8224C0059F170 /* answerTypePics@2x.png in Resources */,
 				5CFAC73E188B882300940A00 /* skip@2x.png in Resources */,
 				5CFAC748188B882300940A00 /* TextAnswersButton.png in Resources */,
 				5CFAC737188B882300940A00 /* NextQuestion.png in Resources */,
