@@ -8,6 +8,8 @@
 
 #import "SSCreateQuestionViewController.h"
 #import "UIColor+SSColor.h"
+#import "AFNetworking.h"
+
 
 @interface SSCreateQuestionViewController ()
 @property (strong, nonatomic) UITextView *questionTextField;
@@ -16,6 +18,12 @@
 @property (strong, nonatomic) UITextField *option3Field;
 @property (strong, nonatomic) UITextField *option4Field;
 @property (strong, nonatomic) SSQuestion *question;
+
+@property (strong, nonatomic) UIImage *questionImg;
+@property (strong, nonatomic) UIImageView *icon;
+@property (strong, nonatomic) NSMutableArray *uploadStrings;
+@property (strong, nonatomic) UIButton *btnToggleAnswerType;
+@property (nonatomic) int answerType; // 0==text, 1==pics
 @end
 
 @implementation SSCreateQuestionViewController
@@ -25,6 +33,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
+        self.answerType = 0;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.automaticallyAdjustsScrollViewInsets = NO;
         
@@ -43,6 +52,7 @@
     CGFloat padding = 15.0f;
 
     UIView *base = [[UIView alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-2*padding, frame.size.height-2*padding-54.0f)];
+    base.tag = 1000;
     base.backgroundColor = [UIColor colorFromHexString:@"#f9f9f9" alpha:1.0f];
     base.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     base.layer.masksToBounds = YES;
@@ -52,26 +62,38 @@
     
     CGFloat iconDimen = 100.0f;
     CGFloat y = 0.0f;
+    
+    UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, y, base.frame.size.width, iconDimen)];
+    top.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_green.png"]];
+    [base addSubview:top];
+    
     self.questionTextField = [[UITextView alloc] initWithFrame:CGRectMake(0, y, base.frame.size.width-iconDimen, iconDimen)];
     self.questionTextField.delegate = self;
+    self.questionTextField.textColor = [UIColor whiteColor];
     self.questionTextField.textAlignment = NSTextAlignmentCenter;
     self.questionTextField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.questionTextField.backgroundColor = [UIColor redColor];
+    self.questionTextField.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_green.png"]];
     self.questionTextField.font = [UIFont fontWithName:@"ProximaNova-Black" size:16.0f];
     [base addSubview:self.questionTextField];
     
     
-    UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen, 0.0f, iconDimen, iconDimen)];
-    icon.userInteractionEnabled = YES;
-    icon.backgroundColor = [UIColor blackColor];
-    icon.image = [UIImage imageNamed:@"placeholder.png"];
+    self.icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-5.0f, 5.0f, iconDimen-10.0f, iconDimen-10.0f)];
+    self.icon.userInteractionEnabled = YES;
+    self.icon.backgroundColor = [UIColor blackColor];
     UITapGestureRecognizer *selectIcon = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectIcon:)];
-    [icon addGestureRecognizer:selectIcon];
-    [base addSubview:icon];
+    [self.icon addGestureRecognizer:selectIcon];
+    [base addSubview:self.icon];
+    self.questionImg = [UIImage imageNamed:@"selectPhotoIcon.png"];
+    self.icon.image = self.questionImg;
+
     y += iconDimen+padding;
 
-    
-    NSArray *colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
+    CGFloat rgbMax = 255.0f;
+    UIColor *purple = [UIColor colorWithRed:108.0f/rgbMax green:73.0f/rgbMax blue:142.0f/rgbMax alpha:1.0f];
+    UIColor *red = [UIColor colorWithRed:249.0f/rgbMax green:48.0f/rgbMax blue:19.0f/rgbMax alpha:1.0f];
+    UIColor *orange = [UIColor colorWithRed:255.0f/rgbMax green:133.0f/rgbMax blue:20.0f/rgbMax alpha:1.0f];
+    UIColor *green = [UIColor colorWithRed:0.0f/rgbMax green:108.0f/rgbMax blue:128.0f/rgbMax alpha:1.0f];
+    NSArray *colors = @[purple, red, orange, green];
     for (int i=0; i<4; i++) {
         UIView *optionView = [[UIView alloc] initWithFrame:CGRectMake(padding, y, base.frame.size.width-2*padding, 36.0f)];
         optionView.backgroundColor = [UIColor whiteColor];
@@ -109,9 +131,20 @@
         y += optionView.frame.size.height+padding;
     }
 
+    UIImage *answerTypePics = [UIImage imageNamed:@"answerTypePics"];
+    self.btnToggleAnswerType = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.btnToggleAnswerType setTitle:@"      Use Pics for Answers" forState:UIControlStateNormal];
+    self.btnToggleAnswerType.frame = CGRectMake(0.5f*(base.frame.size.width-answerTypePics.size.width), y, answerTypePics.size.width, answerTypePics.size.height);
+    [self.btnToggleAnswerType setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    self.btnToggleAnswerType.titleLabel.textAlignment = NSTextAlignmentRight;
+    self.btnToggleAnswerType.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+    [self.btnToggleAnswerType addTarget:self action:@selector(toggleAnswerType:) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnToggleAnswerType setBackgroundImage:answerTypePics forState:UIControlStateNormal];
+    [base addSubview:self.btnToggleAnswerType];
+    
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [base addGestureRecognizer:tap];
-    
     [view addSubview:base];
     
     
@@ -128,11 +161,27 @@
 {
     [super viewDidLoad];
     SSNavigationController *navController = (SSNavigationController *)self.navigationController;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"menu"
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btnMenu.png"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:navController
                                                                             action:@selector(toggle)];
 
+}
+
+- (void)setQuestionImg:(UIImage *)questionImg
+{
+    _questionImg = questionImg;
+    
+    self.icon.image = questionImg;
+    
+    CGFloat h = self.icon.frame.size.height;
+    double scale = h/questionImg.size.height;
+    
+    CGFloat w = scale * questionImg.size.width;
+    CGRect frame = self.icon.frame;
+    frame.size.width = w;
+    frame.origin.x = self.icon.superview.frame.size.width-w-5.0f;
+    self.icon.frame = frame;
 }
 
 - (void)tapGesture:(UITapGestureRecognizer *)tap
@@ -144,13 +193,88 @@
 - (void)selectIcon:(UITapGestureRecognizer *)tap
 {
     NSLog(@"selectIcon:");
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:^{
+        
+    }];
+}
+
+
+- (void)uploadImage:(NSString *)uploadUrl
+{
+    NSDictionary *imageMeta = @{@"name":@"image.jpg", @"data":UIImageJPEGRepresentation(self.questionImg, 0.5f)};
+    [[SSWebServices sharedInstance] uploadImage:imageMeta toUrl:uploadUrl completionBlock:^(id result, NSError *error){
+        
+        if (error){
+            NSLog(@"UPLOAD ERROR: %@", [error localizedDescription]);
+        }
+        else{
+            NSDictionary *response = (NSDictionary *)result;
+            NSDictionary *results = response[@"results"];
+            NSString *confirmation = results[@"confirmation"];
+            
+            if ([confirmation isEqualToString:@"success"]){
+                NSLog(@"UPLOAD SUCCESS: %@", [results description]);
+                NSDictionary *image = [results objectForKey:@"image"];
+
+                /*
+                image =         {
+                    address = "http://lh6.ggpht.com/KTt2Sa0tymxZn3_0Hfp4UCKgOK0jE5ykedf19lI7xSzzmIq-WTWIRV0tqSnQQ98zx8_2Q3GscLGH-KFTeyAnO43-2w";
+                    id = Ya4BnHDA;
+                    key = "AMIfv94x_UonItYKH0hvrnPgi4VxW9pmrX-I0Odk-BFFDDgo2BvVDf-BSqSY9OtlHZYR1u0Nns9Gf8PwBPTuSRch61_97c5oMWLZS3g__sewZ2l-akwQO4osXe3kuhg9XHyb-jZxw-O98QMmN9b-aqIQIjYa4BnHDA";
+                    name = "image.jpg";
+                    timestamp = "Sat Feb 08 12:57:55 UTC 2014";
+                };
+                 */
+                
+            }
+            else{
+                NSLog(@"UPLOAD ERROR: %@", results[@"message"]);
+                
+                
+            }
+        }
+    }];
+    
+    
 }
 
 - (void)submitQuestion:(UIButton *)btn
 {
     NSLog(@"submitQuestion:");
     
-    if (self.question.text.length < 5){
+    /*
+    // fetch upload url if uploading image data
+    [[SSWebServices sharedInstance] fetchUploadString:2 completion:^(id result, NSError *error){
+        NSDictionary *results = (NSDictionary *)result;
+        NSLog(@"%@", [results description]);
+        NSString *confirmation = results[@"confirmation"];
+        if ([confirmation isEqualToString:@"success"]){
+            
+            NSArray *uploadUrls = results[@"upload urls"];
+            self.uploadStrings = [NSMutableArray array];
+            for (NSString *url in uploadUrls) { // strip out the base url
+                [self.uploadStrings addObject:[url stringByReplacingOccurrencesOfString:@"http://swingsetlabs.appspot.com" withString:@""]];
+            }
+            
+            if (self.uploadStrings.count > 0)
+                [self uploadImage:self.uploadStrings[0]];
+            
+        }
+        else{
+            [self showAlert:@"Error" withMessage:results[@"message"]];
+        }
+    }];
+    
+     */
+    
+    
+    if (self.question.text.length < 1){
         [self showAlert:@"Missing Question" withMessage:@"Please enter a valid question."];
         return;
     }
@@ -173,6 +297,8 @@
         NSLog(@"%@", [results description]);
         
     }];
+    
+    
 }
 
 - (void)updateOptions
@@ -231,6 +357,72 @@
                          
                      }];
     
+}
+
+- (void)toggleAnswerType:(UIButton *)btn
+{
+    if (self.answerType==0){
+        UIImage *answerTypeText = [UIImage imageNamed:@"answerTypeText"];
+        [self.btnToggleAnswerType setTitle:@"      Use Text for Answers" forState:UIControlStateNormal];
+        [self.btnToggleAnswerType setBackgroundImage:answerTypeText forState:UIControlStateNormal];
+        self.answerType = 1;
+        [self rotateBase];
+        return;
+    }
+    
+    UIImage *answerTypeText = [UIImage imageNamed:@"answerTypePics"];
+    [self.btnToggleAnswerType setTitle:@"      Use Pics for Answers" forState:UIControlStateNormal];
+    [self.btnToggleAnswerType setBackgroundImage:answerTypeText forState:UIControlStateNormal];
+    self.answerType = 0;
+    [self rotateBase];
+    
+    
+}
+
+- (void)rotateBase
+{
+    UIView *base = [self.view viewWithTag:1000];
+    if (!base)
+        return;
+    
+    
+    [UIView transitionWithView:base
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        base.alpha = 1.0f;
+                    }
+                    completion:^(BOOL finished){
+                        
+                    }];
+    
+}
+
+
+#pragma mark - UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSLog(@"imagePickerController: didFinishPickingMediaWithInfo: %@", [info description]);
+    
+    self.questionImg = info[UIImagePickerControllerEditedImage];
+//    self.icon.image = self.questionImg;
+    
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+//    NSLog(@"imagePickerControllerDidCancel:");
+
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+
 }
 
 - (void)shiftBack
