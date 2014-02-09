@@ -115,6 +115,7 @@
                                                          placeholder:@"New Group Password"
                                                             keyboard:UIKeyboardTypeAlphabet];
     self.groupPWField.delegate = self;
+    self.groupPWField.keyboardType = UIKeyboardTypeNumberPad;
     [bgBottom addSubview:self.groupPWField];
     y += h+padding;
     
