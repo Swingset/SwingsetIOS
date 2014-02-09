@@ -119,31 +119,45 @@ CGFloat randomRGB(){
         w = scale*imgComments.size.width;
         h = scale*imgComments.size.height;
 
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-h-kPadding-0.5f, frame.size.width, 1.0f)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [self addSubview:line];
+
         UIButton *btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnComments.frame = CGRectMake(0.0f, frame.size.height-h-kPadding, 0.5f*frame.size.width, 33.0f);
+        btnComments.frame = CGRectMake(0.0f, frame.size.height-h-kPadding, 0.5f*frame.size.width, 34.0f);
         
         [btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
+        btnComments.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [btnComments setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        btnComments.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
         [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
         [btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btnComments setImage:imgComments forState:UIControlStateNormal];
+        
+        UIImageView *imgComment = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"commentbubble.png"]];
+        scale = 34.0f/imgComment.frame.size.height;
+        
+        imgComment.frame = CGRectMake(0, -0.5f, scale*imgComment.frame.size.width, 35.0f);
+        [btnComments addSubview:imgComment];
+        
+        btnComments.backgroundColor = [UIColor whiteColor];
         [self addSubview:btnComments];
         
         
         self.btnSkip = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.btnSkip.frame = CGRectMake(0.5f*frame.size.width, frame.size.height-h-kPadding+1.0f, 0.5f*frame.size.width, 33.0f);
-        self.btnSkip.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22.0f];
+        self.btnSkip.frame = CGRectMake(0.5f*frame.size.width, frame.size.height-h-kPadding, 0.5f*frame.size.width, 34.0f);
+        self.btnSkip.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:26.0f];
         [self.btnSkip setBackgroundColor:kGreenNext];
         [self.btnSkip setTitle:@"SKIP" forState:UIControlStateNormal];
         [self.btnSkip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.btnSkip addTarget:self action:@selector(btnSkipAction:) forControlEvents:UIControlEventTouchUpInside];
         
         UIImageView *nextArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nextarrow.png"]];
-        h = self.btnSkip.frame.size.height-4.0f;
+        h = self.btnSkip.frame.size.height-8.0f;
         
         scale = h/nextArrow.frame.size.height;
         CGRect f = nextArrow.frame;
         f.size.height = h;
-        f.origin.y = 2.0f;
+        f.origin.y = 4.0f;
         f.size.width *= scale;
         f.origin.x = self.btnSkip.frame.size.width-f.size.width-3.0f;
         nextArrow.frame = f;
