@@ -86,7 +86,7 @@
     self.questionImg = [UIImage imageNamed:@"selectPhotoIcon.png"];
     self.icon.image = self.questionImg;
 
-    y += iconDimen+padding;
+    y += iconDimen+padding-5.0f;
 
     CGFloat rgbMax = 255.0f;
     UIColor *purple = [UIColor colorWithRed:108.0f/rgbMax green:73.0f/rgbMax blue:142.0f/rgbMax alpha:1.0f];
