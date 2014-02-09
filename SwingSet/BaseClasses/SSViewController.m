@@ -23,7 +23,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.profile = [SSProfile sharedProfile];
         
-        UIImage *imgLogo = [UIImage imageNamed:@"SwingsetWordmark.png"];
+        UIImage *imgLogo = [UIImage imageNamed:@"navLogo.png"];
         UIImageView *logo = [[UIImageView alloc] initWithImage:imgLogo];
         
         CGFloat w = 130.0f;
