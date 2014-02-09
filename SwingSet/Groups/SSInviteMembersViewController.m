@@ -99,6 +99,8 @@
 
 - (void)requestAddresBookAccess
 {
+    [self.loadingIndicator startLoading];
+
     CFErrorRef error = NULL;
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
     ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error){
@@ -172,7 +174,12 @@
                 }
                 
                 NSLog(@"%@", [self.contactsList description]);
+                
+                NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
+                [self.contactsList sortUsingDescriptors:@[sort]];
                 [self.contactsTable reloadData];
+                [self.loadingIndicator stopLoading];
+
                 CFRelease(addressBook);
             }
             else {
@@ -206,11 +213,14 @@
     }
     
     NSDictionary *contact = [self.contactsList objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", contact[@"firstName"]];
+    if (contact[@"lastName"]) // first name and last name
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact[@"firstName"], contact[@"lastName"]];
+    else // first name only
+        cell.textLabel.text = [NSString stringWithFormat:@"%@", contact[@"firstName"]];
+    
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", contact[@"phoneNumber"]];
     cell.textLabel.textColor = ([self.selectedContacts containsObject:contact]==YES) ? kGreenNext : [UIColor blackColor];
-
-    
+    cell.imageView.image = (contact[@"image"]) ? (contact[@"image"]) : nil;
     return cell;
 }
 
