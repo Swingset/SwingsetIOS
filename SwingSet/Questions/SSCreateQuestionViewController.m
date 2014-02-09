@@ -128,7 +128,7 @@
         }
         
         [base addSubview:optionView];
-        y += optionView.frame.size.height+padding;
+        y += optionView.frame.size.height+padding-5.0f;
     }
 
     UIImage *answerTypePics = [UIImage imageNamed:@"answerTypePics"];
