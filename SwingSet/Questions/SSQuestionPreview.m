@@ -61,13 +61,13 @@ CGFloat randomRGB(){
         CGFloat iconDimen = 100.0f;
         CGFloat y = 0.0f;
         self.lblText = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width-iconDimen, iconDimen)];
-        self.lblText.backgroundColor = [UIColor colorWithRed:randomRGB() green:randomRGB() blue:randomRGB() alpha:1.0f];;
+        self.lblText.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_green.png"]];
         self.lblText.numberOfLines = 0;
         self.lblText.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblText.font = [UIFont fontWithName:@"ProximaNova-Black" size:16.0f];
         self.lblText.textAlignment = NSTextAlignmentCenter;
         self.lblText.text = @"This is the question";
-        self.lblText.textColor = kGreenNext;
+        self.lblText.textColor = [UIColor whiteColor];
         [self addSubview:self.lblText];
         y += iconDimen;
         
@@ -78,14 +78,21 @@ CGFloat randomRGB(){
 
         
         CGFloat w = 0.5*frame.size.width;
+        
+        UIView *infoBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, 20.0f)];
+        infoBar.backgroundColor = self.lblText.backgroundColor;
+        [self addSubview:infoBar];
+        
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, w, 20.0f)];
-        self.lblDate.backgroundColor = [UIColor colorWithRed:0.8f green:0.8f blue:0.8f alpha:1.0f];
+        self.lblDate.backgroundColor = [UIColor colorWithRed:0.0f/rgbMax green:0.0f/rgbMax blue:0.0f/rgbMax alpha:0.10f];
         self.lblDate.text = @"   Jan 26";
+        self.lblDate.textColor = [UIColor whiteColor];
         self.lblDate.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
         [self addSubview:self.lblDate];
 
         self.lblVotes = [[UILabel alloc] initWithFrame:CGRectMake(w, y, w, 20.0f)];
         self.lblVotes.font = self.lblDate.font;
+        self.lblVotes.textColor = [UIColor whiteColor];
         self.lblVotes.textAlignment = NSTextAlignmentRight;
         self.lblVotes.text = @"15 votes";
         self.lblVotes.backgroundColor = self.lblDate.backgroundColor;
@@ -115,7 +122,6 @@ CGFloat randomRGB(){
         btnComments.frame = CGRectMake(kPadding, frame.size.height-h-kPadding, w, h);
         [btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
         [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
-//        [btnComments setTitleColor:[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] forState:UIControlStateNormal];
         [btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [btnComments setImage:imgComments forState:UIControlStateNormal];
         [self addSubview:btnComments];
