@@ -70,15 +70,6 @@
                                                                              action:@selector(toggle)];
 
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"skip"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(swipeToNextQuestion)];
-    
-    
-
-
-    
     
     self.backPreview.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
     self.center = 0.5f*self.view.frame.size.width;
@@ -404,75 +395,7 @@
     CGRect frame = self.view.frame;
     if (self.topPreview.center.x < 0.10f*frame.size.width){
         NSLog(@"SWAP");
-        
         [self swipeToNextQuestion];
-        
-//        [UIView animateWithDuration:0.25f
-//                              delay:0
-//                            options:UIViewAnimationOptionCurveEaseInOut
-//                         animations:^{
-//                             CGPoint ctr = self.topPreview.center;
-//                             ctr.x = -0.45f*frame.size.width;
-//                             self.topPreview.center = ctr;
-//                             self.topPreview.alpha = 0;
-//                             
-//                             ctr = self.backPreview.center;
-//                             ctr.x += 60.0f;
-//                             self.backPreview.center = ctr;
-//                             
-//                             self.topPreview.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
-//                             self.backPreview.transform = CGAffineTransformIdentity;
-//                         }
-//                         completion:^(BOOL finished){
-//                             [self.view bringSubviewToFront:self.backPreview];
-//                             CGRect frame = self.topPreview.frame;
-//                             frame.origin.x = 0.5f*(self.view.frame.size.width-self.topPreview.frame.size.width);
-//                             self.topPreview.frame = frame;
-//
-//                             [UIView animateWithDuration:0.12f
-//                                                   delay:0
-//                                                 options:UIViewAnimationOptionCurveEaseInOut
-//                                              animations:^{
-//                                                  self.topPreview.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
-//                                                  
-//                                                  CGPoint ctr = self.backPreview.center;
-//                                                  ctr.x = 0.47*self.view.frame.size.width;
-//                                                  self.backPreview.center = ctr;
-//                                                  
-//                                              }
-//                                              completion:^(BOOL finished){
-//                                                  
-//                                                  [UIView animateWithDuration:0.12f
-//                                                                        delay:0
-//                                                                      options:UIViewAnimationOptionCurveLinear
-//                                                                   animations:^{
-//                                                                       
-//                                                                       CGPoint ctr = self.backPreview.center;
-//                                                                       ctr.x = 0.52*self.view.frame.size.width;
-//                                                                       self.backPreview.center = ctr;
-//                                                                   }
-//                                                                   completion:^(BOOL finished){
-//                                                                       [UIView animateWithDuration:0.12f
-//                                                                                             delay:0
-//                                                                                           options:UIViewAnimationOptionCurveLinear
-//                                                                                        animations:^{
-//                                                                                            CGPoint ctr = self.backPreview.center;
-//                                                                                            ctr.x = 0.5*self.view.frame.size.width;
-//                                                                                            self.backPreview.center = ctr;
-//                                                                                        }
-//                                                                                        completion:^(BOOL finished){
-//                                                                                            [self swapPreviews];
-//                                                                                            
-//                                                                                            self.questionIndex++;
-//                                                                                            self.questionIndex = self.questionIndex%self.questions.count;
-//                                                                                            [self loadNextQuestion];
-//                                                                                        }];
-//                                                                       
-//                                                                       
-//                                                                   }];
-//                                              }];
-//                         }];
-//        
         return;
     }
     
