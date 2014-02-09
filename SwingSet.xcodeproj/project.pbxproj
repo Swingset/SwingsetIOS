@@ -11,6 +11,7 @@
 		5C1E0F0718A804A80059F170 /* navLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0618A804A80059F170 /* navLogo@2x.png */; };
 		5C1E0F0918A80E130059F170 /* nextarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0818A80E130059F170 /* nextarrow.png */; };
 		5C1E0F0B18A818000059F170 /* commentbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0A18A818000059F170 /* commentbubble.png */; };
+		5C1E0F0D18A81F170059F170 /* selectPhotoIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0C18A81F170059F170 /* selectPhotoIcon.png */; };
 		5C228DC4189F726900389C87 /* SSInviteMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */; };
 		5C228DC7189F749B00389C87 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C228DC5189F749B00389C87 /* AddressBook.framework */; };
 		5C228DC8189F749B00389C87 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C228DC6189F749B00389C87 /* AddressBookUI.framework */; };
@@ -164,6 +165,7 @@
 		5C1E0F0618A804A80059F170 /* navLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navLogo@2x.png"; sourceTree = "<group>"; };
 		5C1E0F0818A80E130059F170 /* nextarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextarrow.png; sourceTree = "<group>"; };
 		5C1E0F0A18A818000059F170 /* commentbubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = commentbubble.png; sourceTree = "<group>"; };
+		5C1E0F0C18A81F170059F170 /* selectPhotoIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = selectPhotoIcon.png; sourceTree = "<group>"; };
 		5C228DC2189F726900389C87 /* SSInviteMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSInviteMembersViewController.h; sourceTree = "<group>"; };
 		5C228DC3189F726900389C87 /* SSInviteMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSInviteMembersViewController.m; sourceTree = "<group>"; };
 		5C228DC5189F749B00389C87 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -536,6 +538,7 @@
 				5CFAC6CF188B882300940A00 /* BigButtonBackground.png */,
 				5CFAC6D0188B882300940A00 /* bird.png */,
 				5CFAC6D1188B882300940A00 /* bird@2x.png */,
+				5C1E0F0C18A81F170059F170 /* selectPhotoIcon.png */,
 				5CFAC6D2188B882300940A00 /* camera.png */,
 				5CFAC6D3188B882300940A00 /* camera@2x.png */,
 				5CFAC6D4188B882300940A00 /* chat.png */,
@@ -770,6 +773,7 @@
 				5CFAC72A188B882300940A00 /* inflocktext.png in Resources */,
 				5CFAC725188B882300940A00 /* hb_bg_grey03@2x.png in Resources */,
 				5CFAC741188B882300940A00 /* smallpurplepercentage.png in Resources */,
+				5C1E0F0D18A81F170059F170 /* selectPhotoIcon.png in Resources */,
 				5C35F296188E27AC00BE0F1C /* icon80.png in Resources */,
 				5C74FAC0188CAAE90010FA58 /* bg_textfield.png in Resources */,
 				5CFAC73E188B882300940A00 /* skip@2x.png in Resources */,
