@@ -41,7 +41,13 @@ CGFloat randomRGB(){
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.colors = @[[UIColor blueColor], [UIColor redColor], [UIColor greenColor], [UIColor yellowColor]];
+        CGFloat rgbMax = 255.0f;
+        UIColor *purple = [UIColor colorWithRed:108.0f/rgbMax green:73.0f/rgbMax blue:142.0f/rgbMax alpha:1.0f];
+        UIColor *red = [UIColor colorWithRed:249.0f/rgbMax green:48.0f/rgbMax blue:19.0f/rgbMax alpha:1.0f];
+        UIColor *orange = [UIColor colorWithRed:255.0f/rgbMax green:133.0f/rgbMax blue:20.0f/rgbMax alpha:1.0f];
+        UIColor *green = [UIColor colorWithRed:0.0f/rgbMax green:108.0f/rgbMax blue:128.0f/rgbMax alpha:1.0f];
+        
+        self.colors = @[purple, red, orange, green];
         self.optionsViews = [NSMutableArray array];
         self.malePercentViews = [NSMutableArray array];
         self.femalePercentViews = [NSMutableArray array];

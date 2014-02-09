@@ -39,7 +39,7 @@
         self.percentBar.backgroundColor = [UIColor lightGrayColor];
         [self.baseView addSubview:self.percentBar];
         
-        self.barView = [[UIView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, 9.0f, self.bounds.size.height-2.0f)];
+        self.barView = [[UIView alloc] initWithFrame:CGRectMake(0.5f, 0.5f, 9.0f, self.bounds.size.height-1.0f)];
         self.barView.backgroundColor = [UIColor clearColor];
         [self.baseView addSubview:self.barView];
         
