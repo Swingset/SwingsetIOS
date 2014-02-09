@@ -174,9 +174,9 @@ CGFloat randomRGB(){
         self.lblMale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
         self.lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         self.lblMale.text = @"Male";
-        self.lblMale.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        self.lblMale.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
         self.lblMale.backgroundColor = [UIColor clearColor];
-        self.lblMale.textColor = [UIColor blackColor];
+        self.lblMale.textColor = [UIColor colorWithRed:56.0f/255.0f green:62.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
         self.lblMale.alpha = 0;
         [self addSubview:self.lblMale];
         
@@ -193,9 +193,9 @@ CGFloat randomRGB(){
         self.lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
         self.lblFemale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         self.lblFemale.backgroundColor = [UIColor clearColor];
-        self.lblFemale.font = [UIFont fontWithName:@"Arial" size:12.0f];
+        self.lblFemale.font = self.lblMale.font;
         self.lblFemale.text = @"Female";
-        self.lblFemale.textColor = [UIColor blackColor];
+        self.lblFemale.textColor = self.lblMale.textColor;
         self.lblFemale.alpha = 0;
         [self addSubview:self.lblFemale];
 
