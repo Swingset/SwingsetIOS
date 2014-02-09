@@ -84,7 +84,7 @@
     y += self.idField.frame.size.height+padding;
     
     self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
-                                             placeholder:@"Passcode"
+                                             placeholder:@"Password"
                                                 keyboard:UIKeyboardTypeDefault];
     
     self.passcodeField.delegate = self;
