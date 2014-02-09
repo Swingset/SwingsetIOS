@@ -20,6 +20,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.navigationBar.barStyle = UIBarStyleDefault;
+        self.navigationBar.tintColor = [UIColor blackColor];
+
     }
     return self;
 }
