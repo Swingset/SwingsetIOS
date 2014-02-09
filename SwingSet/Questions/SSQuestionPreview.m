@@ -26,6 +26,7 @@ CGFloat randomRGB(){
 @property (strong, nonatomic) NSArray *colors;
 @property (strong, nonatomic) UILabel *lblMale;
 @property (strong, nonatomic) UILabel *lblFemale;
+@property (strong, nonatomic) UIButton *btnSkip;
 @end
 
 @implementation SSQuestionPreview
@@ -119,13 +120,39 @@ CGFloat randomRGB(){
         h = scale*imgComments.size.height;
 
         UIButton *btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnComments.frame = CGRectMake(kPadding, frame.size.height-h-kPadding, w, h);
+        btnComments.frame = CGRectMake(0.0f, frame.size.height-h-kPadding, 0.5f*frame.size.width, 33.0f);
+        
         [btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
         [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
         [btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [btnComments setImage:imgComments forState:UIControlStateNormal];
         [self addSubview:btnComments];
         
+        
+        self.btnSkip = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.btnSkip.frame = CGRectMake(0.5f*frame.size.width, frame.size.height-h-kPadding+1.0f, 0.5f*frame.size.width, 33.0f);
+        self.btnSkip.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:22.0f];
+        [self.btnSkip setBackgroundColor:kGreenNext];
+        [self.btnSkip setTitle:@"SKIP" forState:UIControlStateNormal];
+        [self.btnSkip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.btnSkip addTarget:self action:@selector(btnSkipAction:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIImageView *nextArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nextarrow.png"]];
+        h = self.btnSkip.frame.size.height-4.0f;
+        
+        scale = h/nextArrow.frame.size.height;
+        CGRect f = nextArrow.frame;
+        f.size.height = h;
+        f.origin.y = 2.0f;
+        f.size.width *= scale;
+        f.origin.x = self.btnSkip.frame.size.width-f.size.width-3.0f;
+        nextArrow.frame = f;
+        [self.btnSkip addSubview:nextArrow];
+        
+        
+        [self addSubview:self.btnSkip];
+        
+
         
         // Male / Female labels:
         w = 45.0f;
@@ -222,9 +249,12 @@ CGFloat randomRGB(){
                              
                          }];
     }
-
 }
 
+- (void)btnSkipAction:(UIButton *)btn
+{
+    [self.delegate skip];
+}
 
 - (void)btnCommentsAction:(UIButton *)btn
 {
@@ -266,6 +296,8 @@ CGFloat randomRGB(){
     
     self.lblFemale.alpha = 0;
     self.lblMale.alpha = 0;
+    [self.btnSkip setTitle:@"SKIP" forState:UIControlStateNormal];
+
 }
 
 #pragma mark - SSOptionViewDelegate
@@ -273,6 +305,8 @@ CGFloat randomRGB(){
 {
 //    NSLog(@"optionViewSelected: %d", tag);
     [self.delegate optionSelected:tag];
+    
+    [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
 }
 
 

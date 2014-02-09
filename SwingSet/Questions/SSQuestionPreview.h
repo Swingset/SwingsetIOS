@@ -12,6 +12,7 @@
 - (void)checkPostion;
 - (void)viewComments;
 - (void)optionSelected:(NSInteger)tag;
+- (void)skip;
 @end
 
 @interface SSQuestionPreview : UIView
