@@ -705,6 +705,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "SwingSet Labs";
 				TargetAttributes = {
+					5C4CEE49188B485F000B1BFD = {
+						DevelopmentTeam = E8CETNJF8F;
+					};
 					5C4CEE64188B4860000B1BFD = {
 						TestTargetID = 5C4CEE49188B485F000B1BFD;
 					};
@@ -994,11 +997,13 @@
 		5C4CEE77188B4860000B1BFD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cameron Mullen (2L28CHP43D)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SwingSet/SwingSet-Prefix.pch";
 				INFOPLIST_FILE = "SwingSet/SwingSet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1006,10 +1011,13 @@
 		5C4CEE78188B4860000B1BFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SwingSet/SwingSet-Prefix.pch";
 				INFOPLIST_FILE = "SwingSet/SwingSet-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
