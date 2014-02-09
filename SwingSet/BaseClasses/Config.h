@@ -14,7 +14,7 @@
 
 // define colors
 
-#define kGreenNext   [UIColor colorWithRed:131.0f/255.0f green:188.0f/255.0f blue:60.0f/255.0f alpha:1.0f]
+#define kGreenNext   [UIColor colorWithRed:131.0f/255.0f green:187.0f/255.0f blue:60.0f/255.0f alpha:1.0f]
 #define kGrayTable   [UIColor colorWithRed:236.0f/255.0f green:237.0f/255.0f blue:239.0f/255.0f alpha:1.0f]
 #define kLightBlue   [UIColor colorWithRed:39.0f/255.0f green:46.0f/255.0f blue:71.0f/255.0f alpha:1.0f]
 #define kLightGray   [UIColor colorWithRed:243.0f/255.0f green:245.0f/255.0f blue:246.0f/255.0f alpha:1.0f]
