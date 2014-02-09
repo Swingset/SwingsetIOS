@@ -386,6 +386,11 @@
     
 }
 
+- (void)skip
+{
+    [self swipeToNextQuestion];
+    
+}
 
 - (void)checkPostion
 {
