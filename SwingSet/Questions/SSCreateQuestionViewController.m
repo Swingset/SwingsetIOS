@@ -102,7 +102,7 @@
         optionView.layer.borderWidth = 0.5f;
         optionView.layer.masksToBounds = YES;
         
-        UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(1.0f, 1.0f, 9.0f, optionView.bounds.size.height-2.0f)];
+        UIView *bar = [[UIView alloc] initWithFrame:CGRectMake(0.5f, 0.5f, 9.5f, optionView.bounds.size.height-1.0f)];
         bar.backgroundColor = colors[i];
         [optionView addSubview:bar];
 
