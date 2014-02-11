@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C122EC918AADCAE004BE838 /* SSSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */; };
 		5C1E0F0518A804540059F170 /* btnMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0418A804540059F170 /* btnMenu@2x.png */; };
 		5C1E0F0718A804A80059F170 /* navLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0618A804A80059F170 /* navLogo@2x.png */; };
 		5C1E0F0918A80E130059F170 /* nextarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0818A80E130059F170 /* nextarrow.png */; };
@@ -163,6 +164,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C122EC718AADCAD004BE838 /* SSSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSelectGroupViewController.h; sourceTree = "<group>"; };
+		5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSelectGroupViewController.m; sourceTree = "<group>"; };
 		5C1E0F0418A804540059F170 /* btnMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMenu@2x.png"; sourceTree = "<group>"; };
 		5C1E0F0618A804A80059F170 /* navLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navLogo@2x.png"; sourceTree = "<group>"; };
 		5C1E0F0818A80E130059F170 /* nextarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextarrow.png; sourceTree = "<group>"; };
@@ -388,6 +391,8 @@
 				5C82C14818970A6E005F73DD /* SSOptionView.m */,
 				5CD4C63418A4BC480033A5AB /* SSCreateQuestionViewController.h */,
 				5CD4C63518A4BC480033A5AB /* SSCreateQuestionViewController.m */,
+				5C122EC718AADCAD004BE838 /* SSSelectGroupViewController.h */,
+				5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -890,6 +895,7 @@
 				5C4CEEB9188B52CD000B1BFD /* AFXMLRequestOperation.m in Sources */,
 				5C3259631895A2F50048B588 /* SSQuestionsViewController.m in Sources */,
 				5C4CEEB5188B52CD000B1BFD /* AFJSONRequestOperation.m in Sources */,
+				5C122EC918AADCAE004BE838 /* SSSelectGroupViewController.m in Sources */,
 				5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */,
 				5C4CEEBA188B52CD000B1BFD /* UIImageView+AFNetworking.m in Sources */,
 				5C228DC4189F726900389C87 /* SSInviteMembersViewController.m in Sources */,
