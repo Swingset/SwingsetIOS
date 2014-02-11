@@ -7,6 +7,7 @@
 
 
 #import "SSCreateQuestionViewController.h"
+#import "SSSelectGroupViewController.h"
 #import "UIColor+SSColor.h"
 #import "AFNetworking.h"
 
@@ -224,7 +225,14 @@
                                                                             target:navController
                                                                             action:@selector(toggle)];
 
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Group"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(selectGroup)];
+
 }
+
 
 - (void)setQuestionImg:(UIImage *)questionImg
 {
@@ -264,6 +272,14 @@
     self.selected = (UIImageView *)tap.view;
     [self launchImageSelector];
 }
+
+- (void)selectGroup
+{
+    SSSelectGroupViewController *selectGroupVc = [[SSSelectGroupViewController alloc] init];
+    selectGroupVc.question = self.question;
+    [self.navigationController pushViewController:selectGroupVc animated:YES];
+}
+
 
 - (void)launchImageSelector
 {
@@ -370,6 +386,12 @@
         [self showAlert:@"Missing Question" withMessage:@"Please enter a valid question."];
         return;
     }
+    
+    if (!self.question.group){
+        [self showAlert:@"Missing Group" withMessage:@"Please select a group by tapping \"Group\" in the upper right corner."];
+        return;
+    }
+
     
     // - - - - - - - - - - - - Text Answers - - - - - - - - - - - - //
 
