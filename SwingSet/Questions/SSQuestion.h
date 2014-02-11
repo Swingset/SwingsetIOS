@@ -15,6 +15,7 @@
 @property (copy, nonatomic) NSString *text;
 @property (copy, nonatomic) NSString *author;
 @property (copy, nonatomic) NSString *image;
+@property (copy, nonatomic) NSString *answerType; // 'text' or 'image'
 @property (strong, nonatomic) NSMutableArray *votes;
 @property (strong, nonatomic) NSMutableArray *options;
 @property (strong, nonatomic) NSDate *timestamp;

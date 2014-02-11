@@ -20,6 +20,7 @@
 @synthesize image;
 @synthesize totalMaleVotes;
 @synthesize totalFemaleVotes;
+@synthesize answerType;
 
 
 - (id)init
@@ -28,6 +29,7 @@
     if (self){
         self.totalFemaleVotes = 0;
         self.totalMaleVotes = 0;
+        self.answerType = @"text";
     }
     return self;
 }
@@ -66,6 +68,10 @@
 
         if ([key isEqualToString:@"image"])
             self.image = [info objectForKey:key];
+
+        if ([key isEqualToString:@"answerType"])
+            self.answerType = [info objectForKey:key];
+        
 
 //        if ([key isEqualToString:@"timestamp"])
 //            self.timestamp = [info objectForKey:key];
