@@ -107,8 +107,7 @@
     [base addSubview:self.icon];
     
     UIImage *cameraIcon = [UIImage imageNamed:@"selectPhotoIcon.png"];
-    self.questionImg = cameraIcon;
-    self.icon.image = self.questionImg;
+    self.icon.image = cameraIcon;
 
     y += iconDimen+padding-5.0f;
 
