@@ -118,6 +118,7 @@
     UIColor *green = [UIColor colorWithRed:0.0f/rgbMax green:108.0f/rgbMax blue:128.0f/rgbMax alpha:1.0f];
     NSArray *colors = @[purple, red, orange, green];
     iconDimen = 82.0f;
+    CGFloat indent = 57.0f;
     for (int i=0; i<4; i++) {
         UIView *optionView = [[UIView alloc] initWithFrame:CGRectMake(padding, y, base.frame.size.width-2*padding, 36.0f)];
         optionView.backgroundColor = [UIColor whiteColor];
@@ -135,7 +136,7 @@
             self.option1Field.delegate = self;
             [optionView addSubview:self.option1Field];
             
-            self.option1Icon = [[UIImageView alloc] initWithFrame:CGRectMake(30.0f, y, iconDimen, iconDimen)];
+            self.option1Icon = [[UIImageView alloc] initWithFrame:CGRectMake(indent, y, iconDimen, iconDimen)];
             self.option1Icon.image = cameraIcon;
             self.option1Icon.userInteractionEnabled = YES;
             self.option1Icon.alpha = 0.0f;
@@ -147,7 +148,7 @@
             self.option2Field.delegate = self;
             [optionView addSubview:self.option2Field];
             
-            self.option2Icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-30.0f, self.option1Icon.frame.origin.y, iconDimen, iconDimen)];
+            self.option2Icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-indent, self.option1Icon.frame.origin.y, iconDimen, iconDimen)];
             self.option2Icon.image = cameraIcon;
             self.option2Icon.alpha = 0.0f;
             self.option2Icon.userInteractionEnabled = YES;
@@ -160,7 +161,7 @@
             self.option3Field.delegate = self;
             [optionView addSubview:self.option3Field];
             
-            self.option3Icon = [[UIImageView alloc] initWithFrame:CGRectMake(30.0f, y, iconDimen, iconDimen)];
+            self.option3Icon = [[UIImageView alloc] initWithFrame:CGRectMake(indent, y, iconDimen, iconDimen)];
             self.option3Icon.image = cameraIcon;
             self.option3Icon.alpha = 0.0f;
             self.option3Icon.userInteractionEnabled = YES;
@@ -172,7 +173,7 @@
             self.option4Field.delegate = self;
             [optionView addSubview:self.option4Field];
             
-            self.option4Icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-30.0f, self.option3Icon.frame.origin.y, iconDimen, iconDimen)];
+            self.option4Icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-indent, self.option3Icon.frame.origin.y, iconDimen, iconDimen)];
             self.option4Icon.image = cameraIcon;
             self.option4Icon.alpha = 0.0f;
             self.option4Icon.userInteractionEnabled = YES;
