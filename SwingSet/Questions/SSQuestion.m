@@ -143,11 +143,10 @@
 
 - (NSMutableDictionary *)parametersDictionary
 {
-    NSMutableDictionary *params = nil;
+    NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author}];
+    
     if (self.image)
-        params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author, @"image":self.image}];
-    else
-        params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author}];
+        params[@"image"] = self.image;
     
     return params;
 }
