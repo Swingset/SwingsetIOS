@@ -149,7 +149,7 @@
 
 - (NSMutableDictionary *)parametersDictionary
 {
-    NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author}];
+    NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author, @"answerType":self.answerType}];
     
     if (self.image)
         params[@"image"] = self.image;
