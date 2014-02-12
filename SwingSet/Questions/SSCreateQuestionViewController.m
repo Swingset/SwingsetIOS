@@ -546,6 +546,7 @@
         [self.btnToggleAnswerType setBackgroundImage:answerTypeText forState:UIControlStateNormal];
         self.question.answerType = @"image";
         self.answerType = 1;
+        self.question.options = nil;
         [self rotateBase];
         return;
     }
@@ -555,6 +556,7 @@
     [self.btnToggleAnswerType setBackgroundImage:answerTypeText forState:UIControlStateNormal];
     self.question.answerType = @"text";
     self.answerType = 0;
+    self.question.options = nil;
     [self rotateBase];
     
     
