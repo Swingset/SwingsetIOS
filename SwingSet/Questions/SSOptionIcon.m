@@ -60,7 +60,7 @@
 
 - (void)showPercentage:(double)pct
 {
-    NSLog(@"SHOW PERCENTAGE");
+    NSLog(@"OPTION ICON: SHOW PERCENTAGE");
     
     self.userInteractionEnabled = NO;
     self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
