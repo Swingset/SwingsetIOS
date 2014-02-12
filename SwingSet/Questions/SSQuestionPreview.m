@@ -10,6 +10,7 @@
 #import "Config.h"
 #import "SSOptionView.h"
 #import "UIColor+SSColor.h"
+#import "SSOptionIcon.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kPadding 10.0f
@@ -133,7 +134,7 @@ CGFloat randomRGB(){
                 iconFrame = CGRectMake(self.frame.size.width-iconDimen-indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
 
             
-            UIImageView *optionIcon = [[UIImageView alloc] initWithFrame:iconFrame];
+            SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
             optionIcon.userInteractionEnabled = YES;
             [optionIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionIconSelected)]];
             optionIcon.image = cameraIcon;
