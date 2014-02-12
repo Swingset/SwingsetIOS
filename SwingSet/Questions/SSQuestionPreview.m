@@ -10,7 +10,6 @@
 #import "Config.h"
 #import "SSOptionView.h"
 #import "UIColor+SSColor.h"
-#import "SSOptionIcon.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kPadding 10.0f
@@ -135,8 +134,9 @@ CGFloat randomRGB(){
 
             
             SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
+            optionIcon.tag = 5000+i;
+            optionIcon.parent = self;
             optionIcon.userInteractionEnabled = YES;
-            [optionIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionIconSelected)]];
             optionIcon.image = cameraIcon;
             optionIcon.alpha = 0.0f;
             [self addSubview:optionIcon];
@@ -322,6 +322,12 @@ CGFloat randomRGB(){
         optionView.userInteractionEnabled = YES;
     }
     
+    for (SSOptionIcon *optionIcon in self.optionsImageViews) {
+        optionIcon.alpha = 0;
+        optionIcon.badge.alpha = 0;
+        optionIcon.userInteractionEnabled = YES;
+    }
+    
     
     CGFloat x = 45.0f+kPadding;
     for (UIView *percentView in self.malePercentViews) {
@@ -353,12 +359,17 @@ CGFloat randomRGB(){
     [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
 }
 
-- (void)optionIconSelected
+#pragma mark - SSOptionIconDelegate
+- (void)optionIconSelected:(NSInteger)tag
 {
-    NSLog(@"optionIconSelected");
+    NSLog(@"optionIconSelected: %lu", tag);
+    [self.delegate optionSelected:tag];
     
+    [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
+
     
 }
+
 
 
 #pragma mark - UIResponder

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SSOptionIcon.h"
 
 @protocol SSQuestionPreviewDelegate <NSObject>
 - (void)checkPostion;
