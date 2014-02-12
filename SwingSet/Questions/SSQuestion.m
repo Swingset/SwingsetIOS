@@ -83,7 +83,7 @@
     [self resetTotalGenderCount];
     
     
-    if ([self.imageId isEqualToString:@"none"]==NO){
+    if ([self.imageId isEqualToString:@"none"]==NO && self.image==nil){
         [[SSWebServices sharedInstance] fetchImage:self.imageId completionBlock:^(id result, NSError *error){
             if (error){
                 
@@ -103,7 +103,7 @@
         NSMutableDictionary *option = self.options[i];
         NSString *imgId = option[@"image"];
         
-        if ([imgId isEqualToString:@"none"]==NO){
+        if ([imgId isEqualToString:@"none"]==NO && self.imagesCount==0){
             [[SSWebServices sharedInstance] fetchImage:imgId completionBlock:^(id result, NSError *error){
                 if (error){
                     
@@ -116,8 +116,9 @@
                 }
             }];
         }
-        
     }
+    
+    
 }
 
 - (void)resetTotalGenderCount
