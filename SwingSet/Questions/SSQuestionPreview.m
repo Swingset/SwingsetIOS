@@ -73,8 +73,7 @@ CGFloat randomRGB(){
         y += iconDimen;
         
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-iconDimen, 0.0f, iconDimen, iconDimen)];
-        self.imageView.backgroundColor = [UIColor blackColor];
-        self.imageView.image = [UIImage imageNamed:@"placeholder.png"];
+        self.imageView.backgroundColor = self.lblText.backgroundColor;
         [self addSubview:self.imageView];
 
         
