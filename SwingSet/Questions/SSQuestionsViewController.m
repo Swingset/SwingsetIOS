@@ -113,11 +113,14 @@
 
 - (void)setCurrentQuestion:(SSQuestion *)currentQuestion
 {
-    if (_currentQuestion)
+    if (_currentQuestion){
         [_currentQuestion removeObserver:self forKeyPath:@"image"];
+        [_currentQuestion removeObserver:self forKeyPath:@"imagesCount"];
+    }
     
     _currentQuestion = currentQuestion;
     [_currentQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
+    [_currentQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:NULL];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -127,6 +130,35 @@
             NSLog(@"CURRENT QUESTION IMAGE READY ! ! ! !");
             self.topPreview.imageView.image = self.currentQuestion.image;
         }
+        
+        if ([keyPath isEqualToString:@"imagesCount"]){
+            for (int i=0; i<self.topPreview.optionsImageViews.count; i++) {
+                UIImageView *optionIcon = (UIImageView *)self.topPreview.optionsImageViews[i];
+                
+                if (i < self.currentQuestion.options.count){
+                    NSMutableDictionary *option = self.currentQuestion.options[i];
+                    UIImage *imageData = option[@"imageData"];
+                    if (imageData){
+                        
+                        [UIView transitionWithView:optionIcon
+                                          duration:0.4f
+                                           options:UIViewAnimationOptionTransitionFlipFromLeft
+                                        animations:^{
+                                            optionIcon.image = imageData;
+                                            optionIcon.alpha = 1.0f;
+                                        }
+                                        completion:NULL];
+                    }
+                    else{
+                        optionIcon.alpha = 0.0f;
+                    }
+                }
+                else{
+                    optionIcon.alpha = 0.0f;
+                }
+            }
+        }
+
     }
     
     
@@ -195,24 +227,59 @@
     preview.lblText.text = question.text;
     preview.imageView.image = (question.image) ? question.image : nil;
 
+    if ([question.answerType isEqualToString:@"text"]) {
+        for (int i=0; i<preview.optionsViews.count; i++) {
+            SSOptionView *optionView = [preview.optionsViews objectAtIndex:i];
+            optionView.alpha = 1.0f;
+            if (i < question.options.count){
+                NSDictionary *option = [question.options objectAtIndex:i];
+                optionView.lblText.text = option[@"text"];
+                
+                [UIView animateWithDuration:0.3f
+                                      delay:0
+                                    options:UIViewAnimationOptionCurveLinear
+                                 animations:^{
+                                     optionView.alpha = 1.0f;
+                                 }
+                                 completion:NULL];
+                
+            }
+            else{
+                optionView.alpha = 0.0f;
+            }
+        }
+        
+        for (int i=0; i<preview.optionsImageViews.count; i++) {
+            UIImageView *optionIcon = preview.optionsImageViews[i];
+            optionIcon.alpha = 0.0f;
+        }
+        
+        return;
+    }
+    
     
     for (int i=0; i<preview.optionsViews.count; i++) {
-        SSOptionView *optionView = [preview.optionsViews objectAtIndex:i];
+        SSOptionView *optionView = (SSOptionView *)[preview.optionsViews objectAtIndex:i];
+        optionView.alpha = 0.0f;
+    }
+    
+    // TODO: populate icon with image data
+    for (int i=0; i<preview.optionsImageViews.count; i++) {
+        UIImageView *optionIcon = (UIImageView *)preview.optionsImageViews[i];
+        
         if (i < question.options.count){
-            NSDictionary *option = [question.options objectAtIndex:i];
-            optionView.lblText.text = option[@"text"];
-            
-            [UIView animateWithDuration:0.3f
-                                  delay:0
-                                options:UIViewAnimationOptionCurveLinear
-                             animations:^{
-                                 optionView.alpha = 1.0f;
-                             }
-                             completion:NULL];
-            
+            NSMutableDictionary *option = question.options[i];
+            UIImage *imageData = option[@"imageData"];
+            if (imageData){
+                optionIcon.image = imageData;
+                optionIcon.alpha = 1.0f;
+            }
+            else{
+                optionIcon.alpha = 0.0f;
+            }
         }
         else{
-            optionView.alpha = 0.0f;
+            optionIcon.alpha = 0.0f;
         }
     }
 }
