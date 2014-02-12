@@ -134,7 +134,10 @@ CGFloat randomRGB(){
 
             
             UIImageView *optionIcon = [[UIImageView alloc] initWithFrame:iconFrame];
+            optionIcon.userInteractionEnabled = YES;
+            [optionIcon addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(optionIconSelected)]];
             optionIcon.image = cameraIcon;
+            optionIcon.alpha = 0.0f;
             [self addSubview:optionIcon];
             [self.optionsImageViews addObject:optionIcon];
         }
@@ -347,6 +350,13 @@ CGFloat randomRGB(){
     [self.delegate optionSelected:tag];
     
     [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
+}
+
+- (void)optionIconSelected
+{
+    NSLog(@"optionIconSelected");
+    
+    
 }
 
 
