@@ -23,6 +23,7 @@
 #define kPathResponses @"/api/responses/"
 #define kPathGroups @"/api/groups/"
 #define kPathUpload @"/api/upload/"
+#define kPathImages @"/site/images/"
 
 + (SSWebServices *)sharedInstance
 {
@@ -549,5 +550,25 @@
     [operation start];
 }
 
+- (void)fetchImage:(NSString *)imageId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [httpClient getPath:[kPathImages stringByAppendingString:[NSString stringWithFormat:@"%@?crop=220", imageId]]
+             parameters:nil
+                success:^(AFHTTPRequestOperation *operation, id responseObject){
+                    
+                    NSData *imageData = (NSData *)responseObject; // convert response data into image
+                    UIImage *image = [UIImage imageWithData:imageData];
+                    if (completionBlock)
+                        completionBlock(image, nil);
+                }
+     
+                failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                    NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                    if (completionBlock)
+                        completionBlock(nil, error);
+                }];
+    
+}
 
 @end

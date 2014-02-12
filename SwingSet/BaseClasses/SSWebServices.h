@@ -19,11 +19,14 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)confirmPIN:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+
+// Images:
 - (void)fetchUploadString:(int)count completion:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)uploadImage:(NSDictionary *)image toUrl:(NSString *)uploadUrl completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)fetchImage:(NSString *)imageId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 
-//Profile
+// Profile
 - (void)fetchProfileInfo:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)registerProfile:(SSProfile *)profile completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
