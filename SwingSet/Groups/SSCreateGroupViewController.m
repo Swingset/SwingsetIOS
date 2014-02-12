@@ -57,6 +57,7 @@
     self.joinGroupNameField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                        placeholder:@"Enter Group Username"
                                           keyboard:UIKeyboardTypeAlphabet];
+    self.joinGroupNameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     
     self.joinGroupNameField.delegate = self;
     [bgTop addSubview:self.joinGroupNameField];
@@ -102,6 +103,7 @@
     self.groupNameField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                                     placeholder:@"Enter New Group Username"
                                                        keyboard:UIKeyboardTypeAlphabet];
+    self.groupNameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.groupNameField.delegate = self;
     [bgBottom addSubview:self.groupNameField];
 

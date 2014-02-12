@@ -40,7 +40,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+        self.sections = @[@"Front Page", @"Groups", @"Create A New Group", @"Results"];
         self.span = 416.0f-160.0f;
     }
     return self;
@@ -272,7 +272,7 @@
     //    self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
     
 
-    if ([section isEqualToString:@"Home"])
+    if ([section isEqualToString:@"Front Page"])
         [self slideOut:self.homeVc];
     
     if ([section isEqualToString:@"Groups"]){
