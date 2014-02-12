@@ -319,7 +319,7 @@
 
                 //Process image metadata:
                 if ([currentImage isEqual:self.questionImg]){
-                    self.question.image = imageInfo[@"id"];
+                    self.question.imageId = imageInfo[@"id"];
                 }
                 else{
                     NSDictionary *entry = [self entryDictionaryWithQuestionText:@"none" image:imageInfo[@"id"]];

@@ -8,6 +8,7 @@
 
 #import "SSQuestion.h"
 #import "SSProfile.h"
+#import "SSWebServices.h"
 
 @implementation SSQuestion
 @synthesize uniqueId;
@@ -17,10 +18,11 @@
 @synthesize votes;
 @synthesize options;
 @synthesize timestamp;
-@synthesize image;
+@synthesize imageId;
 @synthesize totalMaleVotes;
 @synthesize totalFemaleVotes;
 @synthesize answerType;
+//@synthesize image;
 
 
 - (id)init
@@ -67,7 +69,7 @@
         }
 
         if ([key isEqualToString:@"image"])
-            self.image = [info objectForKey:key];
+            self.imageId = [info objectForKey:key];
 
         if ([key isEqualToString:@"answerType"])
             self.answerType = [info objectForKey:key];
@@ -89,6 +91,22 @@
 //    }
     
     [self resetTotalGenderCount];
+    
+//    if ([self.imageId isEqualToString:@"none"]==NO){
+//        NSLog(@"FETCH IMAGE: %@", self.imageId);
+//        
+//        [[SSWebServices sharedInstance] fetchImage:self.imageId completionBlock:^(id result, NSError *error){
+//            
+//            if (error){
+//                
+//            }
+//            else{
+//                UIImage *img = (UIImage *)result;
+//                
+//            }
+//            
+//        }];
+//    }
 
     
 }
@@ -151,8 +169,8 @@
 {
     NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author, @"answerType":self.answerType, @"group":self.group}];
     
-    if (self.image)
-        params[@"image"] = self.image;
+    if (self.imageId)
+        params[@"image"] = self.imageId;
     
     return params;
 }
