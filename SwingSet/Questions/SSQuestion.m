@@ -22,7 +22,7 @@
 @synthesize totalMaleVotes;
 @synthesize totalFemaleVotes;
 @synthesize answerType;
-//@synthesize image;
+@synthesize image;
 
 
 - (id)init
@@ -92,21 +92,18 @@
     
     [self resetTotalGenderCount];
     
-//    if ([self.imageId isEqualToString:@"none"]==NO){
-//        NSLog(@"FETCH IMAGE: %@", self.imageId);
-//        
-//        [[SSWebServices sharedInstance] fetchImage:self.imageId completionBlock:^(id result, NSError *error){
-//            
-//            if (error){
-//                
-//            }
-//            else{
-//                UIImage *img = (UIImage *)result;
-//                
-//            }
-//            
-//        }];
-//    }
+    if ([self.imageId isEqualToString:@"none"]==NO){
+        [[SSWebServices sharedInstance] fetchImage:self.imageId completionBlock:^(id result, NSError *error){
+            if (error){
+                
+            }
+            else{
+                NSLog(@"IMAGE FETCHED: %@", self.imageId);
+                UIImage *img = (UIImage *)result;
+                self.image = img;
+            }
+        }];
+    }
 
     
 }
