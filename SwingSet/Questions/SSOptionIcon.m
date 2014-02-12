@@ -12,6 +12,7 @@
 @synthesize icon;
 @synthesize badge;
 @synthesize lblPercentage;
+@synthesize parent;
 @synthesize image = _image;
 
 - (id)initWithFrame:(CGRect)frame
@@ -30,6 +31,7 @@
         badgeFrame.size.height *= scale;
         badgeFrame.origin.x = frame.size.width-30;
         badgeFrame.origin.y = -0.4*badgeFrame.size.height;
+        self.badge.alpha = 0.0f;
         self.badge.frame = badgeFrame;
         
         self.lblPercentage = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, badgeFrame.size.width, badgeFrame.size.height)];
@@ -53,6 +55,52 @@
     _image = image;
     self.icon.image = image;
 }
+
+
+
+- (void)showPercentage:(double)pct
+{
+    NSLog(@"SHOW PERCENTAGE");
+    
+    self.userInteractionEnabled = NO;
+    self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
+    
+    [UIView transitionWithView:self.badge
+                      duration:0.35f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        self.badge.alpha = 1.0f;
+                    }
+                    completion:NULL];
+}
+
+
+
+#pragma mark - UIResponder
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //    NSLog(@"touchesBegan:");
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //    NSLog(@"touchesMoved:");
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //    NSLog(@"touchesEnded:");
+    
+    if ([self.parent respondsToSelector:@selector(optionIconSelected:)])
+        [self.parent optionIconSelected:self.tag];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //    NSLog(@"touchesCancelled:");
+}
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

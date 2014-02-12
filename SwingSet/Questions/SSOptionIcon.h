@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SSOptionIconDelegate
+- (void)optionIconSelected:(NSInteger)tag;
+@end
+
 @interface SSOptionIcon : UIView
 
 @property (strong, nonatomic) UIImageView *icon;
 @property (strong, nonatomic) UIImage *image;
 @property (nonatomic, strong) UIImageView *badge;
 @property (nonatomic, strong) UILabel *lblPercentage;
+@property (assign) id parent;
+- (void)showPercentage:(double)pct;
 @end
