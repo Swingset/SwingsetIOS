@@ -247,7 +247,8 @@ CGFloat randomRGB(){
     CGFloat fullWidth = self.frame.size.width-x-kPadding; // this is 100% width
     
     NSArray *malePercents = percents[@"male"];
-    for (int i=0; i<malePercents.count; i++) {
+    NSUInteger max = (malePercents.count >= 4) ? 3 : malePercents.count;
+    for (int i=0; i<max; i++) {
         NSNumber *pct = [malePercents objectAtIndex:i];
         double p = [pct doubleValue];
         UIView *percentView = [self.malePercentViews objectAtIndex:i];
@@ -269,10 +270,10 @@ CGFloat randomRGB(){
                          }];
     }
     
-    
     x = 45.0f+kPadding;
     NSArray *femalePercents = percents[@"female"];
-    for (int i=0; i<femalePercents.count; i++) {
+    max = (femalePercents.count >= 4) ? 3 : femalePercents.count;
+    for (int i=0; i<max; i++) {
         NSNumber *pct = [femalePercents objectAtIndex:i];
         double p = [pct doubleValue];
         UIView *percentView = [self.femalePercentViews objectAtIndex:i];
@@ -293,6 +294,7 @@ CGFloat randomRGB(){
                              
                          }];
     }
+
 }
 
 - (void)btnSkipAction:(UIButton *)btn
