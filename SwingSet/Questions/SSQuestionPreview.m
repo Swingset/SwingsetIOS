@@ -34,6 +34,7 @@ CGFloat randomRGB(){
 @synthesize lblText;
 @synthesize imageView;
 @synthesize optionsViews;
+@synthesize optionsImageViews;
 @synthesize malePercentViews;
 @synthesize femalePercentViews;
 
@@ -50,6 +51,7 @@ CGFloat randomRGB(){
         
         self.colors = @[purple, red, orange, green];
         self.optionsViews = [NSMutableArray array];
+        self.optionsImageViews = [NSMutableArray array];
         self.malePercentViews = [NSMutableArray array];
         self.femalePercentViews = [NSMutableArray array];
         
@@ -110,6 +112,31 @@ CGFloat randomRGB(){
             [self addSubview:option];
             [self.optionsViews addObject:option];
             y += h+10.0f;
+        }
+        
+        UIImage *cameraIcon = [UIImage imageNamed:@"selectPhotoIcon.png"];
+        iconDimen = 82.0f;
+        static CGFloat indent = 57.0f;
+        for (int i=0; i<4; i++) {
+            CGFloat originY = self.lblVotes.frame.origin.y+self.lblVotes.frame.size.height+10.0f;
+            CGRect iconFrame;
+            if (i==0)
+                iconFrame = CGRectMake(indent, originY, iconDimen, iconDimen);
+
+            if (i==1)
+                iconFrame = CGRectMake(self.frame.size.width-iconDimen-indent, originY, iconDimen, iconDimen);
+
+            if (i==2)
+                iconFrame = CGRectMake(indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+
+            if (i==3)
+                iconFrame = CGRectMake(self.frame.size.width-iconDimen-indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+
+            
+            UIImageView *optionIcon = [[UIImageView alloc] initWithFrame:iconFrame];
+            optionIcon.image = cameraIcon;
+            [self addSubview:optionIcon];
+            [self.optionsImageViews addObject:optionIcon];
         }
         
         
