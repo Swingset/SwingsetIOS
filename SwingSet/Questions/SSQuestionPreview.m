@@ -364,7 +364,7 @@ CGFloat randomRGB(){
 #pragma mark - SSOptionIconDelegate
 - (void)optionIconSelected:(NSInteger)tag
 {
-    NSLog(@"optionIconSelected: %lu", tag);
+    NSLog(@"optionIconSelected: %lu", (long)tag);
     [self.delegate optionSelected:tag];
     
     [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
