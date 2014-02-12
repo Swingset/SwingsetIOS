@@ -19,7 +19,7 @@
 
 
 @implementation SSQuestionsViewController
-
+@synthesize currentQuestion = _currentQuestion;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,7 +28,6 @@
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.questions = [NSMutableArray array];
         self.questionIndex = 0;
-        
     }
     return self;
 }
@@ -101,7 +100,8 @@
             }
             
             // load first question:
-            SSQuestion *question = [self.questions objectAtIndex:self.questionIndex];
+            SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
+            self.currentQuestion = question;
             [self populatePreview:self.topPreview withQuestion:question];
             [self loadNextQuestion];
         }
@@ -109,21 +109,33 @@
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
         }
     }];
-
-    
 }
 
+- (void)setCurrentQuestion:(SSQuestion *)currentQuestion
+{
+    if (_currentQuestion)
+        [_currentQuestion removeObserver:self forKeyPath:@"image"];
+    
+    _currentQuestion = currentQuestion;
+    [_currentQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    if ([object isEqual:self.currentQuestion]){
+        if ([keyPath isEqualToString:@"image"]){
+            NSLog(@"CURRENT QUESTION IMAGE READY ! ! ! !");
+            self.topPreview.imageView.image = self.currentQuestion.image;
+        }
+    }
+    
+    
     if ([object isEqual:self.view]){
         if ([keyPath isEqualToString:@"userInteractionEnabled"]){
-            NSLog(@"TOGGLE USER INTERACTION ENABLED! ! ! ");
+//            NSLog(@"TOGGLE USER INTERACTION ENABLED! ! ! ");
             self.topPreview.userInteractionEnabled = self.view.userInteractionEnabled;
             self.backPreview.userInteractionEnabled = self.view.userInteractionEnabled;
         }
-        
-        
     }
     
     
@@ -174,14 +186,15 @@
     if (index >= self.questions.count)
         index = 0;
 
-    SSQuestion *question = [self.questions objectAtIndex:index];
+    SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:index];
     [self populatePreview:self.backPreview withQuestion:question];
 }
 
 - (void)populatePreview:(SSQuestionPreview *)preview withQuestion:(SSQuestion *)question
 {
     preview.lblText.text = question.text;
-    
+    preview.imageView.image = (question.image) ? question.image : nil;
+
     
     for (int i=0; i<preview.optionsViews.count; i++) {
         SSOptionView *optionView = [preview.optionsViews objectAtIndex:i];
@@ -376,6 +389,11 @@
                                                                                         
                                                                                         self.questionIndex++;
                                                                                         self.questionIndex = self.questionIndex%self.questions.count;
+                                                                                        
+                                                                                        self.currentQuestion = [self.questions objectAtIndex:self.questionIndex];
+                                                                                        
+                                                                                        NSLog(@"CURRENT QUESTION: %@", self.currentQuestion.text);
+                                                                                        
                                                                                         [self loadNextQuestion];
                                                                                     }];
                                                                    
@@ -394,9 +412,7 @@
 
 - (void)checkPostion
 {
-    
     NSLog(@"CHECK POSITION");
-    
     CGRect frame = self.view.frame;
     if (self.topPreview.center.x < 0.10f*frame.size.width){
         NSLog(@"SWAP");

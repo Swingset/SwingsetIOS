@@ -10,4 +10,5 @@
 
 @interface SSQuestionsViewController : SSViewController
 
+@property (strong, nonatomic) SSQuestion *currentQuestion;
 @end
