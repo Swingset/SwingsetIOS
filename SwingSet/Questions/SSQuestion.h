@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSDate *timestamp;
 @property (nonatomic) int totalMaleVotes;
 @property (nonatomic) int totalFemaleVotes;
+@property (nonatomic) int imagesCount;
 + (SSQuestion *)questionWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)info;
 - (void)addVote:(int)index;

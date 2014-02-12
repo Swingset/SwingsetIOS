@@ -23,6 +23,7 @@
 @synthesize totalFemaleVotes;
 @synthesize answerType;
 @synthesize image;
+@synthesize imagesCount;
 
 
 - (id)init
@@ -79,18 +80,8 @@
 //            self.timestamp = [info objectForKey:key];
     }
     
-    
-//    for (NSDictionary *option in self.options) {
-//        if (option[@"maleVotes"]){
-//            self.totalMaleVotes += [option[@"maleVotes"] intValue];
-//        }
-//        
-//        if (option[@"femaleVotes"]){
-//            self.totalFemaleVotes += [option[@"femaleVotes"] intValue];
-//        }
-//    }
-    
     [self resetTotalGenderCount];
+    
     
     if ([self.imageId isEqualToString:@"none"]==NO){
         [[SSWebServices sharedInstance] fetchImage:self.imageId completionBlock:^(id result, NSError *error){
@@ -104,8 +95,29 @@
             }
         }];
     }
-
     
+    if ([self.answerType isEqualToString:@"text"])
+        return;
+    
+    for (int i=0; i<self.options.count; i++) {
+        NSMutableDictionary *option = self.options[i];
+        NSString *imgId = option[@"image"];
+        
+        if ([imgId isEqualToString:@"none"]==NO){
+            [[SSWebServices sharedInstance] fetchImage:imgId completionBlock:^(id result, NSError *error){
+                if (error){
+                    
+                }
+                else{
+                    NSLog(@"OPTION ICON FETCHED: %@", imgId);
+                    UIImage *img = (UIImage *)result;
+                    option[@"imageData"] = img;
+                    self.imagesCount++;
+                }
+            }];
+        }
+        
+    }
 }
 
 - (void)resetTotalGenderCount
