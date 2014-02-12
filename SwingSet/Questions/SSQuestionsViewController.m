@@ -292,17 +292,35 @@
     NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
     NSLog(@"optionSelected: %@", option[@"text"]);
     
-    for (int j=0; j<self.topPreview.optionsViews.count; j++) {
-        SSOptionView *optionView = [self.topPreview.optionsViews objectAtIndex:j];
-        
-        if (j < question.options.count){ // just to be safe. this shouldn't be necessary.
-            NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:j];
-            double pct = [(NSString *)option[@"percentage"] doubleValue];
-
-            NSArray *optionVotes = (NSArray *)option[@"votes"];
-            pct = ((double)optionVotes.count / question.votes.count);
-
-            [optionView showPercentage:pct];
+    if ([question.answerType isEqualToString:@"text"]){
+        for (int j=0; j<self.topPreview.optionsViews.count; j++) {
+            SSOptionView *optionView = [self.topPreview.optionsViews objectAtIndex:j];
+            
+            if (j < question.options.count){ // just to be safe. this shouldn't be necessary.
+                NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:j];
+                double pct = [(NSString *)option[@"percentage"] doubleValue];
+                
+                NSArray *optionVotes = (NSArray *)option[@"votes"];
+                pct = ((double)optionVotes.count / question.votes.count);
+                
+                [optionView showPercentage:pct];
+            }
+        }
+    }
+    
+    else{
+        for (int j=0; j<self.topPreview.optionsImageViews.count; j++) {
+            SSOptionIcon *optionIcon = [self.topPreview.optionsImageViews objectAtIndex:j];
+            
+            if (j < question.options.count){ // just to be safe. this shouldn't be necessary.
+                NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:j];
+                double pct = [(NSString *)option[@"percentage"] doubleValue];
+                
+                NSArray *optionVotes = (NSArray *)option[@"votes"];
+                pct = ((double)optionVotes.count / question.votes.count);
+                
+                [optionIcon showPercentage:pct];
+            }
         }
     }
     
@@ -312,7 +330,8 @@
     static NSString *maleVotes = @"maleVotes";
     static NSString *femaleVotes = @"femaleVotes";
     for (int j=0; j<question.options.count; j++) {
-        NSDictionary *option = question.options[j];
+        NSDictionary *option = (NSDictionary *)question.options[j];
+        
         if (option[maleVotes]){
             if (question.totalMaleVotes > 0){
                 double malePct = [option[maleVotes] doubleValue] / (double)question.totalMaleVotes;
@@ -337,7 +356,6 @@
     
     [self.topPreview displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
     
-//    return;
     
     //post submitted vote to backend:
     [[SSWebServices sharedInstance] submitVote:self.profile withQuestion:question withSelection:i completionBlock:^(id result, NSError *error){
