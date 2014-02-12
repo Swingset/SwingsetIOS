@@ -121,50 +121,31 @@
     _currentQuestion = currentQuestion;
     [_currentQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
     [_currentQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:NULL];
+    
+    int nextIndex = self.questionIndex+1;
+    if (nextIndex < self.questions.count){
+        SSQuestion *nextQuestion = [self.questions objectAtIndex:nextIndex];
+        [nextQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
+        [nextQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:NULL];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isEqual:self.currentQuestion]){
-        if ([keyPath isEqualToString:@"image"]){
-            NSLog(@"CURRENT QUESTION IMAGE READY ! ! ! !");
-            self.topPreview.imageView.image = self.currentQuestion.image;
+    if ([[object class] isSubclassOfClass:[SSQuestion class]]){
+        if ([object isEqual:self.currentQuestion]){
+            [self populatePreview:self.topPreview withQuestion:self.currentQuestion];
+            return;
         }
         
-        if ([keyPath isEqualToString:@"imagesCount"]){
-            for (int i=0; i<self.topPreview.optionsImageViews.count; i++) {
-                UIImageView *optionIcon = (UIImageView *)self.topPreview.optionsImageViews[i];
-                
-                if (i < self.currentQuestion.options.count){
-                    NSMutableDictionary *option = self.currentQuestion.options[i];
-                    UIImage *imageData = option[@"imageData"];
-                    if (imageData){
-                        
-                        [UIView transitionWithView:optionIcon
-                                          duration:0.4f
-                                           options:UIViewAnimationOptionTransitionFlipFromLeft
-                                        animations:^{
-                                            optionIcon.image = imageData;
-                                            optionIcon.alpha = 1.0f;
-                                        }
-                                        completion:NULL];
-                    }
-                    else{
-                        optionIcon.alpha = 0.0f;
-                    }
-                }
-                else{
-                    optionIcon.alpha = 0.0f;
-                }
-            }
-        }
-
+        SSQuestion *nextQuestion = (SSQuestion *)object;
+        [self populatePreview:self.backPreview withQuestion:nextQuestion];
     }
+
     
     
     if ([object isEqual:self.view]){
         if ([keyPath isEqualToString:@"userInteractionEnabled"]){
-//            NSLog(@"TOGGLE USER INTERACTION ENABLED! ! ! ");
             self.topPreview.userInteractionEnabled = self.view.userInteractionEnabled;
             self.backPreview.userInteractionEnabled = self.view.userInteractionEnabled;
         }
@@ -235,14 +216,13 @@
                 NSDictionary *option = [question.options objectAtIndex:i];
                 optionView.lblText.text = option[@"text"];
                 
-                [UIView animateWithDuration:0.3f
+                [UIView animateWithDuration:0.4f
                                       delay:0
                                     options:UIViewAnimationOptionCurveLinear
                                  animations:^{
                                      optionView.alpha = 1.0f;
                                  }
                                  completion:NULL];
-                
             }
             else{
                 optionView.alpha = 0.0f;
@@ -263,7 +243,7 @@
         optionView.alpha = 0.0f;
     }
     
-    // TODO: populate icon with image data
+    // populate icon with image data:
     for (int i=0; i<preview.optionsImageViews.count; i++) {
         UIImageView *optionIcon = (UIImageView *)preview.optionsImageViews[i];
         
@@ -271,8 +251,16 @@
             NSMutableDictionary *option = question.options[i];
             UIImage *imageData = option[@"imageData"];
             if (imageData){
-                optionIcon.image = imageData;
-                optionIcon.alpha = 1.0f;
+                
+                [UIView transitionWithView:optionIcon
+                                  duration:0.4f
+                                   options:UIViewAnimationOptionTransitionFlipFromLeft
+                                animations:^{
+                                    optionIcon.image = imageData;
+                                    optionIcon.alpha = 1.0f;
+                                }
+                                completion:NULL];
+                
             }
             else{
                 optionIcon.alpha = 0.0f;
@@ -346,11 +334,6 @@
         }
 
     }
-    
-
-    
-//    NSLog(@"MALE PERCENTS: %@", [malePercents description]);
-//    NSLog(@"FEMALE PERCENTS: %@", [femalePercents description]);
     
     [self.topPreview displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
     
