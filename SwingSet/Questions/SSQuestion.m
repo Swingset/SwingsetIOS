@@ -116,16 +116,19 @@
                     
                 }
                 else{
-                    NSLog(@"OPTION ICON FETCHED: %@", imgId);
                     UIImage *img = (UIImage *)result;
                     option[@"imageData"] = img;
-                    self.imagesCount++;
+                    [self performSelector:@selector(incrementImagesCount) withObject:nil afterDelay:0.08f]; // have to do this on slight delay. just do it.
+                    NSLog(@"OPTION ICON FETCHED: %@, imagesCount:%d", imgId, self.imagesCount);
                 }
             }];
         }
     }
-    
-    
+}
+
+- (void)incrementImagesCount
+{
+    self.imagesCount++;
 }
 
 - (void)resetTotalGenderCount
