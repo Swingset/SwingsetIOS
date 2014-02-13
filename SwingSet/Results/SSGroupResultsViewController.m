@@ -50,9 +50,10 @@
     self.resultsTable.dataSource = self;
     self.resultsTable.delegate = self;
     self.resultsTable.backgroundColor = kGrayTable;
-    self.resultsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.resultsTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.resultsTable.separatorInset = UIEdgeInsetsZero;
     self.resultsTable.showsVerticalScrollIndicator = NO;
+    self.resultsTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.resultsTable.frame.size.width, 15.0f)];
     [view addSubview:self.resultsTable];
     
     
@@ -123,28 +124,33 @@
     cell.lblText.text = question.text;
     cell.lblDetails.text = [NSString stringWithFormat:@"%lu votes", question.votes.count];
     
-    if (question.image)
+    if (question.image){
         cell.icon.image = question.image;
+        cell.icon.alpha = 1.0f;
+        cell.iconBase.alpha = 1.0f;
+    }
+    else{
+        cell.icon.alpha = 0.0f;
+        cell.iconBase.alpha = 0.0f;
+    }
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    return [SSResultCell standardHeight];
     
-    SSQuestion *question = self.questions[indexPath.row];
-
-    CGRect textRect = [question.text boundingRectWithSize:CGSizeMake(self.resultsTable.frame.size.width, 100.0f)
-                                                options:NSStringDrawingUsesLineFragmentOrigin
-                                             attributes:@{NSFontAttributeName:[UIFont fontWithName:@"ProximaNova-Black" size:14.0]}
-                                                context:nil];
-    
-
-    CGSize size = textRect.size;
-//    NSLog(@"HEIGHT: %.2f", size.height);
-    
-    CGFloat min = 70.0f;
-    return (size.height < min) ? min : size.height+10.0f;
+//    SSQuestion *question = self.questions[indexPath.row];
+//    CGRect textRect = [question.text boundingRectWithSize:CGSizeMake(self.resultsTable.frame.size.width, 100.0f)
+//                                                options:NSStringDrawingUsesLineFragmentOrigin
+//                                             attributes:@{NSFontAttributeName:[UIFont fontWithName:@"ProximaNova-Black" size:14.0]}
+//                                                context:nil];
+//    
+//
+//    CGSize size = textRect.size;
+//    CGFloat min = 220.0f;
+//    return (size.height < min) ? min : size.height+10.0f;
 }
 
 
