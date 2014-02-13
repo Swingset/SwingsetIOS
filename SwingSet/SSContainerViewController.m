@@ -16,6 +16,7 @@
 #import "SSTableCell.h"
 #import "SSCreateGroupViewController.h"
 #import "SSCreateQuestionViewController.h"
+#import "SSResultsViewController.h"
 
 
 @interface SSContainerViewController ()
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) SSGroupsViewController *groupsVc;
 @property (strong, nonatomic) SSCreateGroupViewController *createGroupVc;
 @property (strong, nonatomic) SSCreateQuestionViewController *createQuestionVc;
+@property (strong, nonatomic) SSResultsViewController *resultsVc;
 @property (strong, nonatomic) SSViewController *currentVC;
 @property (nonatomic) CGFloat span;
 @end
@@ -284,6 +286,13 @@
             self.groupsVc = [[SSGroupsViewController alloc] init];
         [self slideOut:self.groupsVc];
     }
+    
+    if ([section isEqualToString:@"Results"]){
+        if (!self.resultsVc)
+            self.resultsVc = [[SSResultsViewController alloc] init];
+        [self slideOut:self.resultsVc];
+    }
+
     
     if ([section isEqualToString:@"Create A New Group"]){
         if (!self.createGroupVc)
