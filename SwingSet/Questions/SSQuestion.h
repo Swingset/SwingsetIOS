@@ -24,6 +24,7 @@
 @property (nonatomic) int totalMaleVotes;
 @property (nonatomic) int totalFemaleVotes;
 @property (nonatomic) int imagesCount;
+@property (nonatomic) BOOL isObserved;
 + (SSQuestion *)questionWithInfo:(NSDictionary *)info;
 - (void)populate:(NSDictionary *)info;
 - (void)addVote:(int)index;

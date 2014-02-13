@@ -25,6 +25,7 @@
 @synthesize image;
 @synthesize imagesCount;
 @synthesize comments;
+@synthesize isObserved;
 
 
 - (id)init
@@ -34,6 +35,7 @@
         self.totalFemaleVotes = 0;
         self.totalMaleVotes = 0;
         self.answerType = @"text";
+        self.isObserved = NO;
     }
     return self;
 }
