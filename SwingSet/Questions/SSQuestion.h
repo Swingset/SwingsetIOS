@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UIImage *image;
 @property (copy, nonatomic) NSString *answerType; // 'text' or 'image'
 @property (strong, nonatomic) NSMutableArray *votes;
+@property (strong, nonatomic) NSMutableArray *comments;
 @property (strong, nonatomic) NSMutableArray *options;
 @property (strong, nonatomic) NSDate *timestamp;
 @property (nonatomic) int totalMaleVotes;

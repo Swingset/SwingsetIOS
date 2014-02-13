@@ -24,6 +24,7 @@
 @synthesize answerType;
 @synthesize image;
 @synthesize imagesCount;
+@synthesize comments;
 
 
 - (id)init
@@ -68,13 +69,17 @@
         if ([key isEqualToString:@"options"]){
             self.options = [NSMutableArray arrayWithArray:[info objectForKey:key]];
         }
+        
+        if ([key isEqualToString:@"comments"])
+            self.comments = [NSMutableArray arrayWithArray:[info objectForKey:key]];
 
         if ([key isEqualToString:@"image"])
             self.imageId = [info objectForKey:key];
 
         if ([key isEqualToString:@"answerType"])
             self.answerType = [info objectForKey:key];
-        
+
+
 
 //        if ([key isEqualToString:@"timestamp"])
 //            self.timestamp = [info objectForKey:key];
