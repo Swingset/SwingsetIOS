@@ -398,7 +398,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *comment = [self.currentQuestion.comments objectAtIndex:indexPath.row];
-    NSString *commentText = comment[@"text"];
+    NSString *commentText = [comment[@"text"] stringByAppendingString:@"\n\n"];
     
     CGRect textRect = [commentText boundingRectWithSize:CGSizeMake(self.commentsTable.frame.size.width, 100.0f)
                                          options:NSStringDrawingUsesLineFragmentOrigin
