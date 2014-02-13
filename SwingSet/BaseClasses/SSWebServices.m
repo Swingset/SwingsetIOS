@@ -8,6 +8,7 @@
 
 #import "SSWebServices.h"
 #import "AFNetworking.h"
+#include <sys/xattr.h>
 
 
 @implementation SSWebServices
@@ -590,12 +591,33 @@
 
 - (void)fetchImage:(NSString *)imageId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    //check cache first:
+    NSString *filePath = [self createFilePath:imageId];
+    NSData *data = [NSData dataWithContentsOfFile:filePath];
+    if (data){
+        NSLog(@"CACHED IMAGE: %@", imageId);
+        UIImage *image = [UIImage imageWithData:data];
+        if (completionBlock)
+            completionBlock(image, nil);
+
+        return;
+    }
+
+    
+    
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:[kPathImages stringByAppendingString:[NSString stringWithFormat:@"%@?crop=220", imageId]]
              parameters:nil
                 success:^(AFHTTPRequestOperation *operation, id responseObject){
                     
                     NSData *imageData = (NSData *)responseObject; // convert response data into image
+                    
+                    //Save image to cache directory:
+                    [imageData writeToFile:filePath atomically:YES];
+                    [self addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:filePath]]; //this prevents files from being backed up on itunes and iCloud
+
+
+                    
                     UIImage *image = [UIImage imageWithData:imageData];
                     if (completionBlock)
                         completionBlock(image, nil);
@@ -648,6 +670,26 @@
                      if (completionBlock)
                          completionBlock(nil, error);
                  }];
+}
+
+
+#pragma mark - FileSavingStuff:
+- (NSString *)createFilePath:(NSString *)fileName
+{
+	fileName = [fileName stringByReplacingOccurrencesOfString:@"/" withString:@"+"];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:fileName];
+	return filePath;
+}
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    const char* filePath = [[URL path] fileSystemRepresentation];
+    const char* attrName = "com.apple.MobileBackup";
+    u_int8_t attrValue = 1;
+    
+    int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+    return result == 0;
 }
 
 @end
