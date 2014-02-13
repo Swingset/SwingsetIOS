@@ -8,11 +8,25 @@
 
 #import "SSResultCell.h"
 #import "Config.h"
+#import "UIColor+SSColor.h"
+#import <QuartzCore/QuartzCore.h>
+
+@interface SSResultCell ()
+
+@end
 
 @implementation SSResultCell
 @synthesize icon;
 @synthesize lblText;
 @synthesize lblDetails;
+@synthesize iconBase;
+
++ (CGFloat)standardHeight
+{
+    static CGFloat h = 280.0f;
+    return h;
+}
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -20,29 +34,65 @@
     if (self) {
         CGRect frame = [UIScreen mainScreen].applicationFrame;
         
+        
         self.backgroundColor = kGrayTable;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        CGFloat dimen = 60.0f;
-        CGFloat padding = 5.0f;
+        CGFloat padding = 15.0f;
         
-        self.lblText = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-dimen-2*padding, 30.0f)];
+        
+        UIView *base = [[UIView alloc] initWithFrame:CGRectMake(padding, padding, frame.size.width-2*padding, [SSResultCell standardHeight]-padding)];
+        base.backgroundColor = [UIColor colorFromHexString:@"#f9f9f9" alpha:1];
+        base.layer.masksToBounds = YES;
+        base.layer.cornerRadius = 3.0f;
+        base.layer.borderWidth = 0.5f;
+        base.layer.borderColor = [[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] CGColor];
+
+        CGFloat dimen = 80.0f;
+        padding = 10.0f;
+        UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, base.frame.size.width, dimen)];
+        top.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_green.png"]];
+        [base addSubview:top];
+        
+        CGFloat y = dimen;
+        
+        UIImageView *dropShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dropShadow.png"]];
+        dropShadow.frame = CGRectMake(0.0f, y, dropShadow.frame.size.width, 0.50f*dropShadow.frame.size.height);
+        [base addSubview:dropShadow];
+        
+        self.lblText = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, base.frame.size.width-dimen-2*padding, 30.0f)];
         self.lblText.font = [UIFont fontWithName:@"ProximaNova-Black" size:14.0];
-        self.lblText.textColor = kLightBlue;
+        self.lblText.textColor = [UIColor whiteColor];
+        self.lblText.shadowColor = [UIColor blackColor];
+        self.lblText.shadowOffset = CGSizeMake(-0.5f, 0.5f);
         self.lblText.numberOfLines = 0;
         self.lblText.lineBreakMode = NSLineBreakByWordWrapping;
         [self.lblText addObserver:self forKeyPath:@"text" options:0 context:nil];
-        [self.contentView addSubview:self.lblText];
+        [base addSubview:self.lblText];
 
-        CGFloat y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
+        y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
         self.lblDetails = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, self.lblText.frame.size.width, 16.0f)];
         self.lblDetails.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
-        self.lblDetails.textColor = kGreenNext;
-        [self.contentView addSubview:self.lblDetails];
+        self.lblDetails.textColor = [UIColor blackColor];
+        [base addSubview:self.lblDetails];
         
-        self.icon = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-dimen-padding, padding, dimen, dimen)];
+        [self.contentView addSubview:base];
+        
+        CGFloat x = frame.size.width-dimen-12.0f;
+        y = 12.0f;
+        self.iconBase = [[UIView alloc] initWithFrame:CGRectMake(x, y, dimen, dimen)];
+        self.iconBase.backgroundColor = [UIColor blackColor];
+        [self.contentView addSubview:self.iconBase];
+        
+        x++;
+        y--;
+        self.icon = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, dimen, dimen)];
         self.icon.backgroundColor = [UIColor clearColor];
+        self.icon.layer.borderColor = [[UIColor whiteColor] CGColor];
+        self.icon.layer.borderWidth = 3.0f;
         [self.contentView addSubview:self.icon];
+
+
     }
     return self;
 }
@@ -70,11 +120,12 @@
     self.lblText.frame = frame;
     
     frame = self.lblDetails.frame;
-    frame.origin.y = self.lblText.frame.origin.y+self.lblText.frame.size.height+5.0f;
+    frame.origin.y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
     self.lblDetails.frame = frame;
 
     
 }
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {

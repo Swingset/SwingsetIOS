@@ -12,6 +12,8 @@
 
 
 @property (strong, nonatomic) UIImageView *icon;
+@property (strong, nonatomic) UIView *iconBase;
 @property (strong, nonatomic) UILabel *lblText;
 @property (strong, nonatomic) UILabel *lblDetails;
++ (CGFloat)standardHeight;
 @end
