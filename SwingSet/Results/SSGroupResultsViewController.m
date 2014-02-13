@@ -89,7 +89,9 @@
                 for (int i=0; i<questionsList.count; i++) {
                     NSDictionary *questionInfo = questionsList[i];
                     SSQuestion *question = [SSQuestion questionWithInfo:questionInfo];
-                    [self.questions addObject:question];
+                    
+                    if ([question.votes containsObject:self.profile.uniqueId])
+                        [self.questions addObject:question];
                 }
                 
                 [self.resultsTable reloadData];
