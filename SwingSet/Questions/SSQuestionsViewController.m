@@ -13,6 +13,8 @@
 @property (strong, nonatomic) NSMutableArray *questions;
 @property (strong, nonatomic) SSQuestionPreview *topPreview;
 @property (strong, nonatomic) SSQuestionPreview *backPreview;
+@property (strong, nonatomic) SSTextField *commentField;
+@property (strong, nonatomic) UITableView *commentsTable;
 @property (nonatomic) int questionIndex;
 @property (nonatomic) CGFloat center;
 @end
@@ -52,6 +54,47 @@
     [self.topPreview addObserver:self forKeyPath:@"center" options:0 context:NULL];
     self.topPreview.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     [view addSubview:self.topPreview];
+    
+    
+    self.commentsTable = [[UITableView alloc] initWithFrame:self.topPreview.frame style:UITableViewStylePlain];
+    self.commentsTable.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.commentsTable.delegate = self;
+    self.commentsTable.dataSource = self;
+    self.commentsTable.layer.cornerRadius = 3.0f;
+    self.commentsTable.layer.borderWidth = 0.5f;
+    self.commentsTable.layer.borderColor = [[UIColor colorWithRed:0.44f green:0.44f blue:0.44f alpha:1] CGColor];
+    self.commentsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.commentsTable.separatorInset = UIEdgeInsetsZero;
+    self.commentsTable.alpha = 0.0;
+    self.commentsTable.showsVerticalScrollIndicator = NO;
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f)];
+    headerView.backgroundColor = [UIColor clearColor];
+    
+    UIButton *btnExitComments = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnExitComments.frame = CGRectMake(0, 0, 36, 36);
+    [btnExitComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btnExitComments setTitle:@"x" forState:UIControlStateNormal];
+    [btnExitComments addTarget:self action:@selector(exitComments) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:btnExitComments];
+    
+    self.commentField = [SSTextField textFieldWithFrame:CGRectMake(36.0f, 3, self.commentsTable.frame.size.width-39.0f, 30.0f) placeholder:@"your comment" keyboard:UIKeyboardTypeAlphabet];
+    self.commentField.returnKeyType = UIReturnKeyDone;
+    self.commentField.delegate = self;
+    [headerView addSubview:self.commentField];
+    
+    self.commentsTable.tableHeaderView = headerView;
+
+    
+    UIButton *btnLoadMore = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnLoadMore.frame = CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f);
+    [btnLoadMore setTitleColor:kGreenNext forState:UIControlStateNormal];
+    [btnLoadMore setTitle:@"Load More Comments" forState:UIControlStateNormal];
+    self.commentsTable.tableFooterView = btnLoadMore;
+    
+    
+    [view addSubview:self.commentsTable];
+    
     
     [view addObserver:self forKeyPath:@"userInteractionEnabled" options:0 context:NULL];
 
@@ -128,6 +171,8 @@
         [nextQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
         [nextQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:NULL];
     }
+    
+    [self.commentsTable reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -272,7 +317,91 @@
     }
 }
 
+#pragma mark - Tableview
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.currentQuestion.comments.count;
+}
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellID = @"ID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell==nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:16.0f];
+        cell.detailTextLabel.numberOfLines = 2;
+        cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.detailTextLabel.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
+        cell.detailTextLabel.textColor = kGreenNext;
+    }
+    
+    NSDictionary *comment = [self.currentQuestion.comments objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@\n\n", comment[@"text"]];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Posted by %@ | %@", comment[@"username"], comment[@"pubDate"]];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *comment = [self.currentQuestion.comments objectAtIndex:indexPath.row];
+    NSString *commentText = comment[@"text"];
+    
+    CGRect textRect = [commentText boundingRectWithSize:CGSizeMake(self.commentsTable.frame.size.width, 100.0f)
+                                         options:NSStringDrawingUsesLineFragmentOrigin
+                                      attributes:@{NSFontAttributeName:[UIFont fontWithName:@"ProximaNova-Regular" size:16.0f]}
+                                         context:nil];
+    
+    CGSize size = textRect.size;
+    NSLog(@"HEIGHT: %.2f", size.height);
+
+    CGFloat min = 64.0f;
+    return (size.height < min) ? min : size.height+70.0f;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.commentField.isFirstResponder)
+        [self.commentField resignFirstResponder];
+    
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    if (self.commentField.text.length>0){
+        //submit comment:
+        
+        NSDictionary *comment = @{@"author":self.profile.uniqueId, @"username":self.profile.name, @"text":self.commentField.text, @"question":self.currentQuestion.uniqueId};
+        
+        [self.loadingIndicator startLoading];
+        [[SSWebServices sharedInstance] postComment:comment completionBlock:^(id result, NSError *error){
+            [self.loadingIndicator stopLoading];
+            
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+            
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            if ([confirmation isEqualToString:@"success"]){
+                NSDictionary *updatedQuestion = results[@"question"];
+                [self.currentQuestion populate:updatedQuestion];
+                self.commentField.text = @"";
+                [self.commentsTable reloadData];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:results[@"message"]];
+            }
+        }];
+        
+    }
+    
+    return YES;
+}
 
 #pragma mark - SSQuestionPreviewDelegate
 - (void)optionSelected:(NSInteger)tag
@@ -389,12 +518,47 @@
                       duration:0.6f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        self.topPreview.alpha = 1.0;
+                        self.topPreview.alpha = 0.0;
+                    }
+                    completion:^(BOOL finisehd){
+                        
+                    }];
+    
+    [UIView transitionWithView:self.commentsTable
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        self.commentsTable.alpha = 1.0;
                     }
                     completion:^(BOOL finisehd){
                         
                     }];
 }
+
+- (void)exitComments
+{
+    [UIView transitionWithView:self.topPreview
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        self.topPreview.alpha = 1.0;
+                    }
+                    completion:^(BOOL finisehd){
+                        
+                    }];
+    
+    [UIView transitionWithView:self.commentsTable
+                      duration:0.6f
+                       options:UIViewAnimationOptionTransitionFlipFromLeft
+                    animations:^{
+                        self.commentsTable.alpha = 0.0;
+                    }
+                    completion:^(BOOL finisehd){
+                        
+                    }];
+}
+
+
 
 - (void)swipeToNextQuestion
 {

@@ -8,7 +8,7 @@
 
 #import "SSViewController.h"
 
-@interface SSQuestionsViewController : SSViewController
+@interface SSQuestionsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) SSQuestion *currentQuestion;
 @end
