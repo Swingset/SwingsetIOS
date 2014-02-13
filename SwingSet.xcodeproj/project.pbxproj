@@ -10,6 +10,7 @@
 		5C0E4CA318AD468A00E3EE44 /* SSResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */; };
 		5C0E4CA618AD4F9F00E3EE44 /* SSGroupResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */; };
 		5C0E4CA918AD763400E3EE44 /* SSResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA818AD763400E3EE44 /* SSResultCell.m */; };
+		5C0E4CAB18AD8F6800E3EE44 /* dropShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0E4CAA18AD8F6800E3EE44 /* dropShadow@2x.png */; };
 		5C122EC918AADCAE004BE838 /* SSSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */; };
 		5C1E0F0518A804540059F170 /* btnMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0418A804540059F170 /* btnMenu@2x.png */; };
 		5C1E0F0718A804A80059F170 /* navLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0618A804A80059F170 /* navLogo@2x.png */; };
@@ -174,6 +175,7 @@
 		5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGroupResultsViewController.m; sourceTree = "<group>"; };
 		5C0E4CA718AD763400E3EE44 /* SSResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSResultCell.h; sourceTree = "<group>"; };
 		5C0E4CA818AD763400E3EE44 /* SSResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSResultCell.m; sourceTree = "<group>"; };
+		5C0E4CAA18AD8F6800E3EE44 /* dropShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropShadow@2x.png"; sourceTree = "<group>"; };
 		5C122EC718AADCAD004BE838 /* SSSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSelectGroupViewController.h; sourceTree = "<group>"; };
 		5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSelectGroupViewController.m; sourceTree = "<group>"; };
 		5C1E0F0418A804540059F170 /* btnMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMenu@2x.png"; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 				5C35F297188E27B000BE0F1C /* icon58.png */,
 				5C4CEEC0188B54A4000B1BFD /* Default-568h@2x.png */,
 				5C4CEEC1188B54A4000B1BFD /* Default@2x.png */,
+				5C0E4CAA18AD8F6800E3EE44 /* dropShadow@2x.png */,
 				5C74FABF188CAAE90010FA58 /* bg_textfield.png */,
 				5CFAC6CB188B882300940A00 /* AskAQuestion.png */,
 				5CFAC6CC188B882300940A00 /* AskIcon.png */,
@@ -793,6 +796,7 @@
 				5CFAC72C188B882300940A00 /* Invitememberstoflock.png in Resources */,
 				5CFAC71B188B882300940A00 /* dashboard2.png in Resources */,
 				5CFAC768188B885400940A00 /* ProximaNova-Semibold.otf in Resources */,
+				5C0E4CAB18AD8F6800E3EE44 /* dropShadow@2x.png in Resources */,
 				5C1E0F0918A80E130059F170 /* nextarrow.png in Resources */,
 				5C4CEEC3188B54A4000B1BFD /* Default@2x.png in Resources */,
 				5CFAC76C188B885400940A00 /* ProximaNovaCond-Regular.otf in Resources */,
