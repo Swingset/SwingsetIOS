@@ -17,7 +17,6 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 @property (nonatomic) BOOL online;
 + (SSWebServices *)sharedInstance;
 - (void)confirmPIN:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
-- (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 // Images:
@@ -39,7 +38,8 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
 // Questions
 - (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
-
+- (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)fetchQuestionsInGroup:(NSString *)groupId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)postComment:(NSDictionary *)comment completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 @end
