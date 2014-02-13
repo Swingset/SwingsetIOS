@@ -242,7 +242,7 @@
         return;
     }
     
-    NSDictionary *group = @{@"name":self.groupNameField.text, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text};
+    NSMutableDictionary *group = [NSMutableDictionary dictionaryWithDictionary:@{@"name":self.groupNameField.text, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text}];
     
     [self.loadingIndicator startLoading];
 
@@ -261,6 +261,8 @@
             
             // go to invite members view controller.
             SSInviteMembersViewController *inviteVc = [[SSInviteMembersViewController alloc] init];
+            NSDictionary *groupInfo = [results objectForKey:@"group"];
+            inviteVc.group = groupInfo;
             [self.navigationController pushViewController:inviteVc animated:YES];
         }
         else{
