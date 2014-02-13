@@ -196,7 +196,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.sections.count+self.profile.groups.count;
     return self.sections.count+self.profile.groups.count;
 }
 
@@ -209,7 +208,6 @@
         cell = [[SSTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
-    // self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
     
     if (indexPath.row < 2){ // Home, Groups
         cell.textLabel.text = self.sections[indexPath.row];
@@ -275,8 +273,6 @@
 - (void)navigateToSection:(NSString *)section
 {
     NSLog(@"Navigate to Section: %@", section);
-    //    self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
-    
 
     if ([section isEqualToString:@"Home"])
         [self slideOut:self.homeVc];
@@ -300,40 +296,6 @@
         [self slideOut:self.createGroupVc];
     }
 
-
-    /*
-    if ([section isEqualToString:account]){
-        
-        [UIView animateWithDuration:0.25f
-                              delay:0.0f
-                            options:UIViewAnimationOptionCurveLinear
-                         animations:^{
-                             self.view.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
-                         }
-                         completion:^(BOOL finished){
-                             
-                             if (self.butterflyMgr.host.loggedIn){
-                                 HostViewController *hostVC = [[HostViewController alloc] initWithManager:self.butterflyMgr];
-                                 UINavigationController *acctNavCtr = [[UINavigationController alloc] initWithRootViewController:hostVC];
-                                 [hostVC release];
-                                 
-                                 acctNavCtr.navigationBar.tintColor = [UIColor orangeColor];
-                                 [self presentViewController:acctNavCtr animated:YES completion:NULL];
-                                 [acctNavCtr release];
-                             }
-                             else{
-                                 LoginViewController *login = [[LoginViewController alloc] initWithManager:self.butterflyMgr];
-                                 UINavigationController *loginNavCtr = [[UINavigationController alloc] initWithRootViewController:login];
-                                 loginNavCtr.navigationBar.tintColor = [UIColor orangeColor];
-                                 [login release];
-                                 
-                                 [self presentViewController:loginNavCtr animated:YES completion:NULL];
-                                 [loginNavCtr release];
-                             }
-                             
-                         }];
-    }*/
-    
 }
 
 
