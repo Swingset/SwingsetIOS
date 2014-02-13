@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C0E4CA318AD468A00E3EE44 /* SSResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */; };
 		5C0E4CA618AD4F9F00E3EE44 /* SSGroupResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */; };
+		5C0E4CA918AD763400E3EE44 /* SSResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA818AD763400E3EE44 /* SSResultCell.m */; };
 		5C122EC918AADCAE004BE838 /* SSSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */; };
 		5C1E0F0518A804540059F170 /* btnMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0418A804540059F170 /* btnMenu@2x.png */; };
 		5C1E0F0718A804A80059F170 /* navLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0618A804A80059F170 /* navLogo@2x.png */; };
@@ -171,6 +172,8 @@
 		5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSResultsViewController.m; sourceTree = "<group>"; };
 		5C0E4CA418AD4F9F00E3EE44 /* SSGroupResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroupResultsViewController.h; sourceTree = "<group>"; };
 		5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGroupResultsViewController.m; sourceTree = "<group>"; };
+		5C0E4CA718AD763400E3EE44 /* SSResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSResultCell.h; sourceTree = "<group>"; };
+		5C0E4CA818AD763400E3EE44 /* SSResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSResultCell.m; sourceTree = "<group>"; };
 		5C122EC718AADCAD004BE838 /* SSSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSelectGroupViewController.h; sourceTree = "<group>"; };
 		5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSelectGroupViewController.m; sourceTree = "<group>"; };
 		5C1E0F0418A804540059F170 /* btnMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMenu@2x.png"; sourceTree = "<group>"; };
@@ -394,6 +397,8 @@
 				5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */,
 				5C0E4CA418AD4F9F00E3EE44 /* SSGroupResultsViewController.h */,
 				5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */,
+				5C0E4CA718AD763400E3EE44 /* SSResultCell.h */,
+				5C0E4CA818AD763400E3EE44 /* SSResultCell.m */,
 			);
 			path = Results;
 			sourceTree = "<group>";
@@ -902,6 +907,7 @@
 				5CED8388189CE3E50020277D /* SSCreateGroupViewController.m in Sources */,
 				5C35FE6D188EF5CE00827D67 /* SSContainerViewController.m in Sources */,
 				5CFAC779188BAED900940A00 /* SSWebServices.m in Sources */,
+				5C0E4CA918AD763400E3EE44 /* SSResultCell.m in Sources */,
 				5C35FE81188EFFA300827D67 /* SSHomeViewController.m in Sources */,
 				5C3163AA189797D70048D4A8 /* SSQuestion.m in Sources */,
 				5CFAC776188B9E8400940A00 /* SSProfile.m in Sources */,
