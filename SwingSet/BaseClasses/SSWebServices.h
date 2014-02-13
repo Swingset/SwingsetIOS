@@ -40,4 +40,6 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 // Questions
 - (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
+- (void)postComment:(NSDictionary *)comment completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+
 @end
