@@ -10,7 +10,6 @@
 
 
 @interface SSQuestionsViewController ()
-@property (strong, nonatomic) NSMutableArray *questions;
 @property (strong, nonatomic) SSQuestionPreview *topPreview;
 @property (strong, nonatomic) SSQuestionPreview *backPreview;
 @property (strong, nonatomic) SSTextField *commentField;
@@ -22,6 +21,8 @@
 
 @implementation SSQuestionsViewController
 @synthesize currentQuestion = _currentQuestion;
+@synthesize group = _group;
+@synthesize questions = _questions;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,6 +102,21 @@
     self.view = view;
 }
 
+- (void)dealloc
+{
+    [self.view removeObserver:self forKeyPath:@"userInteractionEnabled"];
+    [self.topPreview removeObserver:self forKeyPath:@"center"];
+
+    for (SSQuestion *question in self.questions) {
+        if (question.isObserved){
+            question.isObserved = NO;
+            [question removeObserver:self forKeyPath:@"image"];
+            [question removeObserver:self forKeyPath:@"imagesCount"];
+        }
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -125,6 +141,25 @@
         return;
 
     
+    if (self.group){ // fetch group questions
+        [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group[@"id"] completionBlock:^(id result, NSError *error){
+            if (error){
+                [self showAlert:@"Error" withMessage:[error localizedDescription]];
+                return;
+            }
+            
+            NSDictionary *results = (NSDictionary *)result;
+            if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
+                [self processQuestions:results[@"questions"]];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
+            }
+        }];
+        
+        return;
+    }
+    
     [[SSWebServices sharedInstance] fetchPublicQuestions:^(id result, NSError *error){
         if (error){
             [self showAlert:@"Error" withMessage:[error localizedDescription]];
@@ -132,21 +167,8 @@
         }
         
         NSDictionary *results = (NSDictionary *)result;
-        NSLog(@"%@", [results description]);
-        
-        NSString *confirmation = [results objectForKey:@"confirmation"];
-        if ([confirmation isEqualToString:@"success"]==YES){
-            NSArray *questions = [results objectForKey:@"questions"];
-            for (int i=0; i<questions.count; i++){
-                NSDictionary *questionInfo = [questions objectAtIndex:i];
-                [self.questions addObject:[SSQuestion questionWithInfo:questionInfo]];
-            }
-            
-            // load first question:
-            SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
-            self.currentQuestion = question;
-            [self populatePreview:self.topPreview withQuestion:question];
-            [self loadNextQuestion];
+        if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
+            [self processQuestions:results[@"questions"]];
         }
         else{
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
@@ -154,22 +176,50 @@
     }];
 }
 
+
+- (void)processQuestions:(NSArray *)questions
+{
+    if (questions.count==0){
+        [self.loadingIndicator startLoading];
+        return;
+    }
+
+    for (int i=0; i<questions.count; i++){
+        NSDictionary *questionInfo = [questions objectAtIndex:i];
+        [self.questions addObject:[SSQuestion questionWithInfo:questionInfo]];
+    }
+    
+    // load first question:
+    SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
+    self.currentQuestion = question;
+    [self populatePreview:self.topPreview withQuestion:question];
+    [self loadNextQuestion];
+}
+
+
 - (void)setCurrentQuestion:(SSQuestion *)currentQuestion
 {
     if (_currentQuestion){
+        _currentQuestion.isObserved = NO;
         [_currentQuestion removeObserver:self forKeyPath:@"image"];
         [_currentQuestion removeObserver:self forKeyPath:@"imagesCount"];
     }
     
     _currentQuestion = currentQuestion;
-    [_currentQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
-    [_currentQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:NULL];
+    if (_currentQuestion.isObserved==NO){
+        [_currentQuestion addObserver:self forKeyPath:@"image" options:0 context:nil];
+        [_currentQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:nil];
+        _currentQuestion.isObserved = YES;
+    }
     
     int nextIndex = self.questionIndex+1;
     if (nextIndex < self.questions.count){
         SSQuestion *nextQuestion = [self.questions objectAtIndex:nextIndex];
-        [nextQuestion addObserver:self forKeyPath:@"image" options:0 context:NULL];
-        [nextQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:NULL];
+        if (nextQuestion.isObserved==NO){
+            [nextQuestion addObserver:self forKeyPath:@"image" options:0 context:nil];
+            [nextQuestion addObserver:self forKeyPath:@"imagesCount" options:0 context:nil];
+            nextQuestion.isObserved = YES;
+        }
     }
     
     [self.commentsTable reloadData];
