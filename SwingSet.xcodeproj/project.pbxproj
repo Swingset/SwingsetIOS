@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0E4CA318AD468A00E3EE44 /* SSResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */; };
+		5C0E4CA618AD4F9F00E3EE44 /* SSGroupResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */; };
 		5C122EC918AADCAE004BE838 /* SSSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */; };
 		5C1E0F0518A804540059F170 /* btnMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0418A804540059F170 /* btnMenu@2x.png */; };
 		5C1E0F0718A804A80059F170 /* navLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E0F0618A804A80059F170 /* navLogo@2x.png */; };
@@ -165,6 +167,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C0E4CA118AD468A00E3EE44 /* SSResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSResultsViewController.h; sourceTree = "<group>"; };
+		5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSResultsViewController.m; sourceTree = "<group>"; };
+		5C0E4CA418AD4F9F00E3EE44 /* SSGroupResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroupResultsViewController.h; sourceTree = "<group>"; };
+		5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGroupResultsViewController.m; sourceTree = "<group>"; };
 		5C122EC718AADCAD004BE838 /* SSSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSelectGroupViewController.h; sourceTree = "<group>"; };
 		5C122EC818AADCAE004BE838 /* SSSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSelectGroupViewController.m; sourceTree = "<group>"; };
 		5C1E0F0418A804540059F170 /* btnMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnMenu@2x.png"; sourceTree = "<group>"; };
@@ -381,6 +387,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C0E4CA018AD462500E3EE44 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				5C0E4CA118AD468A00E3EE44 /* SSResultsViewController.h */,
+				5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */,
+				5C0E4CA418AD4F9F00E3EE44 /* SSGroupResultsViewController.h */,
+				5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
 		5C3259601895A2B10048B588 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +478,7 @@
 				5CFAC770188B939200940A00 /* BaseClasses */,
 				5C3259601895A2B10048B588 /* Questions */,
 				5CB4C1E3188F77E50059B332 /* Groups */,
+				5C0E4CA018AD462500E3EE44 /* Results */,
 				5C35FE78188EF86F00827D67 /* Register */,
 				5C4CEE80188B5289000B1BFD /* ThirdParty */,
 				5C4CEE5F188B485F000B1BFD /* Images.xcassets */,
@@ -899,7 +917,9 @@
 				5C3259661895A37B0048B588 /* SSQuestionPreview.m in Sources */,
 				5C4CEEB9188B52CD000B1BFD /* AFXMLRequestOperation.m in Sources */,
 				5C3259631895A2F50048B588 /* SSQuestionsViewController.m in Sources */,
+				5C0E4CA318AD468A00E3EE44 /* SSResultsViewController.m in Sources */,
 				5C4CEEB5188B52CD000B1BFD /* AFJSONRequestOperation.m in Sources */,
+				5C0E4CA618AD4F9F00E3EE44 /* SSGroupResultsViewController.m in Sources */,
 				5C122EC918AADCAE004BE838 /* SSSelectGroupViewController.m in Sources */,
 				5CCC241318AC11D5005B16F9 /* SSOptionIcon.m in Sources */,
 				5C7D2688188F3BA60032EF28 /* SSQuestionView.m in Sources */,
