@@ -260,8 +260,12 @@
 {
     NSLog(@"NAVIGATE TO GROUP: %@", group[@"displayName"]);
 
-    if (!self.groupQuestionsVc)
-        self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
+//    if (!self.groupQuestionsVc)
+//        self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
+    
+    self.currentVC = nil;
+    self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
+    self.groupQuestionsVc.group = group;
     [self slideOut:self.groupQuestionsVc];
 }
 
