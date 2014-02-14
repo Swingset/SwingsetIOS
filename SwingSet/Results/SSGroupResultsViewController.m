@@ -134,6 +134,43 @@
         cell.iconBase.alpha = 0.0f;
     }
     
+    for (int i=0; i<4; i++) {
+        SSOptionView *optionView = cell.optionViews[i];
+        SSOptionIcon *optionIcon = cell.optionsImageViews[i];
+        if ([question.answerType isEqualToString:@"text"]) {
+            optionIcon.alpha = 0.0f;
+            if (i < question.options.count){
+                NSDictionary *option = question.options[i];
+                optionView.alpha = 1.0f;
+                optionView.lblText.text = option[@"text"];
+                
+                [optionView showPercentage:[option[@"percentage"] doubleValue] animated:NO];
+            }
+            else{
+                optionView.alpha = 0.0f;
+            }
+        }
+        else{
+            optionView.alpha = 0.0f;
+            if (i < question.options.count){
+                NSDictionary *option = question.options[i];
+                optionIcon.alpha = 1.0f;
+                UIImage *imageData = option[@"imageData"];
+                if (imageData){
+                    optionIcon.image = imageData;
+                    [optionIcon showPercentage:[option[@"percentage"] doubleValue] animated:NO];
+                }
+                else{
+                    optionIcon.alpha = 0.0f;
+                }
+            }
+            else{
+                optionIcon.alpha = 0.0f;
+            }
+            
+        }
+    }
+    
     return cell;
 }
 
