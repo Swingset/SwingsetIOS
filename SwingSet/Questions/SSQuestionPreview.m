@@ -43,13 +43,7 @@ CGFloat randomRGB(){
 {
     self = [super initWithFrame:frame];
     if (self) {
-        CGFloat rgbMax = 255.0f;
-        UIColor *purple = [UIColor colorWithRed:108.0f/rgbMax green:73.0f/rgbMax blue:142.0f/rgbMax alpha:1.0f];
-        UIColor *red = [UIColor colorWithRed:249.0f/rgbMax green:48.0f/rgbMax blue:19.0f/rgbMax alpha:1.0f];
-        UIColor *orange = [UIColor colorWithRed:255.0f/rgbMax green:133.0f/rgbMax blue:20.0f/rgbMax alpha:1.0f];
-        UIColor *green = [UIColor colorWithRed:0.0f/rgbMax green:108.0f/rgbMax blue:128.0f/rgbMax alpha:1.0f];
-        
-        self.colors = @[purple, red, orange, green];
+        self.colors = @[kPurple, kRed, kOrange, kGreen];
         self.optionsViews = [NSMutableArray array];
         self.optionsImageViews = [NSMutableArray array];
         self.malePercentViews = [NSMutableArray array];
@@ -85,6 +79,7 @@ CGFloat randomRGB(){
         infoBar.backgroundColor = self.lblText.backgroundColor;
         [self addSubview:infoBar];
         
+        CGFloat rgbMax = 255.0f;
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, w, 20.0f)];
         self.lblDate.backgroundColor = [UIColor colorWithRed:0.0f/rgbMax green:0.0f/rgbMax blue:0.0f/rgbMax alpha:0.10f];
         self.lblDate.text = @"   Jan 26";
