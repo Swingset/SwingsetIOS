@@ -23,4 +23,11 @@
 #define kDarkGrayButton [UIColor colorWithRed:56.0f/255.0f green:62.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
 #define kGrayBorder [UIColor colorWithRed:221.0f/255.0f green:222.0f/255.0f blue:223.0f/255.0f alpha:1.0f]
 
+#define kRGBMax 255.0f
+#define kPurple [UIColor colorWithRed:108.0f/kRGBMax green:73.0f/kRGBMax blue:142.0f/kRGBMax alpha:1.0f]
+#define kRed [UIColor colorWithRed:249.0f/kRGBMax green:48.0f/kRGBMax blue:19.0f/kRGBMax alpha:1.0f]
+#define kOrange [UIColor colorWithRed:255.0f/kRGBMax green:133.0f/kRGBMax blue:20.0f/kRGBMax alpha:1.0f]
+#define kGreen [UIColor colorWithRed:0.0f/kRGBMax green:108.0f/kRGBMax blue:128.0f/kRGBMax alpha:1.0f]
+
+
 #endif
