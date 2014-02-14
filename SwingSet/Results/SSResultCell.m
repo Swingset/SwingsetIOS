@@ -10,6 +10,7 @@
 #import "Config.h"
 #import "UIColor+SSColor.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SSOptionView.h"
 
 @interface SSResultCell ()
 
@@ -20,10 +21,12 @@
 @synthesize lblText;
 @synthesize lblDetails;
 @synthesize iconBase;
+@synthesize optionViews;
+@synthesize optionsImageViews;
 
 + (CGFloat)standardHeight
 {
-    static CGFloat h = 280.0f;
+    static CGFloat h = 340.0f;
     return h;
 }
 
@@ -32,6 +35,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.optionViews = [NSMutableArray array];
+        self.optionsImageViews = [NSMutableArray array];
         CGRect frame = [UIScreen mainScreen].applicationFrame;
         
         
@@ -76,6 +81,51 @@
         self.lblDetails.textColor = [UIColor blackColor];
         [base addSubview:self.lblDetails];
         
+        y = top.frame.origin.y+top.frame.size.height+10.0f;
+        
+        NSArray *colors = @[kPurple, kRed, kOrange, kGreen];
+        for (int i=0; i<4; i++) {
+            SSOptionView *optionView = [SSOptionView optionViewWithFrame:CGRectMake(10.0f, y, base.frame.size.width-20.0f, 36.0f)];
+            optionView.userInteractionEnabled = NO;
+            optionView.barColor = colors[i];
+            [base addSubview:optionView];
+            [self.optionViews addObject:optionView];
+            y += optionView.frame.size.height+10.0f;
+        }
+        
+        
+        static CGFloat iconDimen = 82.0f;
+        static CGFloat indent = 57.0f;
+        for (int i=0; i<4; i++) {
+            CGFloat originY = top.frame.origin.y+top.frame.size.height+10.0f;
+            CGRect iconFrame;
+            if (i==0)
+                iconFrame = CGRectMake(indent, originY, iconDimen, iconDimen);
+            
+            if (i==1)
+                iconFrame = CGRectMake(base.frame.size.width-iconDimen-indent, originY, iconDimen, iconDimen);
+            
+            if (i==2)
+                iconFrame = CGRectMake(indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+            
+            if (i==3)
+                iconFrame = CGRectMake(base.frame.size.width-iconDimen-indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+            
+            
+            SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
+            optionIcon.userInteractionEnabled = YES;
+            optionIcon.backgroundColor = [UIColor redColor];
+            [base addSubview:optionIcon];
+            [self.optionsImageViews addObject:optionIcon];
+        }
+        
+        
+        
+
+        
+        
+
+        
         [self.contentView addSubview:base];
         
         CGFloat x = frame.size.width-dimen-12.0f;
@@ -91,6 +141,8 @@
         self.icon.layer.borderColor = [[UIColor whiteColor] CGColor];
         self.icon.layer.borderWidth = 3.0f;
         [self.contentView addSubview:self.icon];
+        
+        
 
 
     }
