@@ -134,10 +134,11 @@
         cell.iconBase.alpha = 0.0f;
     }
     
-    for (int i=0; i<4; i++) {
-        SSOptionView *optionView = cell.optionViews[i];
-        SSOptionIcon *optionIcon = cell.optionsImageViews[i];
-        if ([question.answerType isEqualToString:@"text"]) {
+    // Text Answers
+    if ([question.answerType isEqualToString:@"text"]) {
+        for (int i=0; i<4; i++) {
+            SSOptionView *optionView = cell.optionViews[i];
+            SSOptionIcon *optionIcon = cell.optionsImageViews[i];
             optionIcon.alpha = 0.0f;
             if (i < question.options.count){
                 NSDictionary *option = question.options[i];
@@ -150,26 +151,32 @@
                 optionView.alpha = 0.0f;
             }
         }
-        else{
-            optionView.alpha = 0.0f;
-            if (i < question.options.count){
-                NSDictionary *option = question.options[i];
-                optionIcon.alpha = 1.0f;
-                UIImage *imageData = option[@"imageData"];
-                if (imageData){
-                    optionIcon.image = imageData;
-                    [optionIcon showPercentage:[option[@"percentage"] doubleValue] animated:NO];
-                }
-                else{
-                    optionIcon.alpha = 0.0f;
-                }
+        return cell;
+    }
+    
+    // Image Answers
+    for (int i=0; i<4; i++) {
+        SSOptionView *optionView = cell.optionViews[i];
+        SSOptionIcon *optionIcon = cell.optionsImageViews[i];
+        optionView.alpha = 0.0f;
+        if (i < question.options.count){
+            NSDictionary *option = question.options[i];
+            optionIcon.alpha = 1.0f;
+            UIImage *imageData = option[@"imageData"];
+            if (imageData){
+                optionIcon.image = imageData;
+                [optionIcon showPercentage:[option[@"percentage"] doubleValue] animated:NO];
             }
             else{
                 optionIcon.alpha = 0.0f;
             }
-            
         }
+        else{
+            optionIcon.alpha = 0.0f;
+        }
+        
     }
+    
     
     return cell;
 }
@@ -177,17 +184,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [SSResultCell standardHeight];
-    
-//    SSQuestion *question = self.questions[indexPath.row];
-//    CGRect textRect = [question.text boundingRectWithSize:CGSizeMake(self.resultsTable.frame.size.width, 100.0f)
-//                                                options:NSStringDrawingUsesLineFragmentOrigin
-//                                             attributes:@{NSFontAttributeName:[UIFont fontWithName:@"ProximaNova-Black" size:14.0]}
-//                                                context:nil];
-//    
-//
-//    CGSize size = textRect.size;
-//    CGFloat min = 220.0f;
-//    return (size.height < min) ? min : size.height+10.0f;
 }
 
 
