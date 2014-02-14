@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UILabel *lblDetails;
 @property (strong, nonatomic) NSMutableArray *optionViews;
 @property (strong, nonatomic) NSMutableArray *optionsImageViews;
-
+@property (strong, nonatomic) UIButton *btnComments;
+@property (strong, nonatomic) UIButton *btnDelete;
 + (CGFloat)standardHeight;
 @end

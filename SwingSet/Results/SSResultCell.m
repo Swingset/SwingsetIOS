@@ -23,6 +23,8 @@
 @synthesize iconBase;
 @synthesize optionViews;
 @synthesize optionsImageViews;
+@synthesize btnComments;
+@synthesize btnDelete;
 
 + (CGFloat)standardHeight
 {
@@ -121,9 +123,54 @@
         
         
         
+        UIImage *imgComments = [UIImage imageNamed:@"CommentsButton.png"];
+        double scale = 0.4f;
+        CGFloat h = scale*imgComments.size.height;
+        
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, base.frame.size.height-h-10.0f-0.5f, base.frame.size.width, 1.0f)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [base addSubview:line];
+        
+        self.btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.btnComments.backgroundColor = [UIColor whiteColor];
+        self.btnComments.frame = CGRectMake(0.0f, base.frame.size.height-h-10.0f, 0.5f*base.frame.size.width, 34.0f);
+        [self.btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
+        self.btnComments.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.btnComments setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.btnComments.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+//        [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        UIImageView *imgComment = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"commentbubble.png"]];
+        scale = 34.0f/imgComment.frame.size.height;
+        
+        imgComment.frame = CGRectMake(0, -0.5f, scale*imgComment.frame.size.width, 35.0f);
+        [self.btnComments addSubview:imgComment];
+        [base addSubview:self.btnComments];
 
         
+        self.btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.btnDelete.frame = CGRectMake(0.5f*base.frame.size.width, base.frame.size.height-h-10.0f, 0.5f*base.frame.size.width, 34.0f);
+        self.btnDelete.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:26.0f];
+        [self.btnDelete setBackgroundColor:kRed];
+        [self.btnDelete setTitle:@"DELETE" forState:UIControlStateNormal];
+        [self.btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [self.btnSkip addTarget:self action:@selector(btnSkipAction:) forControlEvents:UIControlEventTouchUpInside];
         
+//        UIImageView *nextArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nextarrow.png"]];
+//        h = self.btnSkip.frame.size.height-8.0f;
+//        scale = h/nextArrow.frame.size.height;
+//        CGRect f = nextArrow.frame;
+//        f.size.height = h;
+//        f.origin.y = 4.0f;
+//        f.size.width *= scale;
+//        f.origin.x = self.btnSkip.frame.size.width-f.size.width-3.0f;
+//        nextArrow.frame = f;
+//        [self.btnSkip addSubview:nextArrow];
+        
+        
+        [base addSubview:self.btnDelete];
+
 
         
         [self.contentView addSubview:base];
