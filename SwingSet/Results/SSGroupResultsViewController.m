@@ -122,7 +122,7 @@
     
     SSQuestion *question = self.questions[indexPath.row];
     cell.lblText.text = question.text;
-    cell.lblDetails.text = [NSString stringWithFormat:@"%lu votes", question.votes.count];
+    cell.lblDetails.text = [NSString stringWithFormat:@"%d votes", (int)question.votes.count];
     
     if (question.image){
         cell.icon.image = question.image;
