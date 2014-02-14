@@ -20,4 +20,5 @@
 @property (nonatomic, strong) UILabel *lblPercentage;
 @property (assign) id parent;
 - (void)showPercentage:(double)pct;
+- (void)showPercentage:(double)pct animated:(BOOL)animate;
 @end

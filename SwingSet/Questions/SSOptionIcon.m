@@ -62,8 +62,20 @@
 {
     NSLog(@"OPTION ICON: SHOW PERCENTAGE");
     
+    [self showPercentage:pct animated:YES];
+    
+}
+
+- (void)showPercentage:(double)pct animated:(BOOL)animate
+{
+    
     self.userInteractionEnabled = NO;
     self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
+    
+    if (!animate){
+        self.badge.alpha = 1.0f;
+        return;
+    }
     
     [UIView transitionWithView:self.badge
                       duration:0.35f
@@ -72,6 +84,7 @@
                         self.badge.alpha = 1.0f;
                     }
                     completion:NULL];
+    
 }
 
 
