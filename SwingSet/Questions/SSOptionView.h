@@ -24,4 +24,5 @@
 @property (assign) id parent;
 + (SSOptionView *)optionViewWithFrame:(CGRect)frame;
 - (void)showPercentage:(double)pct;
+- (void)showPercentage:(double)pct animated:(BOOL)animate;
 @end

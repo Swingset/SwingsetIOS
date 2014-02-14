@@ -114,10 +114,23 @@
 - (void)showPercentage:(double)pct
 {
     NSLog(@"SHOW PERCENTAGE");
+    [self showPercentage:pct animated:YES];
     
+}
+
+- (void)showPercentage:(double)pct animated:(BOOL)animate
+{
     self.userInteractionEnabled = NO;
     self.lblPercentage.text = [NSString stringWithFormat:@"%.1f", (100*pct)];
-//    double duration = 0.65f;
+    
+    if (!animate){
+        CGRect frame = self.percentBar.frame;
+        frame.size.width = pct*self.bounds.size.width;
+        self.percentBar.frame = frame;
+        self.badge.alpha = 1.0f;
+        return;
+    }
+    
     double duration = 0.25f;
     [UIView animateWithDuration:duration
                           delay:0.0f
