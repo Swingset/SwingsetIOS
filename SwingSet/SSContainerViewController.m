@@ -32,6 +32,13 @@
 @property (strong, nonatomic) SSResultsViewController *resultsVc;
 @property (strong, nonatomic) SSViewController *currentVC;
 @property (nonatomic) CGFloat span;
+
+@property (strong, nonatomic) UIImageView *frontPageImage;
+@property (strong, nonatomic) UIImageView *groupsImage;
+@property (strong, nonatomic) UIImageView *createANewGroupImage;
+@property (strong, nonatomic) UIImageView *resultsImage;
+@property (strong, nonatomic) UIImageView *askQuestionImage;
+@property (strong, nonatomic) NSArray *icons;
 @end
 
 @implementation SSContainerViewController
@@ -42,7 +49,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.sections = @[@"Home", @"Groups", @"Create A New Group", @"Results"];
+        self.sections = @[@"Front Page", @"Groups", @"Create A New Group", @"Results"];
+        self.icons = @[@"Front Pageicon.png", @"GroupsIcon.png", @"plusicon.png", @"Resultsicon.png"];
         self.span = 416.0f-160.0f;
     }
     return self;
@@ -54,7 +62,7 @@
     CGRect frame = view.frame;
     
     view.backgroundColor = [UIColor blackColor];
-
+    
     
     self.baseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     self.baseView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
@@ -76,7 +84,7 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0.0f, self.sectionsTable.frame.size.width, 44.0f)];
     footerView.backgroundColor = [UIColor clearColor];
     self.sectionsTable.tableFooterView = footerView;
-
+    
     
     [self.baseView addSubview:self.sectionsTable];
     
@@ -90,7 +98,7 @@
     btnAskQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [questionView addSubview:btnAskQuestion];
     [self.baseView addSubview:questionView];
-
+    
     
     self.homeVc = [[SSQuestionsViewController alloc] init];
     self.currentVC = self.homeVc;
@@ -98,8 +106,8 @@
     self.navCtr.view.frame = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
     self.navCtr.container = self;
     [self.navCtr.view addObserver:self forKeyPath:@"center" options:0 context:NULL];
-
-
+    
+    
     [self addChildViewController:self.navCtr];
     [self.navCtr willMoveToParentViewController:self];
     [view addSubview:self.navCtr.view];
@@ -149,7 +157,7 @@
     [self presentViewController:registerNavController
                        animated:NO
                      completion:NULL];
-
+    
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -167,10 +175,10 @@
         if (pct > 1.0f)
             pct = 1.0f;
         
-//        NSLog(@"PERCENT: %.2f", pct);
+        //        NSLog(@"PERCENT: %.2f", pct);
         self.baseView.transform = CGAffineTransformMakeScale(pct, pct);
     }
-
+    
     
     
     if ([object isEqual:self.profile]==NO)
@@ -219,6 +227,9 @@
     if (i < self.profile.groups.count){
         NSDictionary *group = self.profile.groups[i];
         cell.textLabel.text = group[@"displayName"];
+        cell.indentationLevel = 3.0f;
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.backgroundColor = [UIColor redColor];
         return cell;
     }
     
@@ -259,9 +270,9 @@
 - (void)navigateToGroup:(NSDictionary *)group
 {
     NSLog(@"NAVIGATE TO GROUP: %@", group[@"displayName"]);
-
-//    if (!self.groupQuestionsVc)
-//        self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
+    
+    //    if (!self.groupQuestionsVc)
+    //        self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
     
     self.currentVC = nil;
     self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
@@ -273,8 +284,8 @@
 - (void)navigateToSection:(NSString *)section
 {
     NSLog(@"Navigate to Section: %@", section);
-
-    if ([section isEqualToString:@"Home"])
+    
+    if ([section isEqualToString:@"Front Page"])
         [self slideOut:self.homeVc];
     
     if ([section isEqualToString:@"Groups"]){
@@ -288,14 +299,14 @@
             self.resultsVc = [[SSResultsViewController alloc] init];
         [self slideOut:self.resultsVc];
     }
-
+    
     
     if ([section isEqualToString:@"Create A New Group"]){
         if (!self.createGroupVc)
             self.createGroupVc = [[SSCreateGroupViewController alloc] init];
         [self slideOut:self.createGroupVc];
     }
-
+    
 }
 
 
@@ -324,8 +335,8 @@
                              [self.navCtr pushViewController:destinationVc animated:NO];
                          
                          [self.navCtr performSelector:@selector(slideIn)
-                                    withObject:nil
-                                    afterDelay:0.07f];
+                                           withObject:nil
+                                           afterDelay:0.07f];
                      }];
 }
 
@@ -340,7 +351,7 @@
                      completion:^(BOOL finisehd){
                          
                      }];
-
+    
 }
 
 
