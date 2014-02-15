@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0578CF18AFDC420054CF6D /* checkedbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0578CD18AFDC420054CF6D /* checkedbox@2x.png */; };
+		5C0578D018AFDC420054CF6D /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0578CE18AFDC420054CF6D /* unchecked@2x.png */; };
 		5C0E4CA318AD468A00E3EE44 /* SSResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */; };
 		5C0E4CA618AD4F9F00E3EE44 /* SSGroupResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */; };
 		5C0E4CA918AD763400E3EE44 /* SSResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0E4CA818AD763400E3EE44 /* SSResultCell.m */; };
@@ -239,6 +241,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C0578CD18AFDC420054CF6D /* checkedbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkedbox@2x.png"; sourceTree = "<group>"; };
+		5C0578CE18AFDC420054CF6D /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
 		5C0E4CA118AD468A00E3EE44 /* SSResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSResultsViewController.h; sourceTree = "<group>"; };
 		5C0E4CA218AD468A00E3EE44 /* SSResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSResultsViewController.m; sourceTree = "<group>"; };
 		5C0E4CA418AD4F9F00E3EE44 /* SSGroupResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroupResultsViewController.h; sourceTree = "<group>"; };
@@ -828,6 +832,8 @@
 				5CFAC6D3188B882300940A00 /* camera@2x.png */,
 				5CFAC6D4188B882300940A00 /* chat.png */,
 				5CFAC6D5188B882300940A00 /* chat@2x.png */,
+				5C0578CD18AFDC420054CF6D /* checkedbox@2x.png */,
+				5C0578CE18AFDC420054CF6D /* unchecked@2x.png */,
 				5CFAC6D6188B882300940A00 /* ChooseImage.png */,
 				5CFAC6D7188B882300940A00 /* CommentsButton.png */,
 				5CFAC6D8188B882300940A00 /* CommentsIcon.png */,
@@ -1437,9 +1443,11 @@
 				5CFAC746188B882300940A00 /* SwingsetJournal.png in Resources */,
 				5CFAC76F188B885400940A00 /* ProximaNovaCond-SemiboldIt.otf in Resources */,
 				5CFAC735188B882300940A00 /* next@2x.png in Resources */,
+				5C0578CF18AFDC420054CF6D /* checkedbox@2x.png in Resources */,
 				5CFAC760188B885400940A00 /* ProximaNova-BoldIt.otf in Resources */,
 				5CFAC71F188B882300940A00 /* hamburger@2x.png in Resources */,
 				5CF8516718AF013D006ACFDA /* UAPushSettingsUserInfoView.xib in Resources */,
+				5C0578D018AFDC420054CF6D /* unchecked@2x.png in Resources */,
 				5CFAC712188B882300940A00 /* camera.png in Resources */,
 				5CFAC718188B882300940A00 /* CommentsIcon.png in Resources */,
 				5CF8516218AF013D006ACFDA /* UAPushSettingsAddTagViewController.xib in Resources */,
