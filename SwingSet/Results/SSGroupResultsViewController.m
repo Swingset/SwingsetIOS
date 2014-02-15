@@ -131,6 +131,7 @@
     cell.tag = indexPath.row;
     cell.lblText.text = question.text;
     cell.lblDetails.text = [NSString stringWithFormat:@"%d votes", (int)question.votes.count];
+    [cell.btnComments setTitle:[NSString stringWithFormat:@"%d comments", (int)question.comments.count] forState:UIControlStateNormal];
     
     if (question.image){
         cell.icon.image = question.image;
