@@ -104,11 +104,12 @@
     [view addSubview:self.nameField];
     y += self.nameField.frame.size.height+padding;
     
-    UILabel *lblGender = [[UILabel alloc] initWithFrame:CGRectMake(self.nameField.frame.origin.x, y, 80.0f, h)];
-    lblGender.font = kBaseFont;
-    lblGender.text = @"Gender";
-    lblGender.textColor = [UIColor blackColor];
-    [view addSubview:lblGender];
+    UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(self.nameField.frame.origin.x, y, 40.0f, h)];
+    lblMale.font = kBaseFont;
+    lblMale.text = @"Male";
+    lblMale.backgroundColor = [UIColor greenColor];
+    lblMale.textColor = [UIColor blackColor];
+    [view addSubview:lblMale];
     
     CGFloat dimen = 44.0f;
     UIButton *btnMale = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -117,8 +118,18 @@
     [btnMale setBackgroundColor:[UIColor yellowColor]];
     [btnMale setTitle:@"M" forState:UIControlStateNormal];
     btnMale.frame = CGRectMake(0, y, dimen, dimen);
-    btnMale.center = CGPointMake(0.6f*frame.size.width, btnMale.center.y);
+    btnMale.center = CGPointMake(self.nameField.frame.origin.x+60.0f, btnMale.center.y);
     [view addSubview:btnMale];
+
+    
+    
+    
+    UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(0.5f*frame.size.width, y, 60.0f, h)];
+    lblFemale.font = kBaseFont;
+    lblFemale.text = @"Female";
+    lblFemale.backgroundColor = [UIColor greenColor];
+    lblFemale.textColor = [UIColor blackColor];
+    [view addSubview:lblFemale];
 
     UIButton *btnFemale = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnFemale addTarget:self action:@selector(btnGenderAction:) forControlEvents:UIControlEventTouchUpInside];
