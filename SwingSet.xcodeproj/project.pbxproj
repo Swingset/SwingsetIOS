@@ -71,6 +71,7 @@
 		5CB4C1E6188F78030059B332 /* SSGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB4C1E5188F78030059B332 /* SSGroupsViewController.m */; };
 		5CCC241318AC11D5005B16F9 /* SSOptionIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCC241218AC11D5005B16F9 /* SSOptionIcon.m */; };
 		5CD4C63618A4BC480033A5AB /* SSCreateQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CD4C63518A4BC480033A5AB /* SSCreateQuestionViewController.m */; };
+		5CE36FE618AEDD5A00206E24 /* SSCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE36FE518AEDD5A00206E24 /* SSCommentsViewController.m */; };
 		5CED8388189CE3E50020277D /* SSCreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CED8387189CE3E50020277D /* SSCreateGroupViewController.m */; };
 		5CFAC70B188B882300940A00 /* AskAQuestion.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CFAC6CB188B882300940A00 /* AskAQuestion.png */; };
 		5CFAC70C188B882300940A00 /* AskIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CFAC6CC188B882300940A00 /* AskIcon.png */; };
@@ -272,6 +273,8 @@
 		5CCC241218AC11D5005B16F9 /* SSOptionIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOptionIcon.m; sourceTree = "<group>"; };
 		5CD4C63418A4BC480033A5AB /* SSCreateQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCreateQuestionViewController.h; sourceTree = "<group>"; };
 		5CD4C63518A4BC480033A5AB /* SSCreateQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCreateQuestionViewController.m; sourceTree = "<group>"; };
+		5CE36FE418AEDD5A00206E24 /* SSCommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCommentsViewController.h; sourceTree = "<group>"; };
+		5CE36FE518AEDD5A00206E24 /* SSCommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCommentsViewController.m; sourceTree = "<group>"; };
 		5CED8386189CE3E50020277D /* SSCreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCreateGroupViewController.h; sourceTree = "<group>"; };
 		5CED8387189CE3E50020277D /* SSCreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCreateGroupViewController.m; sourceTree = "<group>"; };
 		5CFAC6CB188B882300940A00 /* AskAQuestion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AskAQuestion.png; sourceTree = "<group>"; };
@@ -401,6 +404,8 @@
 				5C0E4CA518AD4F9F00E3EE44 /* SSGroupResultsViewController.m */,
 				5C0E4CA718AD763400E3EE44 /* SSResultCell.h */,
 				5C0E4CA818AD763400E3EE44 /* SSResultCell.m */,
+				5CE36FE418AEDD5A00206E24 /* SSCommentsViewController.h */,
+				5CE36FE518AEDD5A00206E24 /* SSCommentsViewController.m */,
 			);
 			path = Results;
 			sourceTree = "<group>";
@@ -910,6 +915,7 @@
 				5C4CEE5E188B485F000B1BFD /* SSAppDelegate.m in Sources */,
 				5CED8388189CE3E50020277D /* SSCreateGroupViewController.m in Sources */,
 				5C35FE6D188EF5CE00827D67 /* SSContainerViewController.m in Sources */,
+				5CE36FE618AEDD5A00206E24 /* SSCommentsViewController.m in Sources */,
 				5CFAC779188BAED900940A00 /* SSWebServices.m in Sources */,
 				5C0E4CA918AD763400E3EE44 /* SSResultCell.m in Sources */,
 				5C35FE81188EFFA300827D67 /* SSHomeViewController.m in Sources */,
