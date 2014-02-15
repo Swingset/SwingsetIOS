@@ -8,6 +8,7 @@
 
 #import "SSGroupResultsViewController.h"
 #import "SSResultCell.h"
+#import "SSCommentsViewController.h"
 
 
 @interface SSGroupResultsViewController ()
@@ -73,6 +74,9 @@
 {
     [super viewDidAppear:animated];
     
+    if (self.questions.count > 0)
+        return;
+    
     [self.loadingIndicator startLoading];
     [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group[@"id"] completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
@@ -118,9 +122,11 @@
     SSResultCell *cell = (SSResultCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell==nil){
         cell = [[SSResultCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+        cell.delegate = self;
     }
     
     SSQuestion *question = self.questions[indexPath.row];
+    cell.tag = indexPath.row;
     cell.lblText.text = question.text;
     cell.lblDetails.text = [NSString stringWithFormat:@"%d votes", (int)question.votes.count];
     
@@ -185,6 +191,27 @@
 {
     return [SSResultCell standardHeight];
 }
+
+- (void)deleteQuestion:(int)index
+{
+    SSQuestion *question = self.questions[index];
+    NSLog(@"DELETE QUESTION: %@", question.text);
+
+    
+}
+
+- (void)viewComments:(int)index
+{
+    SSQuestion *question = self.questions[index];
+    NSLog(@"VIEW COMMENTS: %@", question.text);
+
+    
+    SSCommentsViewController *commentsVc = [[SSCommentsViewController alloc] init];
+    commentsVc.question = question;
+    [self.navigationController pushViewController:commentsVc animated:YES];
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning
