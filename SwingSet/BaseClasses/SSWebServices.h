@@ -41,5 +41,6 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)fetchQuestionsInGroup:(NSString *)groupId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)postComment:(NSDictionary *)comment completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)deleteQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 @end
