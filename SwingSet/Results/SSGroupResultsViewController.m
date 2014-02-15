@@ -14,6 +14,7 @@
 @interface SSGroupResultsViewController ()
 @property (strong, nonatomic) NSMutableArray *questions;
 @property (strong, nonatomic) UITableView *resultsTable;
+@property (strong, nonatomic) SSQuestion *removeQuestion;
 @end
 
 @implementation SSGroupResultsViewController
@@ -25,6 +26,7 @@
     if (self) {
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.questions = [NSMutableArray array];
+        self.removeQuestion = nil;
         
     }
     return self;
@@ -195,9 +197,15 @@
 - (void)deleteQuestion:(int)index
 {
     SSQuestion *question = self.questions[index];
+    self.removeQuestion = question;
     NSLog(@"DELETE QUESTION: %@", question.text);
-
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are You Sure?"
+                                                    message:@"This will remove the question permanently."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Yes"
+                                          otherButtonTitles:@"No", nil];
+    [alert show];
 }
 
 - (void)viewComments:(int)index
@@ -209,6 +217,42 @@
     SSCommentsViewController *commentsVc = [[SSCommentsViewController alloc] init];
     commentsVc.question = question;
     [self.navigationController pushViewController:commentsVc animated:YES];
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"alertView clickedButtonAtIndex: %d", (int)buttonIndex);
+    if (buttonIndex>0)
+        return;
+    
+    if (!self.removeQuestion)
+        return;
+    
+    NSLog(@"REMOVE QUESTION: %@", self.removeQuestion.text);
+    
+    [self.loadingIndicator startLoading];
+    [[SSWebServices sharedInstance] deleteQuestion:self.removeQuestion completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error) {
+            [self showAlert:@"Error" withMessage:@"There was an error. Please try again."];
+        }
+        else {
+            NSDictionary *results = (NSDictionary *)result;
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            
+            if ([confirmation isEqualToString:@"success"]){
+                [self.questions removeObject:self.removeQuestion];
+                self.removeQuestion = nil;
+                [self.resultsTable reloadData];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:results[@"message"]];
+            }
+            
+        }
+    }];
+    
     
 }
 

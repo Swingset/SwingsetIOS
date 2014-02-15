@@ -8,7 +8,7 @@
 
 #import "SSViewController.h"
 
-@interface SSGroupResultsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SSGroupResultsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSDictionary *group;
 @end
