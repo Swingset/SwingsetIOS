@@ -11,19 +11,23 @@
 #import "UAirship.h"
 #import "UAConfig.h"
 #import "UAPush.h"
+#import "TestFlight.h"
 
 @implementation SSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*
+    [TestFlight takeOff:@"03fbb891-1647-4a5a-9f96-39280532daac"];
+    
+    
      //UrbanAirship:
     UAConfig *config = [UAConfig defaultConfig]; // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com, or set runtime properties here.
 
     [UAirship takeOff:config];     // Call takeOff (which creates the UAirship singleton)
     [UAPush shared].notificationTypes = (UIRemoteNotificationTypeAlert);
-    [UAPush setDefaultPushEnabledValue:NO];
-    */
+    [UAPush setDefaultPushEnabledValue:YES];
+    
+    
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_background_white.png"]];
@@ -37,7 +41,7 @@
 
 -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-//    NSLog(@"My token is: %@", deviceToken);
+    NSLog(@"application didRegisterForRemoteNotificationsWithDeviceToken: %@", deviceToken);
 //    [[UAPush shared] registerDeviceToken:deviceToken];
 }
 
