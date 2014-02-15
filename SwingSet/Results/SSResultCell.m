@@ -25,6 +25,7 @@
 @synthesize optionsImageViews;
 @synthesize btnComments;
 @synthesize btnDelete;
+@synthesize delegate;
 
 + (CGFloat)standardHeight
 {
@@ -138,7 +139,7 @@
         self.btnComments.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.btnComments setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         self.btnComments.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-//        [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
+        [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         UIImageView *imgComment = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"commentbubble.png"]];
@@ -155,7 +156,7 @@
         [self.btnDelete setBackgroundColor:kRed];
         [self.btnDelete setTitle:@"DELETE" forState:UIControlStateNormal];
         [self.btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [self.btnSkip addTarget:self action:@selector(btnSkipAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.btnDelete addTarget:self action:@selector(btnDeleteAction:) forControlEvents:UIControlEventTouchUpInside];
         
 //        UIImageView *nextArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nextarrow.png"]];
 //        h = self.btnSkip.frame.size.height-8.0f;
@@ -221,9 +222,21 @@
     frame = self.lblDetails.frame;
     frame.origin.y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
     self.lblDetails.frame = frame;
-
-    
 }
+
+- (void)btnCommentsAction:(UIButton *)btn
+{
+//    NSLog(@"btnCommentsAction:");
+    [self.delegate viewComments:(int)self.tag];
+}
+
+- (void)btnDeleteAction:(UIButton *)btn
+{
+//    NSLog(@"btnDeleteAction:");
+    [self.delegate deleteQuestion:(int)self.tag];
+}
+
+
 
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SSOptionIcon.h"
 
+@protocol SSResultCellDelegate <NSObject>
+- (void)deleteQuestion:(int)index;
+- (void)viewComments:(int)index;
+@end
+
 @interface SSResultCell : UITableViewCell
 
 
@@ -20,5 +25,6 @@
 @property (strong, nonatomic) NSMutableArray *optionsImageViews;
 @property (strong, nonatomic) UIButton *btnComments;
 @property (strong, nonatomic) UIButton *btnDelete;
+@property (assign) id delegate;
 + (CGFloat)standardHeight;
 @end
