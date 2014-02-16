@@ -693,6 +693,11 @@
                                                                                             self.currentQuestion = [self.questions lastObject];
                                                                                             self.topPreview.isMovable = NO;
                                                                                             NSLog(@"NO MORE QUESTIONS: %d questions", (int)self.questions.count);
+                                                                                            
+                                                                                            UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(skip)];
+                                                                                            swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+                                                                                            [self.topPreview addGestureRecognizer:swipe];
+                                                                                            
                                                                                         }
                                                                                         
                                                                                         
@@ -716,7 +721,11 @@
         
         // go to results page
         SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
+        resultsVc.canGoBack = NO;
         resultsVc.group = self.group;
+        
+
+        
         [self.navigationController pushViewController:resultsVc animated:YES];
         
         return;
