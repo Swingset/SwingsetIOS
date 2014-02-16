@@ -17,6 +17,8 @@
 @property (strong, nonatomic) UIImageView *idConfirmation;
 @property (strong, nonatomic) UIImageView *passcodeConfirmation;
 @property (strong, nonatomic) UIButton *btnToggle;
+@property (strong, nonatomic) UIButton *btnMale;
+@property (strong, nonatomic) UIButton *btnFemale;
 @property (nonatomic) int mode; //0=phone, 1=email
 @end
 
@@ -38,7 +40,7 @@
     CGRect frame = view.frame;
     
     CGFloat h = 0.75f*frame.size.height;
-    UIView *bg = [SSContentBackground backgroundWithFrame:CGRectMake(-5.0f, 20.0f, frame.size.width+10.0f, h)];
+    UIView *bg = [SSContentBackground backgroundWithFrame:CGRectMake(-5.0f, 20.0f, frame.size.width+10.0f, h-20.0f)];
     [view addSubview:bg];
     
     CGFloat y = 25.0f;
@@ -51,7 +53,7 @@
     [view addSubview:lblSignup];
     y += lblSignup.frame.size.height;
     
-    NSString *instructions = @"The best way to use Swingset is to sign up with your phone number.\nWe will never abuse this.";
+    NSString *instructions = @"Sign up with your phone number to connect with friends.";
     UILabel *lblInstructions = [[UILabel alloc] initWithFrame:CGRectZero];
     lblInstructions.font = kBaseFont;
     lblInstructions.textColor = [UIColor blackColor];
@@ -77,9 +79,7 @@
     self.idField.text = self.profile.phone;
     [view addSubview:self.idField];
     
-    UIImage *imgRedX = [UIImage imageNamed:@"redX.png"];
-    self.idConfirmation = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-h-5.0f, y, h, h)];
-    self.idConfirmation.image = imgRedX;
+    self.idConfirmation = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-h+3.0f, y+7.0f, h/2, h/2)];
     [view addSubview:self.idConfirmation];
     y += self.idField.frame.size.height+padding;
     
@@ -91,11 +91,10 @@
     self.passcodeField.secureTextEntry = YES;
     [view addSubview:self.passcodeField];
     
-    self.passcodeConfirmation = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-h-5.0f, y, h, h)];
-    self.passcodeConfirmation.image = imgRedX;
+    self.passcodeConfirmation = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width-h+3.0f, y+7.0f, h/2, h/2)];
     [view addSubview:self.passcodeConfirmation];
     y += self.passcodeField.frame.size.height+padding;
-
+    
     self.nameField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                          placeholder:@"Full Name"
                                             keyboard:UIKeyboardTypeDefault];
@@ -104,43 +103,46 @@
     [view addSubview:self.nameField];
     y += self.nameField.frame.size.height+padding;
     
-    UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(self.nameField.frame.origin.x, y, 40.0f, h)];
+    UILabel *lblMale = [[UILabel alloc] initWithFrame:CGRectMake(self.nameField.frame.origin.x, y+5.0f, 40.0f, h)];
+    
     lblMale.font = kBaseFont;
     lblMale.text = @"Male";
-    lblMale.backgroundColor = [UIColor greenColor];
+    lblMale.backgroundColor = [UIColor clearColor];
     lblMale.textColor = [UIColor blackColor];
     [view addSubview:lblMale];
     
     CGFloat dimen = 44.0f;
-    UIButton *btnMale = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnMale addTarget:self action:@selector(btnGenderAction:) forControlEvents:UIControlEventTouchUpInside];
-    [btnMale setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [btnMale setBackgroundColor:[UIColor yellowColor]];
-    [btnMale setTitle:@"M" forState:UIControlStateNormal];
-    btnMale.frame = CGRectMake(0, y, dimen, dimen);
-    btnMale.center = CGPointMake(self.nameField.frame.origin.x+60.0f, btnMale.center.y);
-    [view addSubview:btnMale];
-
+    self.btnMale = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.btnMale addTarget:self action:@selector(btnMaleAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnMale setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.btnMale setBackgroundColor:[UIColor clearColor]];
+    self.btnMale.frame = CGRectMake(0, y, dimen, dimen);
+    self.btnMale.center = CGPointMake(self.nameField.frame.origin.x+75.0f, self.btnMale.center.y);
+    [self.btnMale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateNormal];
+    [self.btnMale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateHighlighted];
+    [view addSubview:self.btnMale];
     
     
     
-    UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(0.5f*frame.size.width, y, 60.0f, h)];
+    
+    UILabel *lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(0.5f*frame.size.width+10.0f, y+5.0f, 60.0f, h)];
     lblFemale.font = kBaseFont;
     lblFemale.text = @"Female";
-    lblFemale.backgroundColor = [UIColor greenColor];
+    lblFemale.backgroundColor = [UIColor clearColor];
     lblFemale.textColor = [UIColor blackColor];
     [view addSubview:lblFemale];
-
-    UIButton *btnFemale = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnFemale addTarget:self action:@selector(btnGenderAction:) forControlEvents:UIControlEventTouchUpInside];
-    [btnFemale setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [btnFemale setBackgroundColor:[UIColor yellowColor]];
-    [btnFemale setTitle:@"F" forState:UIControlStateNormal];
-    btnFemale.frame = CGRectMake(0, y, dimen, dimen);
-    btnFemale.center = CGPointMake(0.77f*frame.size.width, btnMale.center.y);
-    [view addSubview:btnFemale];
-
-    y += btnMale.frame.size.height+2*padding;
+    
+    self.btnFemale = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.btnFemale addTarget:self action:@selector(btnFemaleAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnFemale setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.btnFemale setBackgroundColor:[UIColor clearColor]];
+    self.btnFemale.frame = CGRectMake(0, y, dimen, dimen);
+    self.btnFemale.center = CGPointMake(0.77f*frame.size.width+10.0f, self.btnMale.center.y);
+    [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateNormal];
+    [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateHighlighted];
+    [view addSubview:self.btnFemale];
+    
+    y += self.btnMale.frame.size.height+2*padding;
     
     UIImage *imgNext = [UIImage imageNamed:@"NextButton.png"];
     CGRect tempFrame = CGRectMake(0.5f*(frame.size.width-imgNext.size.width), y, imgNext.size.width, 0.70*imgNext.size.height);
@@ -148,10 +150,10 @@
     SSButton *btnNext = [SSButton buttonWithFrame:tempFrame title:@"Next" textMode:TextModeUpperCase];
     [btnNext addTarget:self action:@selector(btnNextAction:) forControlEvents:UIControlEventTouchUpInside];
     btnNext.backgroundColor = kGreenNext;
-
+    
     [view addSubview:btnNext];
     y += btnNext.frame.size.height+padding;
-
+    
     
     w = 0.8f*frame.size.width;
     self.btnToggle = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -163,7 +165,7 @@
     h = 44.0f;
     self.btnToggle.frame = CGRectMake(0.5f*(frame.size.width-w), frame.size.height-h, w, h);
     [view addSubview:self.btnToggle];
-
+    
     
     self.view = view;
 }
@@ -171,11 +173,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     [self.profile addObserver:self forKeyPath:@"phone" options:0 context:nil];
     [self.profile addObserver:self forKeyPath:@"name" options:0 context:nil];
     [self.profile addObserver:self forKeyPath:@"email" options:0 context:nil];
     [self.profile addObserver:self forKeyPath:@"pw" options:0 context:nil];
+    
+}
+
+- (void)dealloc {
+    
+    [self.profile removeObserver:self forKeyPath:@"phone"];
+    [self.profile removeObserver:self forKeyPath:@"name"];
+    [self.profile removeObserver:self forKeyPath:@"email"];
+    [self.profile removeObserver:self forKeyPath:@"pw"];
     
 }
 
@@ -238,11 +249,26 @@
                     }];
 }
 
-- (void)btnGenderAction:(UIButton *)btn
+- (void)btnMaleAction:(UIButton *)btn
 {
-    NSString *gender = [btn titleForState:UIControlStateNormal];
-    self.profile.sex = [gender lowercaseString];
+    //NSString *gender = [btn titleForState:UIControlStateNormal];
+    self.profile.sex = [@"M" lowercaseString];
     NSLog(@"btnGenderAction: %@", self.profile.sex);
+    [self.btnMale setBackgroundImage:[UIImage imageNamed:@"checkedBoxRegister.png"] forState:UIControlStateNormal];
+    [self.btnMale setBackgroundImage:[UIImage imageNamed:@"checkedBoxRegister.png"] forState:UIControlStateSelected];
+    [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateNormal];
+    [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateSelected];
+    
+}
+- (void)btnFemaleAction:(UIButton *)btn
+{
+    //NSString *gender = [btn titleForState:UIControlStateNormal];
+    self.profile.sex = [@"F" lowercaseString];
+    NSLog(@"btnGenderAction: %@", self.profile.sex);
+    [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"checkedBoxRegister.png"] forState:UIControlStateNormal];
+    [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"checkedBoxRegister.png"] forState:UIControlStateSelected];
+    [self.btnMale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateNormal];
+    [self.btnMale setBackgroundImage:[UIImage imageNamed:@"uncheckedBox.png"] forState:UIControlStateSelected];
 }
 
 - (void)toggleMode
@@ -254,34 +280,34 @@
 {
     if (self.mode==0){
         if (self.profile.phone.length < 10){
-            [self showAlert:@"Error" withMessage:@"Please enter a valid phone number (10 digits, no dashes or parentheses)."];
+            [self showAlert:@"Phone Number Error" withMessage:@"The Swingset robot can't read your number. Please type it in like: 9171234567"];
             return;
         }
     }
     else{
         if ( [self isValidEmail] == NO ){
-            [self showAlert:@"Error" withMessage:@"Please enter a valid email address."];
+            [self showAlert:@"Email Error" withMessage:@"Please enter your email address"];
             return;
         }
     }
     
     if ( [self isValidPasscode] == NO ) {
-        [self showAlert:@"Error" withMessage:@"Please enter a valid password (between 5 and 15 characters)"];
+        [self showAlert:@"Password Error" withMessage:@"Please enter a password between 5 and 15 characters"];
         return;
     }
     
     
     if (self.profile.name.length < 1){
-        [self showAlert:@"Error" withMessage:@"Please enter a valid name."];
+        [self showAlert:@"Full Name Error" withMessage:@"I think you forgot to enter your full name :)"];
         return;
     }
     
     // Temporary - only here for UI setup/testing:
-//    SSConfirmViewController *confirmVc = [[SSConfirmViewController alloc] init];
-//    confirmVc.mode = self.mode;
-//    [self.navigationController pushViewController:confirmVc animated:YES];
-//    return;
-
+    //    SSConfirmViewController *confirmVc = [[SSConfirmViewController alloc] init];
+    //    confirmVc.mode = self.mode;
+    //    [self.navigationController pushViewController:confirmVc animated:YES];
+    //    return;
+    
     
     // TODO: show loading indicator
     [self.loadingIndicator startLoading];
@@ -407,7 +433,7 @@
 - (BOOL)isValidPasscode
 {
     if ( self.passcodeField.text.length > 15 ||
-         self.passcodeField.text.length < 5 )
+        self.passcodeField.text.length < 5 )
     {
         return NO;
     }
