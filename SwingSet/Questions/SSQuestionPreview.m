@@ -63,7 +63,6 @@ CGFloat randomRGB(){
         self.lblText.lineBreakMode = NSLineBreakByWordWrapping;
         self.lblText.font = [UIFont fontWithName:@"ProximaNova-Black" size:16.0f];
         self.lblText.textAlignment = NSTextAlignmentCenter;
-        self.lblText.text = @"This is the question";
         self.lblText.textColor = [UIColor whiteColor];
         [self addSubview:self.lblText];
         y += iconDimen;
@@ -75,23 +74,25 @@ CGFloat randomRGB(){
         
         CGFloat w = 0.5*frame.size.width;
         
+        UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, 20.0f)];
+        bg.backgroundColor = self.lblText.backgroundColor;
+        [self addSubview:bg];
+        
         UIView *infoBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, 20.0f)];
-        infoBar.backgroundColor = self.lblText.backgroundColor;
+        infoBar.backgroundColor = [UIColor blackColor];
+        infoBar.alpha = 0.1f;
         [self addSubview:infoBar];
         
-        CGFloat rgbMax = 255.0f;
-        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, w, 20.0f)];
-        self.lblDate.backgroundColor = [UIColor colorWithRed:0.0f/rgbMax green:0.0f/rgbMax blue:0.0f/rgbMax alpha:0.10f];
-        self.lblDate.text = @"   Jan 26";
+        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, y, w+25, 20.0f)];
+        self.lblDate.backgroundColor = [UIColor clearColor];
         self.lblDate.textColor = [UIColor whiteColor];
         self.lblDate.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
         [self addSubview:self.lblDate];
 
-        self.lblVotes = [[UILabel alloc] initWithFrame:CGRectMake(w, y, w, 20.0f)];
+        self.lblVotes = [[UILabel alloc] initWithFrame:CGRectMake(w, y, w-5, 20.0f)];
         self.lblVotes.font = self.lblDate.font;
         self.lblVotes.textColor = [UIColor whiteColor];
         self.lblVotes.textAlignment = NSTextAlignmentRight;
-        self.lblVotes.text = @"15 votes";
         self.lblVotes.backgroundColor = self.lblDate.backgroundColor;
         [self addSubview:self.lblVotes];
         y += self.lblVotes.frame.size.height+10.0f;
