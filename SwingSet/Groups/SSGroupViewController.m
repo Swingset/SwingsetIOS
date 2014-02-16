@@ -52,7 +52,6 @@
     CGFloat y = 0.0f;
     self.lblGroupName = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, y, frame.size.width/2.0f, 30.0f)];
     self.lblGroupName.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
-//    self.lblGroupName.text = self.groupName;
     self.lblGroupName.text = @"GROUP NAME";
     self.lblGroupName.textColor = [UIColor blackColor];
     self.lblGroupName.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:16.0f];
@@ -61,7 +60,6 @@
     CGFloat elemWidth = 90.0f;
     self.lblGroupMembers = [[UILabel alloc] initWithFrame:CGRectMake(238.0f, y, elemWidth, 30.0f)];
     self.lblGroupMembers.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
-//    self.lblGroupMembers.text = [NSString stringWithFormat:@"%d Members", (int)[self.dummyData count]];
     self.lblGroupMembers.textColor = [UIColor grayColor];
     self.lblGroupMembers.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:13.0f];
     self.lblGroupMembers.text = [NSString stringWithFormat:@"15 members"];
@@ -247,7 +245,35 @@
 {
     NSLog(@"leave group tapped");
     
-    
+    [self.loadingIndicator startLoading];
+    [[SSWebServices sharedInstance] removeMember:self.profile.uniqueId fromGroup:self.group completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error){
+            [self showAlert:@"Error" withMessage:[error localizedDescription]];
+        }
+        else{
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            NSLog(@"TEST 1");
+            if ([confirmation isEqualToString:@"success"]){
+                NSLog(@"TEST 2");
+//                NSDictionary *profileInfo = [results objectForKey:@"profile"];
+//                NSLog(@"TEST 3");
+//                [self.profile populate:profileInfo];
+//                NSLog(@"TEST 4");
+                
+                NSDictionary *groupInfo = [results objectForKey:@"group"];
+                [self.profile removeGroup:groupInfo];
+
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:results[@"message"]];
+            }
+        }
+        
+    }];
     
 }
 
