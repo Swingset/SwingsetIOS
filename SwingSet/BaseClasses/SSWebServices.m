@@ -467,6 +467,53 @@
                 }];
 }
 
+
+- (void)removeMember:(NSString *)memberId fromGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"member"] = memberId;
+    params[@"action"] = @"remove";
+    
+    [httpClient putPath:[kPathGroups stringByAppendingString:group[@"id"]]
+             parameters:params
+                success:^(AFHTTPRequestOperation *operation, id responseObject){
+                    NSError *error = nil;
+                    NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                                      options:NSJSONReadingMutableContainers
+                                                                                                        error:&error];
+                    
+                    if (error){
+                        NSLog(@"SUCCESS BLOCK: ERROR - %@", [error localizedDescription]);
+                    }
+                    else{
+                        //                         NSLog(@"SUCCESS BLOCK: %@", [responseDictionary description]);
+                        NSDictionary *results = [responseDictionary objectForKey:@"results"];
+                        NSString *confirmation = [results objectForKey:@"confirmation"];
+                        
+                        if ([confirmation isEqualToString:@"success"]){ // profile successfully registered
+                            if (completionBlock)
+                                completionBlock(results, error);
+                        }
+                        else{ // registration failed.
+                            NSLog(@"%@", [results description]);
+                            if (completionBlock){
+                                completionBlock(results, nil);
+                            }
+                        }
+                    }
+                }
+     
+                failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                    NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                    if (completionBlock)
+                        completionBlock(nil, error);
+                }];
+}
+
 - (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];

@@ -35,6 +35,7 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 - (void)createGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)joinGroup:(NSString *)groupName withPin:(NSString *)pin completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)removeMember:(NSString *)memberId fromGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 // Questions
 - (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
