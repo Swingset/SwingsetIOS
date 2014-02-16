@@ -12,7 +12,6 @@
 
 
 @interface SSGroupViewController ()
-
 @property (strong, nonatomic) UIView *topView;
 @property (strong, nonatomic) UIView *bottomView;
 @property (strong, nonatomic) SSButton *btnAddMember;
@@ -22,6 +21,7 @@
 @property (strong, nonatomic) UILabel *lblGroupName;
 @property (strong, nonatomic) UILabel *lblGroupMembers;
 @property (strong, nonatomic) UITableView *theTableView;
+@property (nonatomic) BOOL isDeleteMode;
 @end
 
 @implementation SSGroupViewController
@@ -31,7 +31,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.isDeleteMode = NO;
         self.edgesForExtendedLayout = UIRectEdgeAll;
         
     }
@@ -200,11 +200,22 @@
         cell.textLabel.textColor = kLightBlue;
         cell.backgroundColor = kGrayTable;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIButton *btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
+        btnDelete.tag = 1000;
+        [btnDelete setTitle:@"remove" forState:UIControlStateNormal];
+        [btnDelete setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        btnDelete.frame = CGRectMake(tableView.frame.size.width-70, 5, 60, 30);
+        [btnDelete addTarget:self action:@selector(btnDeleteAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:btnDelete];
     }
     
+    cell.tag = indexPath.row;
+    UIButton *btnDelete = (UIButton *)[cell.contentView viewWithTag:1000];
+    btnDelete.alpha = (self.isDeleteMode) ? 1.0f : 0.0f;
     NSArray *membersArray = self.group[@"members"];
     id member = [membersArray objectAtIndex:indexPath.row];
-    NSLog(@"MEMBER: %@", [member description]);
+//    NSLog(@"MEMBER: %@", [member description]);
     if ([[member class] isSubclassOfClass:[NSDictionary class]]){
         cell.textLabel.text = member[@"username"];
     }
@@ -236,9 +247,40 @@
 - (void)btnRemoveMemberAction:(UIButton *)btn
 {
     NSLog(@"remove member tapped");
+    self.isDeleteMode = !self.isDeleteMode;
+    [self.theTableView reloadData];
     
+}
+
+- (void)btnDeleteAction:(UIButton *)btn
+{
+    int index = (int)btn.superview.superview.superview.tag;
+    NSDictionary *member = self.group[@"members"][index];
     
+    NSLog(@"btnDeleteAction: %@", [member description]);
     
+    [self.loadingIndicator startLoading];
+    [[SSWebServices sharedInstance] removeMember:member[@"id"] fromGroup:self.group completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        if (error){
+            [self showAlert:@"Error" withMessage:[error localizedDescription]];
+        }
+        else{
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+            NSString *confirmation = [results objectForKey:@"confirmation"];
+            if ([confirmation isEqualToString:@"success"]){
+                NSDictionary *groupInfo = [results objectForKey:@"group"];
+                self.group = groupInfo;
+                [self.theTableView reloadData];
+            }
+            else{
+                [self showAlert:@"Error" withMessage:results[@"message"]];
+            }
+        }
+        
+    }];
+
 }
 
 - (void)btnLeaveGroupAction:(UIButton *)btn
@@ -255,17 +297,9 @@
             NSDictionary *results = (NSDictionary *)result;
             NSLog(@"%@", [results description]);
             NSString *confirmation = [results objectForKey:@"confirmation"];
-            NSLog(@"TEST 1");
             if ([confirmation isEqualToString:@"success"]){
-                NSLog(@"TEST 2");
-//                NSDictionary *profileInfo = [results objectForKey:@"profile"];
-//                NSLog(@"TEST 3");
-//                [self.profile populate:profileInfo];
-//                NSLog(@"TEST 4");
-                
                 NSDictionary *groupInfo = [results objectForKey:@"group"];
                 [self.profile removeGroup:groupInfo];
-
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else{
