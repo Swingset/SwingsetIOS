@@ -88,7 +88,7 @@
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
 
-    [httpClient postPath:@"/api/login/"
+    [httpClient postPath:@"/api/confirm/"
               parameters:pkg
                  success:^(AFHTTPRequestOperation *operation, id responseObject){
                      NSError *error = nil;
@@ -128,7 +128,7 @@
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
-    [httpClient postPath:@"/api/confirm/"
+    [httpClient postPath:@"/api/login/"
               parameters:pkg
                  success:^(AFHTTPRequestOperation *operation, id responseObject){
                      NSError *error = nil;
