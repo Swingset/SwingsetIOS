@@ -450,6 +450,9 @@
 
 - (void)initiateUpload:(NSArray *)imagesToUpload
 {
+    self.loadingIndicator.lblTitle.text = @"Awesome question!";
+    self.loadingIndicator.lblMessage.text = @"Woah you’re thoughtful.";
+
     [self.loadingIndicator startLoading];
     self.uploadStrings = [NSMutableDictionary dictionary];
     
