@@ -227,6 +227,7 @@
 		5CFC7D0718AFA67C0063F5AD /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFC7D0118AFA67C0063F5AD /* libTestFlight.a */; };
 		5CFC7D0818AFA67D0063F5AD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC7D0218AFA67C0063F5AD /* README.md */; };
 		5CFC7D0918AFA67D0063F5AD /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC7D0318AFA67C0063F5AD /* release_notes.md */; };
+		5CFDB31218B1222300EEB2FA /* SSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFDB31118B1222300EEB2FA /* SSLoginViewController.m */; };
 		A0B96FC618B034D00002922F /* uncheckedBox.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC518B034D00002922F /* uncheckedBox.png */; };
 		A0B96FC818B034DE0002922F /* checkedBoxRegister.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC718B034DE0002922F /* checkedBoxRegister.png */; };
 		A0B96FCE18B03C780002922F /* Askaquestionicon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC918B03C780002922F /* Askaquestionicon.png */; };
@@ -589,6 +590,8 @@
 		5CFC7D0418AFA67C0063F5AD /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		5CFC7D0518AFA67C0063F5AD /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		5CFC7D0618AFA67C0063F5AD /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		5CFDB31018B1222200EEB2FA /* SSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoginViewController.h; sourceTree = "<group>"; };
+		5CFDB31118B1222300EEB2FA /* SSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoginViewController.m; sourceTree = "<group>"; };
 		A0B96FC518B034D00002922F /* uncheckedBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheckedBox.png; sourceTree = "<group>"; };
 		A0B96FC718B034DE0002922F /* checkedBoxRegister.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkedBoxRegister.png; sourceTree = "<group>"; };
 		A0B96FC918B03C780002922F /* Askaquestionicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Askaquestionicon.png; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 				5C35FE7C188EF86F00827D67 /* SSRegisterViewController.m */,
 				5C35FE79188EF86F00827D67 /* SSConfirmViewController.h */,
 				5C35FE7A188EF86F00827D67 /* SSConfirmViewController.m */,
+				5CFDB31018B1222200EEB2FA /* SSLoginViewController.h */,
+				5CFDB31118B1222300EEB2FA /* SSLoginViewController.m */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -1544,6 +1549,7 @@
 				5C3259631895A2F50048B588 /* SSQuestionsViewController.m in Sources */,
 				5C0E4CA318AD468A00E3EE44 /* SSResultsViewController.m in Sources */,
 				5CF8515018AF013D006ACFDA /* UAPushSettingsAddTagViewController.m in Sources */,
+				5CFDB31218B1222300EEB2FA /* SSLoginViewController.m in Sources */,
 				5C4CEEB5188B52CD000B1BFD /* AFJSONRequestOperation.m in Sources */,
 				5C0E4CA618AD4F9F00E3EE44 /* SSGroupResultsViewController.m in Sources */,
 				5CF8513618AF013D006ACFDA /* UAInboxMessageListCell.m in Sources */,
