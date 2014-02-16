@@ -92,8 +92,11 @@
     questionView.backgroundColor = self.sectionsTable.backgroundColor;
     
     UIButton *btnAskQuestion = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImageView *backgroundCellImageA=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    backgroundCellImageA.image=[UIImage imageNamed:@"Askaquestionicon.png"];
+    [btnAskQuestion addSubview:backgroundCellImageA];
     btnAskQuestion.frame = CGRectMake(15.0f, 0, questionView.frame.size.width, questionView.frame.size.height);
-    [btnAskQuestion setTitle:@"Ask Question" forState:UIControlStateNormal];
+    [btnAskQuestion setTitle:@"       Ask Question" forState:UIControlStateNormal];
     [btnAskQuestion addTarget:self action:@selector(createQuestion:) forControlEvents:UIControlEventTouchUpInside];
     btnAskQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [questionView addSubview:btnAskQuestion];
@@ -216,25 +219,54 @@
         cell = [[SSTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
+    UIImageView *backgroundCellImage=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    backgroundCellImage.image=[UIImage imageNamed:@"Front Pageicon.png"];
+    UIImageView *backgroundCellImage2=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    backgroundCellImage2.image=[UIImage imageNamed:@"GroupsIcon.png"];
+
+    cell.indentationLevel = 2.0f;
     
-    if (indexPath.row < 2){ // Home, Groups
+    if (indexPath.row == 0){ // Home, Groups
         cell.textLabel.text = self.sections[indexPath.row];
+        [cell.contentView addSubview:backgroundCellImage];
         return cell;
     }
+    
+    if (indexPath.row == 1){ // Home, Groups
+        cell.textLabel.text = self.sections[indexPath.row];
+        [cell.contentView addSubview:backgroundCellImage2];
+        return cell;
+    }
+    
+    
     
     NSUInteger groupSize = self.profile.groups.count;
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
         NSDictionary *group = self.profile.groups[i];
         cell.textLabel.text = group[@"displayName"];
-        cell.indentationLevel = 3.0f;
+        cell.indentationLevel = 4.0f;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
-        cell.backgroundColor = [UIColor redColor];
+        cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
         return cell;
     }
     
     cell.textLabel.text = self.sections[indexPath.row-groupSize];
+    /*
+    UIImageView *backgroundCellImageVar=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    backgroundCellImageVar.image=nil;
+    if ([cell.textLabel.text  isEqual: @"Create A New Group"]){
+        backgroundCellImageVar.image=[UIImage imageNamed:@"plusicon.png"];
+        [cell.contentView addSubview:backgroundCellImageVar];
+    }
+    if ([cell.textLabel.text  isEqual: @"Results"]){
+        backgroundCellImageVar.image=[UIImage imageNamed:@"Resultsicon.png"];
+        [cell.contentView addSubview:backgroundCellImageVar];
+    }*/
+    
+    
     return cell;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -254,6 +286,7 @@
         [self navigateToGroup:group];
         return;
     }
+    
     
     NSString *section = [self.sections objectAtIndex:(indexPath.row-groupSize)];
     [self navigateToSection:section];
