@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSMutableArray *optionsImageViews;
 @property (strong, nonatomic) NSMutableArray *malePercentViews;
 @property (strong, nonatomic) NSMutableArray *femalePercentViews;
+@property (nonatomic) BOOL isMovable;
 - (void)displayGenderPercents:(NSDictionary *)percents;
 - (void)reset;
 @end

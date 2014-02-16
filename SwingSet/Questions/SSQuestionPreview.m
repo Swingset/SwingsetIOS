@@ -38,12 +38,14 @@ CGFloat randomRGB(){
 @synthesize malePercentViews;
 @synthesize femalePercentViews;
 @synthesize btnComments;
+@synthesize isMovable;
 
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.isMovable = YES;
         self.colors = @[kPurple, kRed, kOrange, kGreen];
         self.optionsViews = [NSMutableArray array];
         self.optionsImageViews = [NSMutableArray array];
@@ -375,6 +377,9 @@ CGFloat randomRGB(){
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesBegan: %@", [self.class description]);
+    if (!self.isMovable)
+        return;
+    
     UITouch *touch = [touches anyObject];
     self.startPoint = [touch locationInView:self.superview];
 }
@@ -382,6 +387,9 @@ CGFloat randomRGB(){
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesMoved: %@", [self.class description]);
+    if (!self.isMovable)
+        return;
+    
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:self.superview];
     CGFloat delta = p.x-self.startPoint.x;
@@ -401,6 +409,9 @@ CGFloat randomRGB(){
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded: %@", [self.class description]);
+    if (!self.isMovable)
+        return;
+    
     
     if ([self.delegate respondsToSelector:@selector(checkPostion)])
         [self.delegate checkPostion];
