@@ -7,6 +7,7 @@
 
 #import "SSQuestionsViewController.h"
 #import "SSQuestionPreview.h"
+#import "SSGroupResultsViewController.h"
 
 
 @interface SSQuestionsViewController ()
@@ -172,6 +173,9 @@
         NSDictionary *results = (NSDictionary *)result;
         if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
             [self processQuestions:results[@"questions"]];
+            
+            NSDictionary *publicGroup = results[@"group"];
+            self.group = publicGroup;
         }
         else{
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
@@ -259,7 +263,6 @@
     CGFloat delta = self.topPreview.center.x-self.center;
     double pct = delta/self.center;
     
-    NSLog(@"TOP PREVIEW MOVING: %.2f", pct);
     
     pct *= -1.0f;
     if (pct > 1.0f)
@@ -620,6 +623,7 @@
 
 - (void)swipeToNextQuestion
 {
+    NSLog(@"swipeToNextQuestion");
     CGRect frame = self.view.frame;
     [UIView animateWithDuration:0.25f
                           delay:0
@@ -676,15 +680,26 @@
                                                                                     }
                                                                                     completion:^(BOOL finished){
                                                                                         [self swapPreviews];
-                                                                                        
                                                                                         self.questionIndex++;
-                                                                                        self.questionIndex = self.questionIndex%self.questions.count;
                                                                                         
-                                                                                        self.currentQuestion = [self.questions objectAtIndex:self.questionIndex];
+                                                                                        if (self.questionIndex+1 < self.questions.count){
+                                                                                            self.currentQuestion = [self.questions objectAtIndex:self.questionIndex];
+
+                                                                                            
+                                                                                            NSLog(@"CURRENT QUESTION: %@", self.currentQuestion.text);
+                                                                                            [self loadNextQuestion];
+                                                                                        }
+                                                                                        else{
+                                                                                            self.currentQuestion = [self.questions lastObject];
+                                                                                            self.topPreview.isMovable = NO;
+                                                                                            NSLog(@"NO MORE QUESTIONS: %d questions", (int)self.questions.count);
+                                                                                        }
                                                                                         
-                                                                                        NSLog(@"CURRENT QUESTION: %@", self.currentQuestion.text);
                                                                                         
-                                                                                        [self loadNextQuestion];
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        
                                                                                     }];
                                                                    
                                                                    
@@ -696,6 +711,17 @@
 
 - (void)skip
 {
+    NSLog(@"SKIP");
+    if ([self.currentQuestion isEqual:[self.questions lastObject]]){
+        
+        // go to results page
+        SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
+        resultsVc.group = self.group;
+        [self.navigationController pushViewController:resultsVc animated:YES];
+        
+        return;
+    }
+    
     [self swipeToNextQuestion];
     
 }
