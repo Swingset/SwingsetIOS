@@ -77,6 +77,11 @@
     NSLog(@"%@", [self.question.comments description]);
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    
+    self.loadingIndicator.lblTitle.text = @"LIKE LIKE LIKE";
+    self.loadingIndicator.lblMessage.text = @"Awesome comment. Posting it now...";
+
+    
 }
 
 #pragma mark - UITextFieldDelegate
