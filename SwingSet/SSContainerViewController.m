@@ -284,6 +284,7 @@
     if (i < self.profile.groups.count){
         NSDictionary *group = self.profile.groups[i];
         [self navigateToGroup:group];
+        [self performSelector:@selector(resetTable) withObject:nil afterDelay:1.0f];
         return;
     }
     
