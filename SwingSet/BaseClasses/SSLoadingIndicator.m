@@ -11,10 +11,12 @@
 
 @interface SSLoadingIndicator ()
 @property (strong, nonatomic) UIView *darkScreen;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @end
 
 @implementation SSLoadingIndicator
-
+@synthesize lblTitle;
+@synthesize lblMessage;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,6 +31,29 @@
         self.darkScreen.layer.cornerRadius = 4.0f;
         [self addSubview:self.darkScreen];
         
+        self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.darkScreen.frame.origin.x, self.darkScreen.frame.origin.y+10.0f, self.darkScreen.frame.size.width, 30.0f)];
+        self.lblTitle.backgroundColor = [UIColor clearColor];
+        self.lblTitle.font = [UIFont fontWithName:@"ProximaNova-Bold" size:20.0f];
+        self.lblTitle.textColor = [UIColor whiteColor];
+        self.lblTitle.text = @"Loading...";
+        self.lblTitle.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:self.lblTitle];
+        
+        self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        self.spinner.center = self.darkScreen.center;
+        [self addSubview:self.spinner];
+        
+        CGFloat y = self.spinner.frame.origin.y+self.spinner.frame.size.height+15.0f;
+        self.lblMessage = [[UILabel alloc] initWithFrame:CGRectMake(self.lblTitle.frame.origin.x, y, self.lblTitle.frame.size.width, 30.0f)];
+        self.lblMessage.textColor = [UIColor whiteColor];
+        self.lblMessage.textAlignment = NSTextAlignmentCenter;
+        self.lblMessage.font = [UIFont fontWithName:@"ProximaNova-Regular" size:16.0f];
+        self.lblMessage.text = @"Patience is a virtue.";
+        self.lblMessage.numberOfLines = 0;
+        self.lblMessage.lineBreakMode = NSLineBreakByWordWrapping;
+        [self addSubview:self.lblMessage];
+
+        
     }
     return self;
 }
@@ -38,6 +63,7 @@
     if (self.alpha > 0)
         return;
     
+    [self.spinner startAnimating];
     [UIView animateWithDuration:0.4f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
@@ -53,6 +79,7 @@
     if (self.alpha < 1)
         return;
     
+    [self.spinner stopAnimating];
     [UIView animateWithDuration:0.4f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveLinear
