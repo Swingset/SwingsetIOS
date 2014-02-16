@@ -40,7 +40,7 @@
     CGRect frame = view.frame;
     
     CGFloat h = 0.75f*frame.size.height;
-    UIView *bg = [SSContentBackground backgroundWithFrame:CGRectMake(-5.0f, 20.0f, frame.size.width+10.0f, h)];
+    UIView *bg = [SSContentBackground backgroundWithFrame:CGRectMake(-5.0f, 20.0f, frame.size.width+10.0f, h-20.0f)];
     [view addSubview:bg];
     
     CGFloat y = 25.0f;

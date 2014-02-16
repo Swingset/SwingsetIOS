@@ -10,6 +10,7 @@
 
 @interface SSLoadingIndicator : UIView
 
+@property (strong, nonatomic) UILabel *lblTitle;
 - (void)stopLoading;
 - (void)startLoading;
 @end

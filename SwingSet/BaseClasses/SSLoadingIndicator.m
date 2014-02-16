@@ -14,7 +14,7 @@
 @end
 
 @implementation SSLoadingIndicator
-
+@synthesize lblTitle;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -28,6 +28,11 @@
         self.darkScreen.alpha = 0.7f;
         self.darkScreen.layer.cornerRadius = 4.0f;
         [self addSubview:self.darkScreen];
+        
+        
+        self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.darkScreen.frame.origin.x, self.darkScreen.frame.origin.y+10.0f, self.darkScreen.frame.size.width, 30.0f)];
+        self.lblTitle.backgroundColor = [UIColor redColor];
+        [self addSubview:self.lblTitle];
         
     }
     return self;
