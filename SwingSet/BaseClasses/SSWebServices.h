@@ -18,6 +18,8 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 + (SSWebServices *)sharedInstance;
 - (void)confirmPIN:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)login:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+
 
 // Images:
 - (void)fetchUploadString:(int)count completion:(SSWebServiceRequestCompletionBlock)completionBlock;
