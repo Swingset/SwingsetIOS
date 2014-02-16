@@ -433,6 +433,8 @@
         
         NSDictionary *comment = @{@"author":self.profile.uniqueId, @"username":self.profile.name, @"text":self.commentField.text, @"question":self.currentQuestion.uniqueId};
         
+        self.loadingIndicator.lblTitle.text = @"LIKE LIKE LIKE";
+        self.loadingIndicator.lblMessage.text = @"Awesome comment. Posting it now...";
         [self.loadingIndicator startLoading];
         [[SSWebServices sharedInstance] postComment:comment completionBlock:^(id result, NSError *error){
             [self.loadingIndicator stopLoading];
