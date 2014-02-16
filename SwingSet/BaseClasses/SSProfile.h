@@ -24,4 +24,5 @@
 - (NSString *)jsonRepresentation;
 - (NSDictionary *)parametersDictionary;
 - (void)populate:(NSDictionary *)info;
+- (void)removeGroup:(NSDictionary *)groupInfo;
 @end

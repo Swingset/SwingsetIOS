@@ -121,6 +121,19 @@
     [defaults synchronize];
 }
 
+- (void)removeGroup:(NSDictionary *)groupInfo
+{
+    NSMutableArray *updatedGroups = [NSMutableArray array];
+    for (NSDictionary *group in self.groups) {
+        if ([group[@"id"] isEqualToString:groupInfo[@"id"]]==NO){
+            [updatedGroups addObject:group];
+        }
+    }
+    
+    self.groups = updatedGroups;
+    
+}
+
 
 
 @end
