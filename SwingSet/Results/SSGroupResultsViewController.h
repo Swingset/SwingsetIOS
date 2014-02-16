@@ -11,4 +11,5 @@
 @interface SSGroupResultsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSDictionary *group;
+@property (nonatomic) BOOL canGoBack;
 @end

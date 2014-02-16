@@ -19,6 +19,7 @@
 
 @implementation SSGroupResultsViewController
 @synthesize group;
+@synthesize canGoBack;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +28,7 @@
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.questions = [NSMutableArray array];
         self.removeQuestion = nil;
+        self.canGoBack = YES;
         
     }
     return self;
@@ -69,7 +71,16 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    if (self.canGoBack){
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    }
+    else{
+        SSNavigationController *navController = (SSNavigationController *)self.navigationController;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btnMenu.png"]
+                                                                                      style:UIBarButtonItemStylePlain
+                                                                                     target:navController
+                                                                                     action:@selector(toggle)];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
