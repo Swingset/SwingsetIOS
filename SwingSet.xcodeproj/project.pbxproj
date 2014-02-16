@@ -227,6 +227,8 @@
 		5CFC7D0718AFA67C0063F5AD /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFC7D0118AFA67C0063F5AD /* libTestFlight.a */; };
 		5CFC7D0818AFA67D0063F5AD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC7D0218AFA67C0063F5AD /* README.md */; };
 		5CFC7D0918AFA67D0063F5AD /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC7D0318AFA67C0063F5AD /* release_notes.md */; };
+		A0B96FC618B034D00002922F /* uncheckedBox.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC518B034D00002922F /* uncheckedBox.png */; };
+		A0B96FC818B034DE0002922F /* checkedBoxRegister.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC718B034DE0002922F /* checkedBoxRegister.png */; };
 		AA2F244E188DA3FF0025BC35 /* SSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2F244D188DA3FF0025BC35 /* SSButton.m */; };
 /* End PBXBuildFile section */
 
@@ -582,6 +584,8 @@
 		5CFC7D0418AFA67C0063F5AD /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		5CFC7D0518AFA67C0063F5AD /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		5CFC7D0618AFA67C0063F5AD /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		A0B96FC518B034D00002922F /* uncheckedBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheckedBox.png; sourceTree = "<group>"; };
+		A0B96FC718B034DE0002922F /* checkedBoxRegister.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkedBoxRegister.png; sourceTree = "<group>"; };
 		AA2F244C188DA3FF0025BC35 /* SSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSButton.h; sourceTree = "<group>"; };
 		AA2F244D188DA3FF0025BC35 /* SSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -809,6 +813,8 @@
 		5C4CEEBF188B549D000B1BFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A0B96FC718B034DE0002922F /* checkedBoxRegister.png */,
+				A0B96FC518B034D00002922F /* uncheckedBox.png */,
 				5C1E0F0E18A8224C0059F170 /* answerTypePics@2x.png */,
 				5C1E0F1018A824060059F170 /* answerTypeText.png */,
 				5C8C599D1895DC6100A1CAF0 /* placeholder.png */,
@@ -1382,6 +1388,7 @@
 				5C35F294188E27A300BE0F1C /* icon120.png in Resources */,
 				5CFAC716188B882300940A00 /* ChooseImage.png in Resources */,
 				5CFAC749188B882300940A00 /* ViewAllButton.png in Resources */,
+				A0B96FC818B034DE0002922F /* checkedBoxRegister.png in Resources */,
 				5CFAC711188B882300940A00 /* bird@2x.png in Resources */,
 				5CFAC73A188B882300940A00 /* redX.png in Resources */,
 				5CF8513D18AF013D006ACFDA /* check.png in Resources */,
@@ -1449,6 +1456,7 @@
 				5CF8516718AF013D006ACFDA /* UAPushSettingsUserInfoView.xib in Resources */,
 				5C0578D018AFDC420054CF6D /* unchecked@2x.png in Resources */,
 				5CFAC712188B882300940A00 /* camera.png in Resources */,
+				A0B96FC618B034D00002922F /* uncheckedBox.png in Resources */,
 				5CFAC718188B882300940A00 /* CommentsIcon.png in Resources */,
 				5CF8516218AF013D006ACFDA /* UAPushSettingsAddTagViewController.xib in Resources */,
 				5CFAC73F188B882300940A00 /* smallbluepercentage.png in Resources */,
