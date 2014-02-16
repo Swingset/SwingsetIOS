@@ -59,6 +59,10 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(inviteMembers:)];
     
+    self.loadingIndicator.lblTitle.text = @"Just a second...";
+    self.loadingIndicator.lblMessage.text = @"Pulling up your contacts.";
+    
+    
     [self requestAddresBookAccess];
 }
 
