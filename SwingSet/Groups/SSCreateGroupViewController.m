@@ -374,8 +374,8 @@
             [updatedGroups addObject:newGroup];
             self.profile.groups = updatedGroups;
             
-            NSString *msg = [NSString stringWithFormat:@"You are now part of the %@ group.", newGroup[@"displayName"]];
-            [self showAlert:@"Success!" withMessage:msg];
+            NSString *msg = [NSString stringWithFormat:@"You are the newest member of @%@ group. Try asking your first question!", newGroup[@"displayName"]];
+            [self showAlert:@"Welcome!" withMessage:msg];
         }
         else{
             [self showAlert:@"Error" withMessage:results[@"message"]];
