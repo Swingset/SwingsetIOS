@@ -23,6 +23,7 @@
 @property (strong, nonatomic) UILabel *lblDate;
 @property (strong, nonatomic) UILabel *lblVotes;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIButton *btnComments;
 @property (strong, nonatomic) NSMutableArray *optionsViews;
 @property (strong, nonatomic) NSMutableArray *optionsImageViews;
 @property (strong, nonatomic) NSMutableArray *malePercentViews;

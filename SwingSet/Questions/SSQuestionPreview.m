@@ -37,6 +37,7 @@ CGFloat randomRGB(){
 @synthesize optionsImageViews;
 @synthesize malePercentViews;
 @synthesize femalePercentViews;
+@synthesize btnComments;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -83,7 +84,7 @@ CGFloat randomRGB(){
         infoBar.alpha = 0.1f;
         [self addSubview:infoBar];
         
-        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, y, w+25, 20.0f)];
+        self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, y, w+35, 20.0f)];
         self.lblDate.backgroundColor = [UIColor clearColor];
         self.lblDate.textColor = [UIColor whiteColor];
         self.lblDate.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
@@ -149,15 +150,15 @@ CGFloat randomRGB(){
         line.backgroundColor = [UIColor lightGrayColor];
         [self addSubview:line];
 
-        UIButton *btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
-        btnComments.frame = CGRectMake(0.0f, frame.size.height-h-kPadding, 0.5f*frame.size.width, 34.0f);
+        self.btnComments = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.btnComments.frame = CGRectMake(0.0f, frame.size.height-h-kPadding, 0.5f*frame.size.width, 34.0f);
         
-        [btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
-        btnComments.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [btnComments setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        btnComments.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-        [btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
-        [btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.btnComments setTitle:@"0 comments" forState:UIControlStateNormal];
+        self.btnComments.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [self.btnComments setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.btnComments.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+        [self.btnComments addTarget:self action:@selector(btnCommentsAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.btnComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         
         UIImageView *imgComment = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"commentbubble.png"]];
         scale = 34.0f/imgComment.frame.size.height;

@@ -307,6 +307,7 @@
     preview.imageView.image = (question.image) ? question.image : nil;
     preview.lblVotes.text = [NSString stringWithFormat:@"%d votes", (int)question.votes.count];
     preview.lblDate.text = [NSString stringWithFormat:@"%@ | %@", question.username, question.pubDate];
+    [preview.btnComments setTitle:[NSString stringWithFormat:@"%d comments", (int)question.comments.count] forState:UIControlStateNormal];
 
     if ([question.answerType isEqualToString:@"text"]) {
         for (int i=0; i<preview.optionsViews.count; i++) {
