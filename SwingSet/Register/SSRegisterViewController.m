@@ -8,6 +8,7 @@
 
 #import "SSRegisterViewController.h"
 #import "SSConfirmViewController.h"
+#import "SSLoginViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface SSRegisterViewController ()
@@ -174,6 +175,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStyleBordered target:self action:@selector(showLogin)];
+
     [self.profile addObserver:self forKeyPath:@"phone" options:0 context:nil];
     [self.profile addObserver:self forKeyPath:@"name" options:0 context:nil];
     [self.profile addObserver:self forKeyPath:@"email" options:0 context:nil];
@@ -247,6 +250,12 @@
                     completion:^(BOOL finisehd){
                         
                     }];
+}
+
+- (void)showLogin
+{
+    SSLoginViewController *loginVc = [[SSLoginViewController alloc] init];
+    [self.navigationController pushViewController:loginVc animated:YES];
 }
 
 - (void)btnMaleAction:(UIButton *)btn
