@@ -100,7 +100,7 @@
     self.passwordEntryView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
     self.passwordEntryView.backgroundColor = [UIColor clearColor];
     w = 0.70f*frame.size.width;
-    UIView *passwordBox = [[UIView alloc] initWithFrame:CGRectMake(0.5f*(frame.size.width-w), 80.0f, w, 120.0f)];
+    UIView *passwordBox = [[UIView alloc] initWithFrame:CGRectMake(0.5f*(frame.size.width-w), 70.0f, w, 120.0f)];
     passwordBox.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     passwordBox.backgroundColor = kGrayTable;
     passwordBox.layer.cornerRadius = 4.0f;
@@ -137,6 +137,11 @@
 - (void)btnNextAction:(UIButton *)btn
 {
     
+    if (self.emailField.text.length==0 && self.phoneField.text.length==0){
+        [self showAlert:@"Missing Value" withMessage:@"Please enter an email or phone number."];
+        return;
+    }
+
     [UIView animateWithDuration:0.20f
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseIn
@@ -178,55 +183,41 @@
 {
     NSLog(@"btnLoginAction:");
     
+    if(self.passcodeField.text.length==0){
+        [self showAlert:@"Missing PIN Number" withMessage:@"Please enter a PIN number."];
+        return;
+    }
     
+    [self.loadingIndicator startLoading];
     
+    NSMutableDictionary *pkg = [NSMutableDictionary dictionary];
+    pkg[@"pin"] = self.passcodeField.text;
     
+    //defer to phone first
+    pkg[@"type"] = (self.phoneField.text.length > 0) ? @"phone": @"email";
     
+    [[SSWebServices sharedInstance] login:pkg completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        
+        if (error){
+            [self showAlert:@"Error" withMessage:[error localizedDescription]];
+        }
+        else{
+            NSDictionary *results = (NSDictionary *)result;
+            NSString *confirmation = results[@"confirmation"];
+            if ([confirmation isEqualToString:@"success"]){
+                NSDictionary *profileInfo = [results objectForKey:@"profile"];
+                [self.profile populate:profileInfo];
+                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            }
+            else{ // incorrect PIN or user not found:
+                [self showAlert:@"Error" withMessage:results[@"message"]];
+            }
+        }
+    }];
     
 }
 
-- (void)shiftUp
-{
-    if (self.view.frame.origin.y < 0)
-        return;
-    
-    [UIView animateWithDuration:0.25f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         CGRect frame = self.view.frame;
-                         frame.origin.y = -100.0f;
-                         self.view.frame = frame;
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-    
-}
-
-- (void)shiftBack
-{
-    [self.emailField resignFirstResponder];
-    [self.phoneField resignFirstResponder];
-    [self.passcodeField resignFirstResponder];
-    
-    if (self.view.frame.origin.y == 0)
-        return;
-    
-    
-    [UIView animateWithDuration:0.25f
-                          delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         CGRect frame = self.view.frame;
-                         frame.origin.y = 0.0f;
-                         self.view.frame = frame;
-                     }
-                     completion:^(BOOL finished){
-                         
-                     }];
-    
-}
 
 
 
@@ -264,14 +255,13 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded:");
-    for (UITextField *textField in @[self.emailField, self.phoneField])
+    for (UITextField *textField in @[self.emailField, self.phoneField, self.passcodeField])
         [textField resignFirstResponder];
     
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self shiftBack];
     NSLog(@"touchesEnded:");
     
 }
