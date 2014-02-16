@@ -141,8 +141,10 @@
         return;
 
     
+    [self.loadingIndicator startLoading];
     if (self.group){ // fetch group questions
         [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group[@"id"] completionBlock:^(id result, NSError *error){
+            [self.loadingIndicator stopLoading];
             if (error){
                 [self showAlert:@"Error" withMessage:[error localizedDescription]];
                 return;
@@ -161,6 +163,7 @@
     }
     
     [[SSWebServices sharedInstance] fetchPublicQuestions:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
         if (error){
             [self showAlert:@"Error" withMessage:[error localizedDescription]];
             return;
