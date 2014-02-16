@@ -26,6 +26,8 @@
 @synthesize imagesCount;
 @synthesize comments;
 @synthesize isObserved;
+@synthesize username;
+@synthesize pubDate;
 
 
 - (id)init
@@ -57,7 +59,13 @@
         
         if ([key isEqualToString:@"author"])
             self.author = [info objectForKey:key];
-        
+
+        if ([key isEqualToString:@"username"])
+            self.username = [info objectForKey:key];
+
+        if ([key isEqualToString:@"pubDate"])
+            self.pubDate = [info objectForKey:key];
+
         if ([key isEqualToString:@"group"])
             self.group = [info objectForKey:key];
         
@@ -187,7 +195,7 @@
 
 - (NSMutableDictionary *)parametersDictionary
 {
-    NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author, @"answerType":self.answerType, @"group":self.group}];
+    NSMutableDictionary *params = params = [NSMutableDictionary dictionaryWithDictionary:@{@"text":self.text, @"options":self.options, @"author":self.author, @"username":self.username, @"answerType":self.answerType, @"group":self.group}];
     
     if (self.imageId)
         params[@"image"] = self.imageId;

@@ -55,6 +55,7 @@
         
         self.question = [[SSQuestion alloc] init];
         self.question.author = self.profile.uniqueId;
+        self.question.username = self.profile.name;
         
         self.option1Image = nil;
         self.option2Image = nil;
