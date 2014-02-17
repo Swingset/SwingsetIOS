@@ -186,14 +186,25 @@
 
 - (void)processQuestions:(NSArray *)questions
 {
-    if (questions.count==0){
-        [self.loadingIndicator startLoading];
+    if (questions.count==0){ // no questions
+        [self showAlert:@"No Questions" withMessage:@"This group has no questions."];
+//        [self.loadingIndicator startLoading];
         return;
     }
 
     for (int i=0; i<questions.count; i++){
         NSDictionary *questionInfo = [questions objectAtIndex:i];
-        [self.questions addObject:[SSQuestion questionWithInfo:questionInfo]];
+        SSQuestion *question = [SSQuestion questionWithInfo:questionInfo];
+        if ([question.votes containsObject:self.profile.uniqueId]==NO)
+            [self.questions addObject:question];
+        
+        if (self.questions.count==0){ // all questions answered, go to results page:
+            SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
+            resultsVc.canGoBack = NO;
+            resultsVc.group = self.group;
+            [self.navigationController pushViewController:resultsVc animated:YES];
+            return;
+        }
     }
     
     // load first question:
