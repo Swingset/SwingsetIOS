@@ -217,12 +217,13 @@
     SSTableCell *cell = (SSTableCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell==nil){
         cell = [[SSTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.backgroundColor = tableView.backgroundColor;
     }
     
-    UIImageView *backgroundCellImage=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
-    backgroundCellImage.image=[UIImage imageNamed:@"Front Pageicon.png"];
-    UIImageView *backgroundCellImage2=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
-    backgroundCellImage2.image=[UIImage imageNamed:@"GroupsIcon.png"];
+    UIImageView *backgroundCellImage =[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    backgroundCellImage.image = [UIImage imageNamed:@"Front Pageicon.png"];
+    UIImageView *backgroundCellImage2 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    backgroundCellImage2.image = [UIImage imageNamed:@"GroupsIcon.png"];
 
     cell.indentationLevel = 2.0f;
     
