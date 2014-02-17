@@ -119,10 +119,6 @@
     btnLogin.backgroundColor = kGreenNext;
     [self.passwordEntryView addSubview:btnLogin];
     [view addSubview:self.passwordEntryView];
-
-    
-    
-    
     
     self.view = view;
 }
@@ -130,8 +126,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
+}
 
+- (void)goBack:(UIBarButtonItem *)btn
+{
+    self.darkScreen.alpha = 0.0f;
+    self.passwordEntryView.alpha = 0.0f;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)btnNextAction:(UIButton *)btn
