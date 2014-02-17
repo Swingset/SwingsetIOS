@@ -74,7 +74,8 @@
     self.emailField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                           placeholder:@"Email"
                                              keyboard:UIKeyboardTypeAlphabet];
-    
+    self.emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailField.delegate = self;
     [bg addSubview:self.emailField];
 
@@ -107,7 +108,10 @@
     passwordBox.layer.masksToBounds = YES;
     
     
-    self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"PIN Number" keyboard:UIKeyboardTypeNumberPad];
+    self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"PIN Number" keyboard:UIKeyboardTypeDefault];
+    self.passcodeField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    self.passcodeField.autocorrectionType = UITextAutocorrectionTypeNo;
+
     [passwordBox addSubview:self.passcodeField];
     [self.passwordEntryView addSubview:passwordBox];
 
@@ -193,10 +197,26 @@
     [self.loadingIndicator startLoading];
     
     NSMutableDictionary *pkg = [NSMutableDictionary dictionary];
+    if (self.phoneField.text.length > 0){     //defer to phone first
+        pkg[@"type"] = @"phone";
+        
+        // format the phone number (remove hyphens, dashes, etc):
+        NSString *formattedNumber = @"";
+        static NSString *numbers = @"0123456789";
+        NSString *ph = self.phoneField.text;
+        for (int i=0; i<ph.length; i++) {
+            NSString *character = [ph substringWithRange:NSMakeRange(i, 1)];
+            if ([numbers rangeOfString:character].location!=NSNotFound)
+                formattedNumber = [formattedNumber stringByAppendingString:character];
+        }
+        pkg[@"phone"] = formattedNumber;
+    }
+    else{
+        pkg[@"type"] = @"email";
+        pkg[@"email"] = self.emailField.text;
+    }
     pkg[@"pin"] = self.passcodeField.text;
-    
-    //defer to phone first
-    pkg[@"type"] = (self.phoneField.text.length > 0) ? @"phone": @"email";
+
     
     [[SSWebServices sharedInstance] login:pkg completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
@@ -206,6 +226,7 @@
         }
         else{
             NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
             NSString *confirmation = results[@"confirmation"];
             if ([confirmation isEqualToString:@"success"]){
                 NSDictionary *profileInfo = [results objectForKey:@"profile"];
