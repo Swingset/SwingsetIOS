@@ -33,7 +33,6 @@
 		5C35FE6D188EF5CE00827D67 /* SSContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE6C188EF5CE00827D67 /* SSContainerViewController.m */; };
 		5C35FE7D188EF86F00827D67 /* SSConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE7A188EF86F00827D67 /* SSConfirmViewController.m */; };
 		5C35FE7E188EF86F00827D67 /* SSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE7C188EF86F00827D67 /* SSRegisterViewController.m */; };
-		5C35FE81188EFFA300827D67 /* SSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE80188EFFA300827D67 /* SSHomeViewController.m */; };
 		5C35FE84188F094A00827D67 /* SSTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE83188F094A00827D67 /* SSTableCell.m */; };
 		5C4CEE4E188B485F000B1BFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE4D188B485F000B1BFD /* Foundation.framework */; };
 		5C4CEE50188B485F000B1BFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE4F188B485F000B1BFD /* CoreGraphics.framework */; };
@@ -286,8 +285,6 @@
 		5C35FE7A188EF86F00827D67 /* SSConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSConfirmViewController.m; sourceTree = "<group>"; };
 		5C35FE7B188EF86F00827D67 /* SSRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSRegisterViewController.h; sourceTree = "<group>"; };
 		5C35FE7C188EF86F00827D67 /* SSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSRegisterViewController.m; sourceTree = "<group>"; };
-		5C35FE7F188EFFA300827D67 /* SSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHomeViewController.h; sourceTree = "<group>"; };
-		5C35FE80188EFFA300827D67 /* SSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHomeViewController.m; sourceTree = "<group>"; };
 		5C35FE82188F094A00827D67 /* SSTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTableCell.h; sourceTree = "<group>"; };
 		5C35FE83188F094A00827D67 /* SSTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTableCell.m; sourceTree = "<group>"; };
 		5C4CEE4A188B485F000B1BFD /* SwingSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwingSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -743,8 +740,6 @@
 				5C4CEEC5188B5783000B1BFD /* SSNavigationController.m */,
 				5C35FE6B188EF5CE00827D67 /* SSContainerViewController.h */,
 				5C35FE6C188EF5CE00827D67 /* SSContainerViewController.m */,
-				5C35FE7F188EFFA300827D67 /* SSHomeViewController.h */,
-				5C35FE80188EFFA300827D67 /* SSHomeViewController.m */,
 				5CFAC770188B939200940A00 /* BaseClasses */,
 				5C3259601895A2B10048B588 /* Questions */,
 				5CB4C1E3188F77E50059B332 /* Groups */,
@@ -1524,7 +1519,6 @@
 				5C0E4CA918AD763400E3EE44 /* SSResultCell.m in Sources */,
 				5CF8515718AF013D006ACFDA /* UAPushUI.m in Sources */,
 				5CF8514C18AF013D006ACFDA /* UALocationSettingsViewController.m in Sources */,
-				5C35FE81188EFFA300827D67 /* SSHomeViewController.m in Sources */,
 				5C3163AA189797D70048D4A8 /* SSQuestion.m in Sources */,
 				5CF8515118AF013D006ACFDA /* UAPushSettingsAliasViewController.m in Sources */,
 				5CFAC776188B9E8400940A00 /* SSProfile.m in Sources */,

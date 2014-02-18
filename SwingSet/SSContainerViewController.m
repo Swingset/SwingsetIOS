@@ -10,7 +10,6 @@
 #import "SSRegisterViewController.h"
 #import "SSNavigationController.h"
 #import "SSQuestionsViewController.h"
-#import "SSHomeViewController.h"
 #import "SSGroupsViewController.h"
 #import "SSConfirmViewController.h"
 #import "SSTableCell.h"
