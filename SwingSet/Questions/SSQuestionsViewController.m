@@ -172,10 +172,10 @@
         
         NSDictionary *results = (NSDictionary *)result;
         if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
-            [self processQuestions:results[@"questions"]];
-            
             NSDictionary *publicGroup = results[@"group"];
             self.group = publicGroup;
+            
+            [self processQuestions:results[@"questions"]];
         }
         else{
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
@@ -186,9 +186,10 @@
 
 - (void)processQuestions:(NSArray *)questions
 {
+    NSLog(@"GROUP: %@", [self.group description]);
+    NSLog(@"PROCESS QUESTIONS: %@", [questions description]);
     if (questions.count==0){ // no questions
         [self showAlert:@"No Questions" withMessage:@"This group has no questions."];
-//        [self.loadingIndicator startLoading];
         return;
     }
 
