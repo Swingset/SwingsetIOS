@@ -44,6 +44,9 @@
     NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
     NSLog(@"application didRegisterForRemoteNotificationsWithDeviceToken: %@", token);
     
+    if (!token)
+        return;
+    
     SSProfile *profile = [SSProfile sharedProfile];
     profile.deviceToken = token;
     
