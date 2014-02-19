@@ -19,6 +19,8 @@
         self.font = [UIFont fontWithName:@"ProximaNova-Light" size:14.0f];
         self.leftViewMode = UITextFieldViewModeAlways;
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        self.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        self.autocorrectionType = UITextAutocorrectionTypeNo;
         
         self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         self.imageView.image = [UIImage imageNamed:@"bg_textfield.png"];

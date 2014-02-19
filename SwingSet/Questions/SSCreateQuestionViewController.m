@@ -138,6 +138,8 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option1Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option1Field.placeholder = @"Option 1";
             self.option1Field.delegate = self;
+            self.option1Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option1Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option1Field];
             
             self.option1Icon = [[UIImageView alloc] initWithFrame:CGRectMake(indent, y, iconDimen, iconDimen)];
@@ -152,6 +154,8 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option2Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option2Field.placeholder = @"Option 2";
             self.option2Field.delegate = self;
+            self.option2Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option3Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option2Field];
             
             self.option2Icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-indent, self.option1Icon.frame.origin.y, iconDimen, iconDimen)];
@@ -167,6 +171,8 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option3Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option3Field.placeholder = @"Option 3 (optional)";
             self.option3Field.delegate = self;
+            self.option3Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option4Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option3Field];
             
             self.option3Icon = [[UIImageView alloc] initWithFrame:CGRectMake(indent, y, iconDimen, iconDimen)];
@@ -181,6 +187,8 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option4Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option4Field.placeholder = @"Option 4 (optional)";
             self.option4Field.delegate = self;
+            self.option4Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option4Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option4Field];
             
             self.option4Icon = [[UIImageView alloc] initWithFrame:CGRectMake(base.frame.size.width-iconDimen-indent, self.option3Icon.frame.origin.y, iconDimen, iconDimen)];
