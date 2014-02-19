@@ -24,6 +24,7 @@
     UAConfig *config = [UAConfig defaultConfig]; // Populate AirshipConfig.plist with your app's info from https://go.urbanairship.com, or set runtime properties here.
 
     [UAirship takeOff:config];     // Call takeOff (which creates the UAirship singleton)
+    [UAirship setLogging:YES];
     [UAPush shared].notificationTypes = (UIRemoteNotificationTypeAlert);
     [UAPush setDefaultPushEnabledValue:YES];
     
@@ -41,16 +42,22 @@
 
 -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
-    NSLog(@"application didRegisterForRemoteNotificationsWithDeviceToken: %@", token);
+//    NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
+    NSLog(@"application didRegisterForRemoteNotificationsWithDeviceToken: %@", deviceToken);
     
-    if (!token)
+    if (!deviceToken)
         return;
+
+    UALOG(@"APN device token: %@", deviceToken);
+    [[UAPush shared] registerDeviceToken:deviceToken];
+
+    NSString *token = [NSString stringWithFormat:@"%@", deviceToken];
+    token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     SSProfile *profile = [SSProfile sharedProfile];
     profile.deviceToken = token;
-    
-//    [[UAPush shared] registerDeviceToken:deviceToken];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
