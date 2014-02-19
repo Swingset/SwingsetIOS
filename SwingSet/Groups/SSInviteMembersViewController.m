@@ -16,8 +16,7 @@
 @property (strong, nonatomic) UITableView *contactsTable;
 @property (strong, nonatomic) NSMutableArray *selectedContacts;
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (strong, nonatomic) UISearchDisplayController *contactSearchDisplayController;
-@property (strong, nonatomic) NSMutableArray *foundItems;
+@property (strong, nonatomic) NSMutableArray *searchResults;
 @end
 
 
@@ -31,6 +30,7 @@
         self.edgesForExtendedLayout = UIRectEdgeAll;
         self.contactsList = [NSMutableArray array];
         self.selectedContacts = [NSMutableArray array];
+        self.searchResults = [NSMutableArray array];
     }
     return self;
 }
@@ -48,23 +48,22 @@
     self.contactsTable.backgroundColor = kGrayTable;
     self.contactsTable.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.contactsTable.separatorInset = UIEdgeInsetsZero;
-    
+
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,320,44)];
+    self.contactsTable.tableHeaderView = self.searchBar;
+    self.searchBar.delegate = self;
+
     [view addSubview:self.contactsTable];
     
-    
-    self.searchBar = [[UISearchBar alloc] init];
-    [[self contactsTable] setTableHeaderView:self.searchBar];
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,0,320,44)];
-    [view addSubview:self.searchBar];
-    ///
     
     self.view = view;
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
-    NSLog(@"wwhhaaa");
-    [self.foundItems removeAllObjects];
+    NSLog(@"controller shouldReloadTableForSearchString");
+    
+//    [self.foundItems removeAllObjects];
     /*before starting the search is necessary to remove all elements from the
      array that will contain found items */
     
@@ -93,7 +92,7 @@
         }
         
         if ([newGroup count] > 0) {
-            [self.foundItems addObject:newGroup];
+//            [self.foundItems addObject:newGroup];
         }
         
     }
@@ -101,15 +100,84 @@
     
 }
 
+#pragma mark - UISearchBarDelegate
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarShouldBeginEditing");
+    return YES;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar  // called when text starts editing
+{
+    NSLog(@"searchBarTextDidBeginEditing");
+    
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar                       // return NO to not resign first responder
+{
+    NSLog(@"searchBarShouldEndEditing");
+    [searchBar resignFirstResponder];
+    return YES;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar  // called when text ends editing
+{
+    NSLog(@"searchBarTextDidEndEditing: %@", searchBar.text);
+    [searchBar resignFirstResponder];
+    
+    [self.searchResults removeAllObjects];
+    
+    NSString *filter = searchBar.text.lowercaseString;
+    for (NSDictionary *contact in self.contactsList) {
+        
+        NSString *firstName = contact[@"firstName"];
+        
+        if ([[firstName lowercaseString] rangeOfString:filter].location != NSNotFound){
+            [self.searchResults addObject:contact];
+        }
+        
+        NSString *lastName = contact[@"lastName"];
+        if (lastName){
+            if ([[lastName lowercaseString] rangeOfString:filter].location != NSNotFound){
+                
+                if ([self.searchResults containsObject:contact]==NO)
+                    [self.searchResults addObject:contact];
+            }
+        }
+    }
+    
+    [self.contactsTable reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
+{
+    NSLog(@"searchBarCancelButtonClicked:");
+    [searchBar resignFirstResponder];
+}
 
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarSearchButtonClicked:");
+    [searchBar resignFirstResponder];
+    
+
+    
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.contactSearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+//    self.contactSearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+    
     //self.contactSearchDisplayController.delegate = self;
-    self.contactSearchDisplayController.searchResultsDataSource = self;
+    
+//    self.contactSearchDisplayController.searchResultsDataSource = self;
     self.contactsTable.tableHeaderView = self.searchBar;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
@@ -252,26 +320,13 @@
     });
 }
 
-//create a boolean to see if address book is ready or not
-/*
- - (void)findMatches {
- [self.foundItems removeAllObjects];
- 
- for (NSString *str in self.contactsList) {
- NSRange range = [str rangeOfString:self.searchDisplayController.searchBar.text
- options:NSCaseInsensitiveSearch];
- 
- if (range.location != NSNotFound) {
- [self.foundItems addObject:str];
- }
- }
- }*/
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //[self findMatches];
+    if (self.searchResults.count > 0)
+        return self.searchResults.count;
+    
     return self.contactsList.count;
 }
 
@@ -287,7 +342,14 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSDictionary *contact = [self.contactsList objectAtIndex:indexPath.row];
+    NSDictionary *contact = nil;
+    if (self.searchResults.count > 0)
+        contact = [self.searchResults objectAtIndex:indexPath.row];
+    else
+        contact = [self.contactsList objectAtIndex:indexPath.row];
+    
+    
+    
     if (contact[@"lastName"]) // first name and last name
         cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact[@"firstName"], contact[@"lastName"]];
     else // first name only
@@ -302,7 +364,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *contact = [self.contactsList objectAtIndex:indexPath.row];
+    NSDictionary *contact = nil;
+    if (self.searchResults.count > 0)
+        contact = [self.searchResults objectAtIndex:indexPath.row];
+    else
+        contact = [self.contactsList objectAtIndex:indexPath.row];
+
     if (!contact)
         return;
     
@@ -315,6 +382,18 @@
     
     
     [self.contactsTable reloadData];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (!self.searchBar.isFirstResponder)
+        return;
+    
+    [self.searchBar resignFirstResponder];
+    if (self.searchBar.text.length==0){
+        self.searchResults = [NSMutableArray array];
+        [self.contactsTable reloadData];
+    }
 }
 
 
