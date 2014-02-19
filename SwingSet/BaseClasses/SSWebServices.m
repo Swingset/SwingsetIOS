@@ -162,7 +162,45 @@
                  }];
 }
 
-
+- (void)forgotPassword:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+{
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
+    [httpClient setParameterEncoding:AFJSONParameterEncoding];
+    [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
+    
+    [httpClient postPath:@"/api/newpassword/"
+              parameters:pkg
+                 success:^(AFHTTPRequestOperation *operation, id responseObject){
+                     NSError *error = nil;
+                     NSDictionary *responseDictionary = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:responseObject
+                                                                                                       options:NSJSONReadingMutableContainers
+                                                                                                         error:&error];
+                     
+                     if (error){
+                         NSLog(@"SUCCESS BLOCK: ERROR - %@", [error localizedDescription]);
+                     }
+                     else{
+                         //NSLog(@"SUCCESS BLOCK: %@", [responseDictionary description]);
+                         NSDictionary *results = [responseDictionary objectForKey:@"results"];
+                         NSString *confirmation = [results objectForKey:@"confirmation"];
+                         
+                         if ([confirmation isEqualToString:@"success"]){ // profile successfully registered
+                             if (completionBlock)
+                                 completionBlock(results, error);
+                         }
+                         else{
+                             if (completionBlock)
+                                 completionBlock(results, nil);
+                         }
+                     }
+                 }
+     
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                     NSLog(@"FAILURE BLOCK: %@", [error localizedDescription]);
+                     if (completionBlock)
+                         completionBlock(nil, error);
+                 }];
+}
 
 
 
