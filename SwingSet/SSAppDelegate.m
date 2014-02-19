@@ -42,7 +42,6 @@
 
 -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-//    NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
     NSLog(@"application didRegisterForRemoteNotificationsWithDeviceToken: %@", deviceToken);
     
     if (!deviceToken)
