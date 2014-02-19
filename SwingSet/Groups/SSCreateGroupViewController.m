@@ -255,8 +255,9 @@
     
     [[SSWebServices sharedInstance] createGroup:group completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
+        self.groupNameField.text = @"";
         NSDictionary *results = (NSDictionary *)result;
-        NSLog(@"%@", [results description]);
+//        NSLog(@"%@", [results description]);
         
         NSString *confirmation = [results objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"success"]) {
