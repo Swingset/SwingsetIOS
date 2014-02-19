@@ -237,8 +237,10 @@
 - (void)setQuestionImg:(UIImage *)questionImg
 {
     _questionImg = questionImg;
-    
     self.icon.image = questionImg;
+    
+    if (questionImg==nil)
+        return;
     
     CGFloat h = self.icon.frame.size.height;
     double scale = h/questionImg.size.height;
@@ -360,6 +362,34 @@
         
         NSDictionary *results = (NSDictionary *)result;
         NSLog(@"%@", [results description]);
+        
+        
+        [self showAlert:@"Success!" withMessage:@"Your question has been posted!"];
+        
+        
+        // reset all fields:
+        self.questionTextField.text = @"";
+        self.questionImg = nil;
+        
+        self.option1Field.text = @"";
+        self.option2Field.text = @"";
+        self.option3Field.text = @"";
+        self.option4Field.text = @"";
+        
+        self.option1Image = nil;
+        self.option2Image = nil;
+        self.option3Image = nil;
+        self.option4Image = nil;
+        
+        UIImage *cameraIcon = [UIImage imageNamed:@"selectPhotoIcon.png"];
+        self.icon.image = cameraIcon;
+        self.option1Icon.image = cameraIcon;
+        self.option2Icon.image = cameraIcon;
+        self.option3Icon.image = cameraIcon;
+        self.option4Icon.image = cameraIcon;
+        
+        
+        
     }];
 
 }
