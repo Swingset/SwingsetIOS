@@ -18,12 +18,14 @@
 @synthesize confirmed;
 @synthesize groups;
 @synthesize populated;
+@synthesize deviceToken;
 
 - (id)init
 {
     self = [super init];
     if (self){
         self.uniqueId = @"none";
+        self.deviceToken = @"none";
         self.email = @"";
         self.phone = @"";
         self.name = @"";
@@ -62,7 +64,7 @@
 - (NSDictionary *)parametersDictionary
 {
     NSString *conf = (self.confirmed) ? @"yes" : @"no";
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"id":self.uniqueId, @"name":self.name, @"sex":self.sex, @"pw":self.pw, @"confirmed":conf}];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"id":self.uniqueId, @"name":self.name, @"sex":self.sex, @"pw":self.pw, @"confirmed":conf, @"deviceToken":self.deviceToken}];
     
     if (self.email.length > 1)
         [params setObject:self.email forKey:@"email"];

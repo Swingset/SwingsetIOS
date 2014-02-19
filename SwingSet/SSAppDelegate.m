@@ -41,8 +41,11 @@
 
 -(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
-    NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF16StringEncoding];
+    NSString *token = [[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding];
     NSLog(@"application didRegisterForRemoteNotificationsWithDeviceToken: %@", token);
+    
+    SSProfile *profile = [SSProfile sharedProfile];
+    profile.deviceToken = token;
     
 //    [[UAPush shared] registerDeviceToken:deviceToken];
 }
