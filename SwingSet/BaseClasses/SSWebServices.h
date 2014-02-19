@@ -31,6 +31,7 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 // Profile
 - (void)fetchProfileInfo:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)registerProfile:(SSProfile *)profile completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)updateProfile:(SSProfile *)profile completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 
 // Groups
