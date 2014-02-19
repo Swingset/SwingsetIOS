@@ -232,17 +232,23 @@
     NSLog(@"btnInviteAction:");
     [self shiftBack];
     
-    if (self.groupNameField.text.length < 5 || self.groupNameField.text.length > 15){
+    NSString *groupName = self.groupNameField.text;
+    if (groupName.length < 5 || groupName.length > 15){
         [self showAlert:@"Invalid Group Name" withMessage:@"Please enter a valid group name (5 to 15 characters)."];
         return;
     }
     
-    if(self.groupPWField.text.length!=4){
+    if ([groupName rangeOfString:@" "].location != NSNotFound){
+        [self showAlert:@"Invalid Group Name" withMessage:@"Please enter a group name with no spaces."];
+        return;
+    }
+    
+    if(self.groupPWField.text.length != 4){
         [self showAlert:@"Invalid PIN Number" withMessage:@"Please enter a valid pin number (4 characters)."];
         return;
     }
     
-    NSMutableDictionary *group = [NSMutableDictionary dictionaryWithDictionary:@{@"name":self.groupNameField.text, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text}];
+    NSMutableDictionary *group = [NSMutableDictionary dictionaryWithDictionary:@{@"name":groupName, @"members":@[self.profile.uniqueId], @"pin":self.groupPWField.text}];
     
     [self.loadingIndicator startLoading];
 
