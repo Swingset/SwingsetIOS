@@ -40,7 +40,7 @@
 @property (strong, nonatomic) UIImageView *selected;
 @end
 
-
+static NSString *questionPlaceholder = @"Write your question here.";
 
 @implementation SSCreateQuestionViewController
 
@@ -92,6 +92,7 @@
     
     self.questionTextField = [[UITextView alloc] initWithFrame:CGRectMake(0, y, base.frame.size.width-iconDimen, iconDimen)];
     self.questionTextField.delegate = self;
+    self.questionTextField.text = questionPlaceholder;
     self.questionTextField.textColor = [UIColor whiteColor];
     self.questionTextField.textAlignment = NSTextAlignmentCenter;
     self.questionTextField.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -134,6 +135,8 @@
 
         if (i==0){
             self.option1Field = [[UITextField alloc] initWithFrame:CGRectMake(15.0f, 0, optionView.frame.size.width-15.0f, optionView.frame.size.height)];
+            self.option1Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
+            self.option1Field.placeholder = @"Option 1";
             self.option1Field.delegate = self;
             [optionView addSubview:self.option1Field];
             
@@ -146,6 +149,8 @@
         }
         if (i==1){
             self.option2Field = [[UITextField alloc] initWithFrame:CGRectMake(15.0f, 0, optionView.frame.size.width-15.0f, optionView.frame.size.height)];
+            self.option2Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
+            self.option2Field.placeholder = @"Option 2";
             self.option2Field.delegate = self;
             [optionView addSubview:self.option2Field];
             
@@ -159,6 +164,8 @@
         }
         if (i==2){
             self.option3Field = [[UITextField alloc] initWithFrame:CGRectMake(15.0f, 0, optionView.frame.size.width-15.0f, optionView.frame.size.height)];
+            self.option3Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
+            self.option3Field.placeholder = @"Option 3 (optional)";
             self.option3Field.delegate = self;
             [optionView addSubview:self.option3Field];
             
@@ -171,6 +178,8 @@
         }
         if (i==3){
             self.option4Field = [[UITextField alloc] initWithFrame:CGRectMake(15.0f, 0, optionView.frame.size.width-15.0f, optionView.frame.size.height)];
+            self.option4Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
+            self.option4Field.placeholder = @"Option 4 (optional)";
             self.option4Field.delegate = self;
             [optionView addSubview:self.option4Field];
             
@@ -412,6 +421,12 @@
 - (void)submitQuestion:(UIButton *)btn
 {
     NSLog(@"submitQuestion:");
+    if ([self.question.text isEqualToString:questionPlaceholder]){
+        [self showAlert:@"Missing Question" withMessage:@"Please enter a valid question."];
+        return;
+    }
+
+    
     if (self.question.text.length < 1){
         [self showAlert:@"Missing Question" withMessage:@"Please enter a valid question."];
         return;
@@ -728,14 +743,21 @@
 #pragma mark - UITextViewDelegate
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-//    NSLog(@"textViewShouldBeginEditing: %@", textView.text);
+    NSLog(@"textViewShouldBeginEditing: %@", textView.text);
+    if ([textView.text isEqualToString:questionPlaceholder])
+        textView.text = @"";
+    
     return YES;
     
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-//    NSLog(@"textViewShouldEndEditing: %@", textView.text);
+    NSLog(@"textViewShouldEndEditing: %@", textView.text);
+    
+    if (textView.text.length==0){
+        textView.text = questionPlaceholder;
+    }
     [textView resignFirstResponder];
     return YES;
 }
@@ -747,7 +769,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
-//    NSLog(@"textViewDidEndEditing: %@", textView.text);
+    NSLog(@"textViewDidEndEditing: %@", textView.text);
     [textView resignFirstResponder];
 }
 
