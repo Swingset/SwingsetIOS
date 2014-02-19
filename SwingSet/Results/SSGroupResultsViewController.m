@@ -141,7 +141,7 @@
     SSQuestion *question = self.questions[indexPath.row];
     cell.tag = indexPath.row;
     cell.lblText.text = question.text;
-    cell.lblDetails.text = [NSString stringWithFormat:@"%d votes", (int)question.votes.count];
+    cell.lblDetails.text = [NSString stringWithFormat:@"%d votes\nby %@  |  %@", (int)question.votes.count, question.username, question.pubDate];
     [cell.btnComments setTitle:[NSString stringWithFormat:@"%d comments", (int)question.comments.count] forState:UIControlStateNormal];
     
     if (question.image){

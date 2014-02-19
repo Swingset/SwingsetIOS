@@ -79,9 +79,12 @@
         [base addSubview:self.lblText];
 
         y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
-        self.lblDetails = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, self.lblText.frame.size.width, 16.0f)];
+        self.lblDetails = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, self.lblText.frame.size.width, 28.0f)];
+        self.lblDetails.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         self.lblDetails.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
         self.lblDetails.textColor = [UIColor blackColor];
+        self.lblDetails.numberOfLines = 2;
+        self.lblDetails.lineBreakMode = NSLineBreakByWordWrapping;
         [base addSubview:self.lblDetails];
         
         y = top.frame.origin.y+top.frame.size.height+10.0f;
@@ -158,18 +161,6 @@
         [self.btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.btnDelete addTarget:self action:@selector(btnDeleteAction:) forControlEvents:UIControlEventTouchUpInside];
         
-//        UIImageView *nextArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nextarrow.png"]];
-//        h = self.btnSkip.frame.size.height-8.0f;
-//        scale = h/nextArrow.frame.size.height;
-//        CGRect f = nextArrow.frame;
-//        f.size.height = h;
-//        f.origin.y = 4.0f;
-//        f.size.width *= scale;
-//        f.origin.x = self.btnSkip.frame.size.width-f.size.width-3.0f;
-//        nextArrow.frame = f;
-//        [self.btnSkip addSubview:nextArrow];
-        
-        
         [base addSubview:self.btnDelete];
 
 
@@ -220,7 +211,7 @@
     self.lblText.frame = frame;
     
     frame = self.lblDetails.frame;
-    frame.origin.y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
+    frame.origin.y = 50.0f-self.detailTextLabel.frame.size.height;
     self.lblDetails.frame = frame;
 }
 
