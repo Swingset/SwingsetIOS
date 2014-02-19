@@ -412,7 +412,7 @@
     NSDictionary *comment = [self.currentQuestion.comments objectAtIndex:indexPath.row];
     cell.textLabel.text = [NSString stringWithFormat:@"%@\n\n", comment[@"text"]];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"Posted by %@ | %@", comment[@"username"], comment[@"pubDate"]];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ | %@", comment[@"username"], comment[@"pubDate"]];
     return cell;
 }
 
