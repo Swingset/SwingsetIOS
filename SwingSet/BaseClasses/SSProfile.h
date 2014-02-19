@@ -26,4 +26,5 @@
 - (NSDictionary *)parametersDictionary;
 - (void)populate:(NSDictionary *)info;
 - (void)removeGroup:(NSDictionary *)groupInfo;
+- (void)updateProfile;
 @end

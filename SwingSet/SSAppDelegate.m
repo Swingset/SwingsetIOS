@@ -55,8 +55,13 @@
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     
+    
     SSProfile *profile = [SSProfile sharedProfile];
+    if ([profile.deviceToken isEqualToString:token])
+        return;
+
     profile.deviceToken = token;
+    [profile updateProfile]; // send token info to backend
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

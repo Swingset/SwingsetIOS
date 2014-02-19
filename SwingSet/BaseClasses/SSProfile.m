@@ -7,6 +7,7 @@
 //
 
 #import "SSProfile.h"
+#import "SSWebServices.h"
 
 @implementation SSProfile
 @synthesize uniqueId;
@@ -18,7 +19,7 @@
 @synthesize confirmed;
 @synthesize groups;
 @synthesize populated;
-@synthesize deviceToken;
+@synthesize deviceToken = _deviceToken;
 
 - (id)init
 {
@@ -59,6 +60,32 @@
     });
     
     return shared;
+}
+
+- (void)setDeviceToken:(NSString *)deviceToken
+{
+    NSLog(@"SET DEVICE TOKEN: %@ - - - - - %@", _deviceToken, deviceToken);
+    if ([_deviceToken isEqualToString:deviceToken])
+        return;
+    
+    _deviceToken = deviceToken;
+    if ([self.uniqueId isEqualToString:@"none"])
+        return;
+    
+}
+
+- (void)updateProfile // updates profile info on backend
+{
+    [[SSWebServices sharedInstance] updateProfile:self completionBlock:^(id result, NSError *error){
+        if (error){
+            
+        }
+        else{
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+        }
+        
+    }];
 }
 
 - (NSDictionary *)parametersDictionary
@@ -115,6 +142,10 @@
         
         if ([key isEqualToString:@"groups"])
             self.groups = [NSMutableArray arrayWithArray:[info objectForKey:key]];
+        
+        if ([key isEqualToString:@"deviceToken"])
+            self.deviceToken = [info objectForKey:key];
+
     }
     
     self.populated = YES;
