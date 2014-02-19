@@ -659,28 +659,37 @@ static NSString *questionPlaceholder = @"Write your question here.";
 {
     NSLog(@"imagePickerController: didFinishPickingMediaWithInfo: %@", [info description]);
     
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    CGFloat w = image.size.width;
+    CGFloat h = image.size.height;
+    if (w != h){
+        CGFloat dimen = (w < h) ? w : h;
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], CGRectMake(0.5*(image.size.width-dimen), 0.5*(image.size.height-dimen), dimen, dimen));
+        image = [UIImage imageWithCGImage:imageRef];
+        CGImageRelease(imageRef);
+    }
+    
     if (self.selected){
-        UIImage *selectedImage = info[UIImagePickerControllerEditedImage];
-        self.selected.image = selectedImage;
+        self.selected.image = image;
         
         if ([self.selected isEqual:self.option1Icon])
-            self.option1Image = selectedImage;
+            self.option1Image = image;
 
         if ([self.selected isEqual:self.option2Icon])
-            self.option2Image = selectedImage;
+            self.option2Image = image;
         
         if ([self.selected isEqual:self.option3Icon])
-            self.option3Image = selectedImage;
+            self.option3Image = image;
         
         if ([self.selected isEqual:self.option4Icon])
-            self.option4Image = selectedImage;
+            self.option4Image = image;
 
         
         self.selected = nil;
         
     }
     else{
-        self.questionImg = info[UIImagePickerControllerEditedImage];
+        self.questionImg = image;
     }
     
     
