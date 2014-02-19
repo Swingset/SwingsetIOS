@@ -78,7 +78,7 @@
     self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailField.delegate = self;
     [bg addSubview:self.emailField];
-
+    
 
     y = bg.frame.origin.y+bg.frame.size.height+10.0f;
     w = 0.5f*frame.size.width;
@@ -108,12 +108,21 @@
     passwordBox.layer.masksToBounds = YES;
     
     
-    self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"PIN Number" keyboard:UIKeyboardTypeDefault];
+    self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"Password" keyboard:UIKeyboardTypeDefault];
     self.passcodeField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.passcodeField.autocorrectionType = UITextAutocorrectionTypeNo;
-
     [passwordBox addSubview:self.passcodeField];
+    y += self.passcodeField.frame.size.height+5.0f;
+    UIButton *btnForgot = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btnForgot setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    btnForgot.frame = CGRectMake(self.passcodeField.frame.origin.x, self.passcodeField.frame.origin.y+self.passcodeField.frame.size.height+5.0f, self.passcodeField.frame.size.width, 36.0f);
+    [btnForgot setTitle:@"Forgot Password?" forState:UIControlStateNormal];
+    [btnForgot addTarget:self action:@selector(btnForgotAction:) forControlEvents:UIControlEventTouchUpInside];
+    [passwordBox addSubview:btnForgot];
+
+    
     [self.passwordEntryView addSubview:passwordBox];
+    
 
 
     y = passwordBox.frame.origin.y+passwordBox.frame.size.height+20.0f;
@@ -122,6 +131,7 @@
     [btnLogin addTarget:self action:@selector(btnLoginAction:) forControlEvents:UIControlEventTouchUpInside];
     btnLogin.backgroundColor = kGreenNext;
     [self.passwordEntryView addSubview:btnLogin];
+    self.passwordEntryView.alpha = 0.0f;
     [view addSubview:self.passwordEntryView];
     
     self.view = view;
@@ -132,6 +142,67 @@
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack:)];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.passwordEntryView.alpha = 1.0f;
+}
+
+- (void)btnForgotAction:(UIButton *)btn
+{
+    NSLog(@"btnForgotAction:");
+    [self.loadingIndicator startLoading];
+    
+    NSMutableDictionary *pkg = [NSMutableDictionary dictionary];
+    if (self.phoneField.text.length > 0){     //defer to phone first
+        pkg[@"type"] = @"phone";
+        
+        // format the phone number (remove hyphens, dashes, etc):
+        NSString *formattedNumber = @"";
+        static NSString *numbers = @"0123456789";
+        NSString *ph = self.phoneField.text;
+        for (int i=0; i<ph.length; i++) {
+            NSString *character = [ph substringWithRange:NSMakeRange(i, 1)];
+            if ([numbers rangeOfString:character].location!=NSNotFound)
+                formattedNumber = [formattedNumber stringByAppendingString:character];
+        }
+        pkg[@"phone"] = formattedNumber;
+    }
+    else{
+        pkg[@"type"] = @"email";
+        pkg[@"email"] = self.emailField.text;
+    }
+    
+    
+    [[SSWebServices sharedInstance] forgotPassword:pkg completionBlock:^(id result, NSError *error){
+        [self.loadingIndicator stopLoading];
+        
+        if (error){
+            [self showAlert:@"Error" withMessage:[error localizedDescription]];
+        }
+        else{
+            NSDictionary *results = (NSDictionary *)result;
+            NSLog(@"%@", [results description]);
+            NSString *confirmation = results[@"confirmation"];
+            if ([confirmation isEqualToString:@"success"]){
+                
+                [self showAlert:@"Password Reset" withMessage:@"A new password was assigned to your profile and sent to you via text or email. Please try logging in again with the new password."];
+
+//                NSDictionary *profileInfo = [results objectForKey:@"profile"];
+//                [self.profile populate:profileInfo];
+//                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+            }
+            else{ // incorrect PIN or user not found:
+                [self showAlert:@"Error" withMessage:results[@"message"]];
+            }
+        }
+    }];
+    
+
+    
+}
+
 
 - (void)goBack:(UIBarButtonItem *)btn
 {
