@@ -318,7 +318,6 @@
     //    return;
     
     
-    // TODO: show loading indicator
     [self.loadingIndicator startLoading];
     [[SSWebServices sharedInstance] registerProfile:self.profile
                                     completionBlock:^(id result, NSError *error){
