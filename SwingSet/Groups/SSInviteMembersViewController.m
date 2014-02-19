@@ -59,46 +59,23 @@
     self.view = view;
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+
+- (void)viewDidLoad
 {
-    NSLog(@"controller shouldReloadTableForSearchString");
+    [super viewDidLoad];
+    self.contactsTable.tableHeaderView = self.searchBar;
     
-//    [self.foundItems removeAllObjects];
-    /*before starting the search is necessary to remove all elements from the
-     array that will contain found items */
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
     
-    NSArray *contactsGroup;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(inviteMembers:)];
     
-    /* in this loop I search through every element (group) (see the code on top) in
-     the "originalData" array, if the string match, the element will be added in a
-     new array called newGroup. Then, if newGroup has 1 or more elements, it will be
-     added in the "searchData" array. shortly, I recreated the structure of the
-     original array "originalData". */
+    self.loadingIndicator.lblTitle.text = @"Just a second...";
+    self.loadingIndicator.lblMessage.text = @"Pulling up your contacts.";
     
-    for(group in self.contactsList) //take the n group (eg. group1, group2, group3)
-        //in the original data
-    {
-        NSMutableArray *newGroup = [[NSMutableArray alloc] init];
-        NSString *element;
-        
-        for(element in contactsGroup) //take the n element in the group
-        {                    //(eg. @"Napoli, @"Milan" etc.)
-            NSRange range = [element rangeOfString:searchString
-                                           options:NSCaseInsensitiveSearch];
-            
-            if (range.length > 0) { //if the substring match
-                [newGroup addObject:element]; //add the element to group
-            }
-        }
-        
-        if ([newGroup count] > 0) {
-//            [self.foundItems addObject:newGroup];
-        }
-        
-    }
-    return YES;
     
+    [self requestAddresBookAccess];
 }
+
 
 #pragma mark - UISearchBarDelegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -146,6 +123,8 @@
         }
     }
     
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];//sorted by first name
+    [self.searchResults sortUsingDescriptors:@[sort]];
     [self.contactsTable reloadData];
 }
 
@@ -168,27 +147,6 @@
     
 
     
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-//    self.contactSearchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-    
-    //self.contactSearchDisplayController.delegate = self;
-    
-//    self.contactSearchDisplayController.searchResultsDataSource = self;
-    self.contactsTable.tableHeaderView = self.searchBar;
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleBordered target:self action:@selector(inviteMembers:)];
-    
-    self.loadingIndicator.lblTitle.text = @"Just a second...";
-    self.loadingIndicator.lblMessage.text = @"Pulling up your contacts.";
-    
-    
-    [self requestAddresBookAccess];
 }
 
 - (void)inviteMembers:(UIBarButtonItem *)btn
