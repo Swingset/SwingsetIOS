@@ -199,14 +199,23 @@
         if ([question.votes containsObject:self.profile.uniqueId]==NO)
             [self.questions addObject:question];
         
-        if (self.questions.count==0){ // all questions answered, go to results page:
-            SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
-            resultsVc.canGoBack = NO;
-            resultsVc.group = self.group;
-            [self.navigationController pushViewController:resultsVc animated:YES];
-            return;
-        }
+//        if (self.questions.count==0){ // all questions answered, go to results page:
+//            SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
+//            resultsVc.canGoBack = NO;
+//            resultsVc.group = self.group;
+//            [self.navigationController pushViewController:resultsVc animated:YES];
+//            return;
+//        }
     }
+    
+    if (self.questions.count==0){ // all questions answered, go to results page:
+        SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
+        resultsVc.canGoBack = NO;
+        resultsVc.group = self.group;
+        [self.navigationController pushViewController:resultsVc animated:YES];
+        return;
+    }
+
     
     // load first question:
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
