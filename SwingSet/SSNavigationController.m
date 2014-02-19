@@ -11,6 +11,7 @@
 @interface SSNavigationController ()
 @property (nonatomic) CGPoint start;
 @property (nonatomic) NSTimeInterval startTime;
+@property (nonatomic) BOOL slidOut;
 @end
 
 @implementation SSNavigationController
@@ -21,7 +22,7 @@
     if (self) {
         self.navigationBar.barStyle = UIBarStyleDefault;
         self.navigationBar.tintColor = [UIColor blackColor];
-
+        self.slidOut = NO;
     }
     return self;
 }
@@ -59,6 +60,7 @@
 
 - (void)slideIn
 {
+    self.slidOut = NO;
     if ([self.container respondsToSelector:@selector(hideMenu)])
         [self.container hideMenu];
     
@@ -120,6 +122,7 @@
                                                   self.view.center = ctr;
                                               }
                                               completion:^(BOOL finished){
+                                                  self.slidOut = YES;
                                                   self.visibleViewController.view.userInteractionEnabled = NO;
                                               }];
                          }
@@ -167,7 +170,7 @@
     NSLog(@"touchesEnded: %@, %.2f", [self.class description], self.view.center.x);
     
     // already slid out, slide back in:
-    if (self.view.center.x > 0.5f*self.view.frame.size.width){
+    if (self.slidOut){
         [self slideIn];
         return;
     }
