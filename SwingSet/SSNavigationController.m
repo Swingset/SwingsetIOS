@@ -164,7 +164,14 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSLog(@"touchesEnded: %@", [self.class description]);
+    NSLog(@"touchesEnded: %@, %.2f", [self.class description], self.view.center.x);
+    
+    // already slid out, slide back in:
+    if (self.view.center.x > 0.5f*self.view.frame.size.width){
+        [self slideIn];
+        return;
+    }
+
     
     UITouch *touch = [touches anyObject];
     CGPoint endLoc = [touch locationInView:self.parentViewController.view];
