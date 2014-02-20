@@ -10,4 +10,5 @@
 
 @interface SSTableCell : UITableViewCell
 
+
 @end

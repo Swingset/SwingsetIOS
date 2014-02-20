@@ -57,6 +57,7 @@
 
 - (void)loadView
 {
+    [self resetTable];
     UIView *view = [self baseView:NO];
     CGRect frame = view.frame;
     
@@ -140,6 +141,7 @@
 {
     [super viewDidAppear:animated];
     
+    
     if (self.profile.populated){
         if (self.profile.confirmed)
             return;
@@ -212,29 +214,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Cell for row at index path called!");
     static NSString *cellID = @"ID";
+    
+
     SSTableCell *cell = (SSTableCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell==nil){
         cell = [[SSTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.backgroundColor = tableView.backgroundColor;
     }
     
-    UIImageView *backgroundCellImage =[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
-    backgroundCellImage.image = [UIImage imageNamed:@"Front Pageicon.png"];
-    UIImageView *backgroundCellImage2 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
-    backgroundCellImage2.image = [UIImage imageNamed:@"GroupsIcon.png"];
-
-    cell.indentationLevel = 2.0f;
+    cell.indentationLevel = -5.0f;
+    
     
     if (indexPath.row == 0){ // Home, Groups
         cell.textLabel.text = self.sections[indexPath.row];
-        [cell.contentView addSubview:backgroundCellImage];
+        cell.imageView.image = [UIImage imageNamed:@"Front Pageicon.png"];
         return cell;
     }
     
     if (indexPath.row == 1){ // Home, Groups
         cell.textLabel.text = self.sections[indexPath.row];
-        [cell.contentView addSubview:backgroundCellImage2];
+        cell.imageView.image = [UIImage imageNamed:@"GroupsIcon.png"];
         return cell;
     }
     
@@ -243,28 +244,27 @@
     NSUInteger groupSize = self.profile.groups.count;
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
+        NSLog(@"this formatting started");
         NSDictionary *group = self.profile.groups[i];
         cell.textLabel.text = group[@"displayName"];
-        cell.indentationLevel = 4.0f;
+        cell.indentationLevel = 6.0f;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.imageView.image = nil;
         cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
+
         return cell;
     }
     
-    cell.textLabel.text = self.sections[indexPath.row-groupSize];
-    /*
-    UIImageView *backgroundCellImageVar=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
-    backgroundCellImageVar.image=nil;
-    if ([cell.textLabel.text  isEqual: @"Create A New Group"]){
-        backgroundCellImageVar.image=[UIImage imageNamed:@"plusicon.png"];
-        [cell.contentView addSubview:backgroundCellImageVar];
+    if (indexPath.row == 2 + groupSize){
+        cell.imageView.image = [UIImage imageNamed:@"plusicon.png"];
+    } else if (indexPath.row == 3 + groupSize){
+        cell.imageView.image = [UIImage imageNamed:@"Resultsicon.png"];
     }
-    if ([cell.textLabel.text  isEqual: @"Results"]){
-        backgroundCellImageVar.image=[UIImage imageNamed:@"Resultsicon.png"];
-        [cell.contentView addSubview:backgroundCellImageVar];
-    }*/
+    cell.textLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:20.0f];
+    cell.contentView.backgroundColor = [UIColor darkGrayColor];
+    cell.textLabel.text = self.sections[indexPath.row-groupSize];
     
-    
+
     return cell;
     
 }
