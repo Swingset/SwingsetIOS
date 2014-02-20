@@ -288,6 +288,11 @@
 
 - (void)btnNextAction:(UIButton *)btn
 {
+    if (self.profile.sex.length < 1){
+        [self showAlert:@"Missing Gender" withMessage:@"Please select a gender."];
+        return;
+    }
+    
     if (self.mode==0){
         if (self.profile.phone.length < 10){
             [self showAlert:@"Phone Number Error" withMessage:@"The Swingset robot can't read your number. Please type it in like: 9171234567"];
