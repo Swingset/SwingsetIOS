@@ -1732,8 +1732,8 @@
 		5C4CEE78188B4860000B1BFD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cameron Mullen (E8CETNJF8F)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Cameron Mullen (E8CETNJF8F)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SwingSet/SwingSet-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1749,7 +1749,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "99CC01CD-A709-492A-B55D-2DF2BD322C97";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
