@@ -15,6 +15,7 @@
 @property (strong, nonatomic) SSQuestionPreview *backPreview;
 @property (strong, nonatomic) SSTextField *commentField;
 @property (strong, nonatomic) UITableView *commentsTable;
+@property (strong, nonatomic) UIView *commentsView;
 @property (nonatomic) int questionIndex;
 @property (nonatomic) CGFloat center;
 @end
@@ -49,7 +50,7 @@
     self.backPreview.alpha = 0;
     self.backPreview.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     [view addSubview:self.backPreview];
-
+    
     self.topPreview = [[SSQuestionPreview alloc] initWithFrame:self.backPreview.frame];
     self.topPreview.tag = 2000;
     self.topPreview.delegate = self;
@@ -57,8 +58,10 @@
     self.topPreview.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     [view addSubview:self.topPreview];
     
+    self.commentsView = [[UITableView alloc] initWithFrame:self.topPreview.frame style:UITableViewStylePlain];
     
-    self.commentsTable = [[UITableView alloc] initWithFrame:self.topPreview.frame style:UITableViewStylePlain];
+    
+    self.commentsTable = [[UITableView alloc] initWithFrame:CGRectMake(padding, padding+120, w, frame.size.height-2*padding-120) style:UITableViewStylePlain];
     self.commentsTable.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.commentsTable.delegate = self;
     self.commentsTable.dataSource = self;
@@ -70,23 +73,26 @@
     self.commentsTable.alpha = 0.0;
     self.commentsTable.showsVerticalScrollIndicator = NO;
     
+    [self.commentsView addSubview:self.commentsTable];
+    
+    
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f)];
-    headerView.backgroundColor = [UIColor clearColor];
+    headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
     
     UIButton *btnExitComments = [UIButton buttonWithType:UIButtonTypeCustom];
     btnExitComments.frame = CGRectMake(0, 0, 36, 36);
-    [btnExitComments setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btnExitComments setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btnExitComments setTitle:@"x" forState:UIControlStateNormal];
     [btnExitComments addTarget:self action:@selector(exitComments) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:btnExitComments];
     
-    self.commentField = [SSTextField textFieldWithFrame:CGRectMake(36.0f, 3, self.commentsTable.frame.size.width-39.0f, 30.0f) placeholder:@"your comment" keyboard:UIKeyboardTypeAlphabet];
+    self.commentField = [SSTextField textFieldWithFrame:CGRectMake(36.0f, 5, self.commentsTable.frame.size.width-100.0f, 26.0f) placeholder:@"Add your comment" keyboard:UIKeyboardTypeAlphabet];
     self.commentField.returnKeyType = UIReturnKeyDone;
     self.commentField.delegate = self;
     [headerView addSubview:self.commentField];
     
     self.commentsTable.tableHeaderView = headerView;
-
+    
     
     UIButton *btnLoadMore = [UIButton buttonWithType:UIButtonTypeCustom];
     btnLoadMore.frame = CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f);
@@ -99,7 +105,9 @@
     
     
     [view addObserver:self forKeyPath:@"userInteractionEnabled" options:0 context:NULL];
-
+    
+    //[self.view addSubview:self.commentsView];
+    
     self.view = view;
 }
 
@@ -107,7 +115,7 @@
 {
     [self.view removeObserver:self forKeyPath:@"userInteractionEnabled"];
     [self.topPreview removeObserver:self forKeyPath:@"center"];
-
+    
     for (SSQuestion *question in self.questions) {
         if (question.isObserved){
             question.isObserved = NO;
@@ -115,7 +123,7 @@
             [question removeObserver:self forKeyPath:@"imagesCount"];
         }
     }
-
+    
 }
 
 - (void)viewDidLoad
@@ -124,10 +132,10 @@
     
     SSNavigationController *navController = (SSNavigationController *)self.navigationController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btnMenu.png"]
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:navController
-                                                                             action:@selector(toggle)];
-
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:navController
+                                                                            action:@selector(toggle)];
+    
     
     
     self.backPreview.transform = CGAffineTransformMakeScale(0.8f, 0.8f);
@@ -140,7 +148,7 @@
     
     if (self.questions.count > 0)
         return;
-
+    
     
     [self.loadingIndicator startLoading];
     if (self.group){ // fetch group questions
@@ -192,20 +200,20 @@
         [self showAlert:@"No Questions" withMessage:@"This group has no questions."];
         return;
     }
-
+    
     for (int i=0; i<questions.count; i++){
         NSDictionary *questionInfo = [questions objectAtIndex:i];
         SSQuestion *question = [SSQuestion questionWithInfo:questionInfo];
         if ([question.votes containsObject:self.profile.uniqueId]==NO)
             [self.questions addObject:question];
         
-//        if (self.questions.count==0){ // all questions answered, go to results page:
-//            SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
-//            resultsVc.canGoBack = NO;
-//            resultsVc.group = self.group;
-//            [self.navigationController pushViewController:resultsVc animated:YES];
-//            return;
-//        }
+        //        if (self.questions.count==0){ // all questions answered, go to results page:
+        //            SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
+        //            resultsVc.canGoBack = NO;
+        //            resultsVc.group = self.group;
+        //            [self.navigationController pushViewController:resultsVc animated:YES];
+        //            return;
+        //        }
     }
     
     if (self.questions.count==0){ // all questions answered, go to results page:
@@ -215,7 +223,7 @@
         [self.navigationController pushViewController:resultsVc animated:YES];
         return;
     }
-
+    
     
     // load first question:
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:self.questionIndex];
@@ -264,7 +272,7 @@
         SSQuestion *nextQuestion = (SSQuestion *)object;
         [self populatePreview:self.backPreview withQuestion:nextQuestion];
     }
-
+    
     
     
     if ([object isEqual:self.view]){
@@ -316,11 +324,11 @@
 
 - (void)loadNextQuestion
 {
-
+    
     int index = self.questionIndex+1;
     if (index >= self.questions.count)
         index = 0;
-
+    
     SSQuestion *question = (SSQuestion *)[self.questions objectAtIndex:index];
     [self populatePreview:self.backPreview withQuestion:question];
 }
@@ -332,7 +340,7 @@
     preview.lblVotes.text = [NSString stringWithFormat:@"%d votes", (int)question.votes.count];
     preview.lblDate.text = [NSString stringWithFormat:@"%@ | %@", question.username, question.pubDate];
     [preview.btnComments setTitle:[NSString stringWithFormat:@"%d comments", (int)question.comments.count] forState:UIControlStateNormal];
-
+    
     if ([question.answerType isEqualToString:@"text"]) {
         for (int i=0; i<preview.optionsViews.count; i++) {
             SSOptionView *optionView = [preview.optionsViews objectAtIndex:i];
@@ -431,13 +439,13 @@
     NSString *commentText = [comment[@"text"] stringByAppendingString:@"\n\n"];
     
     CGRect textRect = [commentText boundingRectWithSize:CGSizeMake(self.commentsTable.frame.size.width, 100.0f)
-                                         options:NSStringDrawingUsesLineFragmentOrigin
-                                      attributes:@{NSFontAttributeName:[UIFont fontWithName:@"ProximaNova-Regular" size:16.0f]}
-                                         context:nil];
+                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                             attributes:@{NSFontAttributeName:[UIFont fontWithName:@"ProximaNova-Regular" size:16.0f]}
+                                                context:nil];
     
     CGSize size = textRect.size;
     NSLog(@"HEIGHT: %.2f", size.height);
-
+    
     CGFloat min = 64.0f;
     return (size.height < min) ? min : size.height+70.0f;
 }
@@ -552,7 +560,7 @@
                 [malePercents addObject:[NSNumber numberWithDouble:0.0f]];
             }
         }
-
+        
         if (option[femaleVotes]){
             if (question.totalFemaleVotes > 0){
                 double femalePct = [option[femaleVotes] doubleValue] / (double)question.totalFemaleVotes;
@@ -562,7 +570,7 @@
                 [femalePercents addObject:[NSNumber numberWithDouble:0.0f]];
             }
         }
-
+        
     }
     
     [self.topPreview displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
@@ -584,7 +592,7 @@
                 NSDictionary *questionInfo = [results objectForKey:@"question"];
                 [question populate:questionInfo];
             }
-
+            
             
             //TODO: populate question with updated info
         }
@@ -594,13 +602,13 @@
 
 - (void)viewComments
 {
-//    NSLog(@"viewComments");
+    //    NSLog(@"viewComments");
     
     [UIView transitionWithView:self.topPreview
                       duration:0.6f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
-                        self.topPreview.alpha = 0.0;
+                        self.topPreview.alpha = 1.0;
                     }
                     completion:^(BOOL finisehd){
                         
@@ -705,7 +713,7 @@
                                                                                         
                                                                                         if (self.questionIndex+1 < self.questions.count){
                                                                                             self.currentQuestion = [self.questions objectAtIndex:self.questionIndex];
-
+                                                                                            
                                                                                             
                                                                                             NSLog(@"CURRENT QUESTION: %@", self.currentQuestion.text);
                                                                                             [self loadNextQuestion];
@@ -745,7 +753,7 @@
         resultsVc.canGoBack = NO;
         resultsVc.group = self.group;
         
-
+        
         
         [self.navigationController pushViewController:resultsVc animated:YES];
         
