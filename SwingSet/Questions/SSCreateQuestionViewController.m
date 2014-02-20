@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableDictionary *uploadStrings;
 @property (copy, nonatomic) NSString *currentUploadUrl;
 @property (strong, nonatomic) UIButton *btnToggleAnswerType;
+@property (strong, nonatomic) SSButton *btnSubmit;
 @property (nonatomic) int answerType; // 0==text, 1==pics
 
 // Text Answer Fields:
@@ -224,11 +225,11 @@ static NSString *questionPlaceholder = @"Write your question here.";
     [view addSubview:base];
     
     
-    SSButton *btnSubmit = [SSButton buttonWithFrame:CGRectMake(padding, frame.size.height-54.0f, frame.size.width-2*padding, 44.0f) title:@"Submit Question" textMode:TextModeUpperCase];
-    [btnSubmit addTarget:self action:@selector(submitQuestion:) forControlEvents:UIControlEventTouchUpInside];
-    btnSubmit.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    btnSubmit.backgroundColor = kGreenNext;
-    [view addSubview:btnSubmit];
+    self.btnSubmit = [SSButton buttonWithFrame:CGRectMake(padding, frame.size.height-54.0f, frame.size.width-2*padding, 44.0f) title:@"Select Group" textMode:TextModeUpperCase];
+    [self.btnSubmit addTarget:self action:@selector(submitQuestion:) forControlEvents:UIControlEventTouchUpInside];
+    self.btnSubmit.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    self.btnSubmit.backgroundColor = kGreenNext;
+    [view addSubview:self.btnSubmit];
     
     self.view = view;
 }
@@ -243,11 +244,18 @@ static NSString *questionPlaceholder = @"Write your question here.";
                                                                             action:@selector(toggle)];
 
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Group"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(selectGroup)];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.question.group){
+        [self.btnSubmit setTitle:@"Submit Question" forState:UIControlStateNormal];
+    }
+    else{
+        [self.btnSubmit setTitle:@"Select Group" forState:UIControlStateNormal];
+    }
 }
 
 
@@ -429,6 +437,14 @@ static NSString *questionPlaceholder = @"Write your question here.";
 - (void)submitQuestion:(UIButton *)btn
 {
     NSLog(@"submitQuestion:");
+    
+    if (!self.question.group){
+        [self selectGroup];
+        return;
+    }
+
+    
+    
     if ([self.question.text isEqualToString:questionPlaceholder]){
         [self showAlert:@"Missing Question" withMessage:@"Please enter a valid question."];
         return;
@@ -440,10 +456,10 @@ static NSString *questionPlaceholder = @"Write your question here.";
         return;
     }
     
-    if (!self.question.group){
-        [self showAlert:@"Missing Group" withMessage:@"Please select a group by tapping \"Group\" in the upper right corner."];
-        return;
-    }
+//    if (!self.question.group){
+//        [self showAlert:@"Missing Group" withMessage:@"Please select a group by tapping \"Group\" in the upper right corner."];
+//        return;
+//    }
 
     
     // - - - - - - - - - - - - Text Answers - - - - - - - - - - - - //
