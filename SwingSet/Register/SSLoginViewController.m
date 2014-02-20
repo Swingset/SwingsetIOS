@@ -109,10 +109,13 @@
     
     
     self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"Password" keyboard:UIKeyboardTypeDefault];
+    self.passcodeField.delegate = self;
     self.passcodeField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.passcodeField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.passcodeField.returnKeyType = UIReturnKeyDone;
     [passwordBox addSubview:self.passcodeField];
     y += self.passcodeField.frame.size.height+5.0f;
+    
     UIButton *btnForgot = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnForgot setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     btnForgot.frame = CGRectMake(self.passcodeField.frame.origin.x, self.passcodeField.frame.origin.y+self.passcodeField.frame.size.height+5.0f, self.passcodeField.frame.size.width, 36.0f);
@@ -318,6 +321,10 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if ([textField isEqual:self.passcodeField]){
+        [self btnLoginAction:nil];
+    }
+    
     [textField resignFirstResponder];
     return YES;
 }
