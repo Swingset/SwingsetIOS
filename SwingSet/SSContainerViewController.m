@@ -151,6 +151,7 @@
         SSConfirmViewController *confirmVc = [[SSConfirmViewController alloc] init];
         confirmVc.mode = (self.profile.email.length > 1) ? 1 : 0;
         SSNavigationController *registerNavController = [[SSNavigationController alloc] initWithRootViewController:confirmVc];
+        registerNavController.isMovable = NO;
         [self presentViewController:registerNavController
                            animated:NO
                          completion:NULL];
@@ -159,6 +160,7 @@
     
     SSRegisterViewController *registerVc = [[SSRegisterViewController alloc] init];
     SSNavigationController *registerNavController = [[SSNavigationController alloc] initWithRootViewController:registerVc];
+    registerNavController.isMovable = NO;
     [self presentViewController:registerNavController
                        animated:NO
                      completion:NULL];
@@ -200,6 +202,7 @@
 {
     SSRegisterViewController *registerVc = [[SSRegisterViewController alloc] init];
     SSNavigationController *registerNavController = [[SSNavigationController alloc] initWithRootViewController:registerVc];
+    registerNavController.isMovable = NO;
     [self presentViewController:registerNavController
                        animated:YES
                      completion:^{

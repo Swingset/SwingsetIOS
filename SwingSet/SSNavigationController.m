@@ -15,6 +15,7 @@
 @end
 
 @implementation SSNavigationController
+@synthesize isMovable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,6 +24,7 @@
         self.navigationBar.barStyle = UIBarStyleDefault;
         self.navigationBar.tintColor = [UIColor blackColor];
         self.slidOut = NO;
+        self.isMovable = YES;
     }
     return self;
 }
@@ -139,6 +141,9 @@
 #pragma TouchResonders
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (!self.isMovable)
+        return;
+    
     NSLog(@"touchesBegan: %@", [self.class description]);
     UITouch *touch = [touches anyObject];
     if ([touch.view isEqual:self.navigationBar])
@@ -150,6 +155,9 @@
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (!self.isMovable)
+        return;
+
     UITouch *touch = [touches anyObject];
     
     CGPoint newLoc = [touch locationInView:self.parentViewController.view];
@@ -167,6 +175,9 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (!self.isMovable)
+        return;
+
     NSLog(@"touchesEnded: %@, %.2f", [self.class description], self.view.center.x);
     
     // already slid out, slide back in:
@@ -191,6 +202,9 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (!self.isMovable)
+        return;
+
     NSLog(@"touchesCancelled: %@", [self.class description]);
     if (!self.container) // no container
         return;
