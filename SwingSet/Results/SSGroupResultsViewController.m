@@ -209,6 +209,12 @@
 - (void)deleteQuestion:(int)index
 {
     SSQuestion *question = self.questions[index];
+    if ([question.author isEqualToString:self.profile.uniqueId]==NO){
+        [self showAlert:@"Error" withMessage:@"You are not the author of this question. Only the author can remove the question."];
+        return;
+    }
+    
+    
     self.removeQuestion = question;
     NSLog(@"DELETE QUESTION: %@", question.text);
     
