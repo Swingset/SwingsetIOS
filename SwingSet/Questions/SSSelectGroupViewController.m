@@ -31,7 +31,7 @@
     UIView *view = [self baseView:YES];
     CGRect frame = view.frame;
     
-    self.groupsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height)];
+    self.groupsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height-54.0f)];
     self.groupsTableView.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight);
     self.groupsTableView.backgroundColor = kGrayTable;
     self.groupsTableView.delegate = self;
@@ -39,6 +39,14 @@
     self.groupsTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.groupsTableView.separatorInset = UIEdgeInsetsZero;
     [view addSubview:self.groupsTableView];
+
+    
+    CGFloat padding = 15.0f;
+    SSButton *btnSubmit = [SSButton buttonWithFrame:CGRectMake(padding, frame.size.height-54.0f, frame.size.width-2*padding, 44.0f) title:@"Submit Question" textMode:TextModeUpperCase];
+    [btnSubmit addTarget:self action:@selector(submitQuestion:) forControlEvents:UIControlEventTouchUpInside];
+    btnSubmit.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    btnSubmit.backgroundColor = kGreenNext;
+    [view addSubview:btnSubmit];
 
     
     self.view = view;
@@ -50,7 +58,11 @@
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
+}
 
+- (void)submitQuestion:(UIButton *)btn
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -88,10 +100,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *group = self.profile.groups[indexPath.row];
-//    NSLog(@"%@", [group description]);
-    
     self.question.group = group[@"id"];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.groupsTableView reloadData];
 }
 
 

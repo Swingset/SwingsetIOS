@@ -226,7 +226,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
     
     
     self.btnSubmit = [SSButton buttonWithFrame:CGRectMake(padding, frame.size.height-54.0f, frame.size.width-2*padding, 44.0f) title:@"Select Group" textMode:TextModeUpperCase];
-    [self.btnSubmit addTarget:self action:@selector(submitQuestion:) forControlEvents:UIControlEventTouchUpInside];
+    [self.btnSubmit addTarget:self action:@selector(selectGroup) forControlEvents:UIControlEventTouchUpInside];
     self.btnSubmit.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.btnSubmit.backgroundColor = kGreenNext;
     [view addSubview:self.btnSubmit];
@@ -252,10 +252,25 @@ static NSString *questionPlaceholder = @"Write your question here.";
     [super viewWillAppear:animated];
     if (self.question.group){
         [self.btnSubmit setTitle:@"Submit Question" forState:UIControlStateNormal];
+        [self.btnSubmit removeTarget:self action:@selector(selectGroup) forControlEvents:UIControlEventTouchUpInside];
+        [self.btnSubmit addTarget:self action:@selector(submitQuestion:) forControlEvents:UIControlEventTouchUpInside];
     }
     else{
         [self.btnSubmit setTitle:@"Select Group" forState:UIControlStateNormal];
+        [self.btnSubmit removeTarget:self action:@selector(submitQuestion:) forControlEvents:UIControlEventTouchUpInside];
+        [self.btnSubmit addTarget:self action:@selector(selectGroup) forControlEvents:UIControlEventTouchUpInside];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (!self.question.group)
+        return;
+    
+    
+    [self submitQuestion:nil];
 }
 
 
@@ -391,7 +406,11 @@ static NSString *questionPlaceholder = @"Write your question here.";
         
         [self showAlert:@"Success!" withMessage:@"Your question has been posted!"];
         
+        self.question = [[SSQuestion alloc] init];
+        self.question.author = self.profile.uniqueId;
+        self.question.username = self.profile.name;
         
+
         // reset all fields:
         self.questionTextField.text = @"";
         self.questionImg = nil;
@@ -413,8 +432,6 @@ static NSString *questionPlaceholder = @"Write your question here.";
         self.option3Icon.image = cameraIcon;
         self.option4Icon.image = cameraIcon;
         
-        
-        
     }];
 
 }
@@ -425,9 +442,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
         return;
     
     self.currentUploadUrl = [self.uploadStrings.allKeys objectAtIndex:0];
-    
     NSLog(@"UPLOAD IMAGES: %@", self.currentUploadUrl);
-    
     [self uploadImage:self.currentUploadUrl];
 }
 
@@ -456,10 +471,6 @@ static NSString *questionPlaceholder = @"Write your question here.";
         return;
     }
     
-//    if (!self.question.group){
-//        [self showAlert:@"Missing Group" withMessage:@"Please select a group by tapping \"Group\" in the upper right corner."];
-//        return;
-//    }
 
     
     // - - - - - - - - - - - - Text Answers - - - - - - - - - - - - //
