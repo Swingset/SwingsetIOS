@@ -247,7 +247,7 @@
         NSLog(@"this formatting started");
         NSDictionary *group = self.profile.groups[i];
         cell.textLabel.text = group[@"displayName"];
-        cell.indentationLevel = 6.0f;
+        cell.indentationLevel = 5.0f;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.imageView.image = nil;
         cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];

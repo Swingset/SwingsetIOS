@@ -37,6 +37,10 @@
     textlabelFrame.origin.x = 40;
     self.textLabel.frame = textlabelFrame;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+    separatorLineView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];//replace with image
+    [self.contentView addSubview:separatorLineView];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
