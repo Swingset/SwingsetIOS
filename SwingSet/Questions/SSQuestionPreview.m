@@ -102,9 +102,12 @@ CGFloat randomRGB(){
         
 
         CGFloat h = 36.0f;
+        NSArray *badges = @[@"largepurplepercentage.png", @"largeredpercentage.png", @"largeorangepercentage.png", @"largebluepercentage.png"];
+
         for (int i=0; i<4; i++) {
             SSOptionView *option = [[SSOptionView alloc] initWithFrame:CGRectMake(kPadding, y, frame.size.width-2*kPadding, h)];
             option.barColor = self.colors[i];
+            option.badge.image = [UIImage imageNamed:badges[i]];
             option.parent = self;
             option.alpha = 0.0f;
             option.tag = 5000+i;
@@ -134,6 +137,7 @@ CGFloat randomRGB(){
             
             SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
             optionIcon.tag = 5000+i;
+            optionIcon.badge.image = [UIImage imageNamed:badges[i]];
             optionIcon.parent = self;
             optionIcon.userInteractionEnabled = YES;
             optionIcon.image = cameraIcon;
@@ -246,7 +250,8 @@ CGFloat randomRGB(){
     CGFloat fullWidth = self.frame.size.width-x-kPadding; // this is 100% width
     
     NSArray *malePercents = percents[@"male"];
-    NSUInteger max = (malePercents.count >= 4) ? 3 : malePercents.count;
+//    NSUInteger max = (malePercents.count >= 4) ? 3 : malePercents.count;
+    NSUInteger max = (malePercents.count >= 4) ? 4 : malePercents.count;
     for (int i=0; i<max; i++) {
         NSNumber *pct = [malePercents objectAtIndex:i];
         double p = [pct doubleValue];
@@ -271,7 +276,8 @@ CGFloat randomRGB(){
     
     x = 45.0f+kPadding;
     NSArray *femalePercents = percents[@"female"];
-    max = (femalePercents.count >= 4) ? 3 : femalePercents.count;
+//    max = (femalePercents.count >= 4) ? 3 : femalePercents.count;
+    max = (femalePercents.count >= 4) ? 4 : femalePercents.count;
     for (int i=0; i<max; i++) {
         NSNumber *pct = [femalePercents objectAtIndex:i];
         double p = [pct doubleValue];
