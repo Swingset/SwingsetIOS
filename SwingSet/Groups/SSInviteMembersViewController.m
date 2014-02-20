@@ -98,6 +98,13 @@
                 if ([self.searchResults containsObject:contact]==NO)
                     [self.searchResults addObject:contact];
             }
+            
+            NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+            if ([[fullName lowercaseString] rangeOfString:filter].location != NSNotFound){
+                if ([self.searchResults containsObject:contact]==NO)
+                    [self.searchResults addObject:contact];
+                
+            }
         }
     }
     
