@@ -81,7 +81,7 @@
         y = self.lblText.frame.origin.y+self.lblText.frame.size.height;
         self.lblDetails = [[UILabel alloc] initWithFrame:CGRectMake(padding, y, self.lblText.frame.size.width, 28.0f)];
         self.lblDetails.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        self.lblDetails.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:12.0f];
+        self.lblDetails.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
         self.lblDetails.textColor = [UIColor blackColor];
         self.lblDetails.numberOfLines = 2;
         self.lblDetails.lineBreakMode = NSLineBreakByWordWrapping;
