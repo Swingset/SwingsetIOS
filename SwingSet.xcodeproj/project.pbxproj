@@ -234,6 +234,7 @@
 		A0B96FD018B03C780002922F /* GroupsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FCB18B03C780002922F /* GroupsIcon.png */; };
 		A0B96FD118B03C780002922F /* plusicon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FCC18B03C780002922F /* plusicon.png */; };
 		A0B96FD218B03C780002922F /* Resultsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FCD18B03C780002922F /* Resultsicon.png */; };
+		A0B9705618B5B5630002922F /* Submitbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B9705518B5B5630002922F /* Submitbutton.png */; };
 		AA2F244E188DA3FF0025BC35 /* SSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2F244D188DA3FF0025BC35 /* SSButton.m */; };
 /* End PBXBuildFile section */
 
@@ -596,6 +597,7 @@
 		A0B96FCB18B03C780002922F /* GroupsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GroupsIcon.png; sourceTree = "<group>"; };
 		A0B96FCC18B03C780002922F /* plusicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusicon.png; sourceTree = "<group>"; };
 		A0B96FCD18B03C780002922F /* Resultsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resultsicon.png; sourceTree = "<group>"; };
+		A0B9705518B5B5630002922F /* Submitbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submitbutton.png; sourceTree = "<group>"; };
 		AA2F244C188DA3FF0025BC35 /* SSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSButton.h; sourceTree = "<group>"; };
 		AA2F244D188DA3FF0025BC35 /* SSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -823,6 +825,7 @@
 		5C4CEEBF188B549D000B1BFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A0B9705518B5B5630002922F /* Submitbutton.png */,
 				A0B96FC718B034DE0002922F /* checkedBoxRegister.png */,
 				A0B96FC518B034D00002922F /* uncheckedBox.png */,
 				5C1E0F0E18A8224C0059F170 /* answerTypePics@2x.png */,
@@ -1374,6 +1377,7 @@
 				5CFAC762188B885400940A00 /* ProximaNova-Light 2.otf in Resources */,
 				5CFAC72E188B882300940A00 /* largeorangepercentage.png in Resources */,
 				5C1E0F0718A804A80059F170 /* navLogo@2x.png in Resources */,
+				A0B9705618B5B5630002922F /* Submitbutton.png in Resources */,
 				5C4CEE58188B485F000B1BFD /* InfoPlist.strings in Resources */,
 				5CFAC744188B882300940A00 /* submityourquestion 2.png in Resources */,
 				5CFAC729188B882300940A00 /* HomeIcon.png in Resources */,

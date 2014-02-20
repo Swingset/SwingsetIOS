@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UIView *commentsView;
 @property (nonatomic) int questionIndex;
 @property (nonatomic) CGFloat center;
+@property (strong, nonatomic) UIButton *submitButton;
 @end
 
 
@@ -86,7 +87,18 @@
     [btnExitComments addTarget:self action:@selector(exitComments) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:btnExitComments];
     
-    self.commentField = [SSTextField textFieldWithFrame:CGRectMake(36.0f, 5, self.commentsTable.frame.size.width-100.0f, 26.0f) placeholder:@"Add your comment" keyboard:UIKeyboardTypeAlphabet];
+    //CGFloat dimen = 44.0f;
+    self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.submitButton addTarget:self action:@selector(textFieldShouldReturn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.submitButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.submitButton setBackgroundColor:[UIColor clearColor]];
+    self.submitButton.frame = CGRectMake(225, 5, 56, 26);
+    [self.submitButton setBackgroundImage:[UIImage imageNamed:@"Submitbutton.png"] forState:UIControlStateNormal];
+    [self.submitButton setBackgroundImage:[UIImage imageNamed:@"Submitbutton.png"] forState:UIControlStateHighlighted];
+    //[self.submitButton setTitle:@"Submit" forState:UIControlStateNormal];
+    [headerView addSubview:self.submitButton];
+    
+    self.commentField = [SSTextField textFieldWithFrame:CGRectMake(36.0f, 5, self.commentsTable.frame.size.width-110.0f, 26.0f) placeholder:@"Add your comment" keyboard:UIKeyboardTypeAlphabet];
     self.commentField.returnKeyType = UIReturnKeyDone;
     self.commentField.delegate = self;
     [headerView addSubview:self.commentField];
@@ -461,6 +473,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    [self.view endEditing:YES];
     
     if (self.commentField.text.length>0){
         //submit comment:
