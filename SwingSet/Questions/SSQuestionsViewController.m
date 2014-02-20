@@ -110,14 +110,6 @@
 
     [self removeObservers];
 
-//    for (SSQuestion *question in self.questions) {
-//        if (question.isObserved){
-//            question.isObserved = NO;
-//            [question removeObserver:self forKeyPath:@"image"];
-//            [question removeObserver:self forKeyPath:@"imagesCount"];
-//        }
-//    }
-
 }
 
 - (void)viewDidLoad
@@ -235,7 +227,7 @@
         SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
         resultsVc.canGoBack = NO;
         resultsVc.group = self.group;
-        [self.navigationController pushViewController:resultsVc animated:YES];
+        [self.navigationController pushViewController:resultsVc animated:NO];
         return;
     }
 
