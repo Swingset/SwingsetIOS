@@ -90,10 +90,12 @@
         y = top.frame.origin.y+top.frame.size.height+10.0f;
         
         NSArray *colors = @[kPurple, kRed, kOrange, kGreen];
+        NSArray *badges = @[@"largepurplepercentage.png", @"largeredpercentage.png", @"largeorangepercentage.png", @"largebluepercentage.png"];
         for (int i=0; i<4; i++) {
             SSOptionView *optionView = [SSOptionView optionViewWithFrame:CGRectMake(10.0f, y, base.frame.size.width-20.0f, 36.0f)];
             optionView.userInteractionEnabled = NO;
             optionView.barColor = colors[i];
+            optionView.badge.image = [UIImage imageNamed:badges[i]];
             [base addSubview:optionView];
             [self.optionViews addObject:optionView];
             y += optionView.frame.size.height+10.0f;
@@ -120,6 +122,7 @@
             
             SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
             optionIcon.userInteractionEnabled = YES;
+            optionIcon.badge.image = [UIImage imageNamed:badges[i]];
             optionIcon.backgroundColor = [UIColor redColor];
             [base addSubview:optionIcon];
             [self.optionsImageViews addObject:optionIcon];
