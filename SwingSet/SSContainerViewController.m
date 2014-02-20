@@ -92,11 +92,11 @@
     questionView.backgroundColor = self.sectionsTable.backgroundColor;
     
     UIButton *btnAskQuestion = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImageView *backgroundCellImageA=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 20, 20)];
+    UIImageView *backgroundCellImageA=[[UIImageView alloc] initWithFrame:CGRectMake(0, 10, 20, 20)];
     backgroundCellImageA.image=[UIImage imageNamed:@"Askaquestionicon.png"];
     [btnAskQuestion addSubview:backgroundCellImageA];
-    btnAskQuestion.frame = CGRectMake(15.0f, 0, questionView.frame.size.width, questionView.frame.size.height);
-    [btnAskQuestion setTitle:@"       Ask Question" forState:UIControlStateNormal];
+    btnAskQuestion.frame = CGRectMake(8.0f, 0, questionView.frame.size.width, questionView.frame.size.height);
+    [btnAskQuestion setTitle:@"      Ask Question" forState:UIControlStateNormal];
     [btnAskQuestion addTarget:self action:@selector(createQuestion:) forControlEvents:UIControlEventTouchUpInside];
     btnAskQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [questionView addSubview:btnAskQuestion];
