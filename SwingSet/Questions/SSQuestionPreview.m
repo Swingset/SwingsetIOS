@@ -89,7 +89,7 @@ CGFloat randomRGB(){
         self.lblDate = [[UILabel alloc] initWithFrame:CGRectMake(5.0f, y, w+35, 20.0f)];
         self.lblDate.backgroundColor = [UIColor clearColor];
         self.lblDate.textColor = [UIColor whiteColor];
-        self.lblDate.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+        self.lblDate.font = [UIFont fontWithName:@"ProximaNova-Light" size:12.0f];
         [self addSubview:self.lblDate];
 
         self.lblVotes = [[UILabel alloc] initWithFrame:CGRectMake(w, y, w-5, 20.0f)];
