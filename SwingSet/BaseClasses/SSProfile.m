@@ -30,7 +30,7 @@
         self.email = @"";
         self.phone = @"";
         self.name = @"";
-        self.sex = @"m";
+        self.sex = @"";
         self.pw = @"";
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
