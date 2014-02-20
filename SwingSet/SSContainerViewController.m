@@ -310,7 +310,7 @@
     
     self.currentVC = nil;
     self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
-    self.groupQuestionsVc.group = group;
+    self.groupQuestionsVc.group = [NSMutableDictionary dictionaryWithDictionary:group];
     [self slideOut:self.groupQuestionsVc];
 }
 
@@ -319,8 +319,9 @@
 {
     NSLog(@"Navigate to Section: %@", section);
     
-    if ([section isEqualToString:@"Front Page"])
+    if ([section isEqualToString:@"Front Page"]){
         [self slideOut:self.homeVc];
+    }
     
     if ([section isEqualToString:@"Groups"]){
         if (!self.groupsVc)
