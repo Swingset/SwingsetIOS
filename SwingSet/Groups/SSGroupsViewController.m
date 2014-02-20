@@ -129,9 +129,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SSGroupViewController *groupViewController = [[SSGroupViewController alloc] init];
-    NSMutableDictionary *group = [NSMutableDictionary dictionaryWithDictionary:self.profile.groups[indexPath.row]];
-    group[@"isPublic"] = @"no";
-    groupViewController.group = group;
+    groupViewController.group = self.profile.groups[indexPath.row];
     [self.navigationController pushViewController:groupViewController animated:YES];
 }
 
