@@ -78,6 +78,46 @@
 
 
 #pragma mark - UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText  // called when text changes (including clear)
+{
+    NSLog(@"searchBar textDidChange: %@", searchText);
+    
+    NSString *filter = searchBar.text.lowercaseString;
+    for (NSDictionary *contact in self.contactsList) {
+        
+        NSString *firstName = contact[@"firstName"];
+        
+        if ([[firstName lowercaseString] rangeOfString:filter].location != NSNotFound){
+            [self.searchResults addObject:contact];
+        }
+        
+        NSString *lastName = contact[@"lastName"];
+        if (lastName){
+            if ([[lastName lowercaseString] rangeOfString:filter].location != NSNotFound){
+                
+                if ([self.searchResults containsObject:contact]==NO)
+                    [self.searchResults addObject:contact];
+            }
+        }
+    }
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];//sorted by first name
+    [self.searchResults sortUsingDescriptors:@[sort]];
+    [self.contactsTable reloadData];
+
+    
+}
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSLog(@"searchBar shouldChangeTextInRange: %@", text);
+    
+    [self.searchResults removeAllObjects];
+
+    return YES;
+    
+}
+
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     NSLog(@"searchBarShouldBeginEditing");
@@ -102,36 +142,8 @@
     NSLog(@"searchBarTextDidEndEditing: %@", searchBar.text);
     [searchBar resignFirstResponder];
     
-    [self.searchResults removeAllObjects];
-    
-    NSString *filter = searchBar.text.lowercaseString;
-    for (NSDictionary *contact in self.contactsList) {
-        
-        NSString *firstName = contact[@"firstName"];
-        
-        if ([[firstName lowercaseString] rangeOfString:filter].location != NSNotFound){
-            [self.searchResults addObject:contact];
-        }
-        
-        NSString *lastName = contact[@"lastName"];
-        if (lastName){
-            if ([[lastName lowercaseString] rangeOfString:filter].location != NSNotFound){
-                
-                if ([self.searchResults containsObject:contact]==NO)
-                    [self.searchResults addObject:contact];
-            }
-        }
-    }
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];//sorted by first name
-    [self.searchResults sortUsingDescriptors:@[sort]];
-    [self.contactsTable reloadData];
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    
-}
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *) searchBar
 {
