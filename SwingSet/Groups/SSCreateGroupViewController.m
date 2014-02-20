@@ -141,19 +141,19 @@
     self.passwordEntryView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
     self.passwordEntryView.backgroundColor = [UIColor clearColor];
     w = 0.70f*frame.size.width;
-    UIView *passwordBox = [[UIView alloc] initWithFrame:CGRectMake(0.5f*(frame.size.width-w), 80.0f, w, 120.0f)];
+    UIView *passwordBox = [[UIView alloc] initWithFrame:CGRectMake(0.5f*(frame.size.width-w), 20.0f, w, 120.0f)];
     passwordBox.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     passwordBox.backgroundColor = kGrayTable;
     passwordBox.layer.cornerRadius = 4.0f;
     passwordBox.layer.masksToBounds = YES;
     
-    self.joinGroupPWField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"Group Password" keyboard:UIKeyboardTypeNumberPad];
+    self.joinGroupPWField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 20.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"Group Password" keyboard:UIKeyboardTypeNumberPad];
     [passwordBox addSubview:self.joinGroupPWField];
     
     [self.passwordEntryView addSubview:passwordBox];
     
     
-    y = passwordBox.frame.origin.y+passwordBox.frame.size.height+20.0f;
+    y = passwordBox.frame.origin.y+passwordBox.frame.size.height+10.0f;
     SSButton *btnJoinGroup = [SSButton buttonWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h) title:@"Join" textMode:TextModeUpperCase];
     btnJoinGroup.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [btnJoinGroup addTarget:self action:@selector(btnJoinGroupAction:) forControlEvents:UIControlEventTouchUpInside];
