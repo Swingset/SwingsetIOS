@@ -173,7 +173,8 @@
         NSDictionary *results = (NSDictionary *)result;
         if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
             NSDictionary *publicGroup = results[@"group"];
-            self.group = publicGroup;
+            self.group = [NSMutableDictionary dictionaryWithDictionary:publicGroup];
+            self.group[@"isPublic"] = @"yes";
             
             [self processQuestions:results[@"questions"]];
         }
@@ -198,14 +199,6 @@
         SSQuestion *question = [SSQuestion questionWithInfo:questionInfo];
         if ([question.votes containsObject:self.profile.uniqueId]==NO)
             [self.questions addObject:question];
-        
-//        if (self.questions.count==0){ // all questions answered, go to results page:
-//            SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
-//            resultsVc.canGoBack = NO;
-//            resultsVc.group = self.group;
-//            [self.navigationController pushViewController:resultsVc animated:YES];
-//            return;
-//        }
     }
     
     if (self.questions.count==0){ // all questions answered, go to results page:
@@ -565,7 +558,24 @@
 
     }
     
-    [self.topPreview displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
+    if ([self.group[@"isPublic"] isEqualToString:@"yes"]){
+        for (UIView *pctView in self.topPreview.malePercentViews)
+            pctView.alpha = 1.0f;
+        
+        for (UIView *pctView in self.topPreview.femalePercentViews)
+            pctView.alpha = 1.0f;
+
+        [self.topPreview displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
+    }
+    else{
+        for (UIView *pctView in self.topPreview.malePercentViews)
+            pctView.alpha = 0.0f;
+        
+        for (UIView *pctView in self.topPreview.femalePercentViews)
+            pctView.alpha = 0.0f;
+        
+    }
+    
     
     
     //post submitted vote to backend:

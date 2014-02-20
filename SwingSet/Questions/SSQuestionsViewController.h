@@ -11,6 +11,6 @@
 @interface SSQuestionsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) SSQuestion *currentQuestion;
-@property (strong, nonatomic) NSDictionary *group;
+@property (strong, nonatomic) NSMutableDictionary *group;
 @property (strong, nonatomic) NSMutableArray *questions;
 @end
