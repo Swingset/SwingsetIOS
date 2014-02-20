@@ -194,6 +194,14 @@
 
     }];
     
+    // enlarge the badge to indicate selected status:
+    CGRect frame = self.badge.frame;
+    frame.size.width *= 1.1f;
+    frame.size.height *= 1.1f;
+    frame.origin.x -= 3.0f;
+    frame.origin.y -= 2.0f;
+    self.badge.frame = frame;
+    
     self.isHilighted = YES;
     if ([self.parent respondsToSelector:@selector(optionViewSelected:)])
         [self.parent optionViewSelected:self.tag];
