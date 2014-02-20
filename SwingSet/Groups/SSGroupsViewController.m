@@ -10,6 +10,7 @@
 #import "SSGroupViewController.h"
 #import "SSButton.h"
 #import "SSNavigationController.h"
+#import "SSCreateGroupViewController.h"
 
 @interface SSGroupsViewController ()
 
@@ -137,8 +138,8 @@
 - (void)btnNewGroupAction:(UIButton *)btn
 {
     
-    
-    
+    SSCreateGroupViewController *createGroupVc = [[SSCreateGroupViewController alloc] init];
+    [self.navigationController pushViewController:createGroupVc animated:YES];
     
 }
 
