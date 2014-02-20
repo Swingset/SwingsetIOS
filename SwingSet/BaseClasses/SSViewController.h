@@ -25,4 +25,7 @@
 @property (strong, nonatomic) SSLoadingIndicator *loadingIndicator;
 - (UIView *)baseView:(BOOL)navCtr;
 - (void)showAlert:(NSString *)title withMessage:(NSString *)message;
+- (void)shiftUp;
+- (void)shiftUp:(CGFloat)dist;
+- (void)shiftBack;
 @end

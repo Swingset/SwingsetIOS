@@ -84,4 +84,68 @@
     [alert show];
 }
 
+- (void)shiftUp
+{
+    NSLog(@"SHIFT UP! !");
+    [self shiftUp:160.0f];
+    
+//    if (self.view.frame.origin.y < 0)
+//        return;
+//    
+//    [UIView animateWithDuration:0.25f
+//                          delay:0
+//                        options:UIViewAnimationOptionCurveEaseInOut
+//                     animations:^{
+//                         CGRect frame = self.view.frame;
+//                         frame.origin.y = -160.0f;
+//                         self.view.frame = frame;
+//                     }
+//                     completion:^(BOOL finished){
+//                         
+//                     }];
+    
+}
+
+- (void)shiftUp:(CGFloat)dist
+{
+    NSLog(@"SHIFT UP! !");
+    if (self.view.frame.origin.y < 0)
+        return;
+    
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = self.view.frame;
+                         frame.origin.y = -dist;
+                         self.view.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+}
+
+- (void)shiftBack
+{
+    if (self.view.frame.origin.y == 0)
+        return;
+    
+    
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = self.view.frame;
+                         frame.origin.y = 0.0f;
+                         self.view.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+    
+}
+
+
+
+
 @end

@@ -42,6 +42,7 @@
     
     CGFloat h = 0.75f*frame.size.height;
     UIView *bg = [SSContentBackground backgroundWithFrame:CGRectMake(-5.0f, 20.0f, frame.size.width+10.0f, h-20.0f)];
+    bg.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [view addSubview:bg];
     
     CGFloat y = 25.0f;
@@ -311,12 +312,6 @@
         return;
     }
     
-    // Temporary - only here for UI setup/testing:
-    //    SSConfirmViewController *confirmVc = [[SSConfirmViewController alloc] init];
-    //    confirmVc.mode = self.mode;
-    //    [self.navigationController pushViewController:confirmVc animated:YES];
-    //    return;
-    
     
     [self.loadingIndicator startLoading];
     [[SSWebServices sharedInstance] registerProfile:self.profile
@@ -357,11 +352,37 @@
     self.profile.pw = self.passcodeField.text;
 }
 
-
+- (void)shiftBack
+{
+    NSLog(@"SHIFT BACK: %.2f", self.view.frame.origin.y);
+    if (self.view.frame.origin.y == 0)
+        return;
+    
+    
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = self.view.frame;
+                         frame.origin.y = 64.0f;
+                         self.view.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+    
+}
 
 #pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self shiftUp:40.0f];
+    return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [self shiftBack];
     [textField resignFirstResponder];
     return YES;
 }
@@ -392,6 +413,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded:");
+    [self shiftBack];
     for (UITextField *textField in @[self.idField, self.nameField, self.passcodeField])
         [textField resignFirstResponder];
     
