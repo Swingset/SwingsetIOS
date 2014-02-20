@@ -48,7 +48,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.sections = @[@"Front Page", @"Groups", @"Create A New Group", @"Results"];
+        self.sections = @[@"Front Page", @"Groups", @"Add A New Group", @"Results"];
         self.icons = @[@"Front Pageicon.png", @"GroupsIcon.png", @"plusicon.png", @"Resultsicon.png"];
         self.span = 416.0f-160.0f;
         
@@ -77,9 +77,9 @@
     self.sectionsTable.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
     
     UIView *logoView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.sectionsTable.frame.size.width, 150.0f)];
-    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SwingsetWordmark.png"]];
-    double scale = 0.75f;
-    logo.frame = CGRectMake(10.0f, 50.0f, scale*logo.frame.size.width, scale*logo.frame.size.height);
+    UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"swingsetBanner.png"]];
+    double scale = 1.10f;
+    logo.frame = CGRectMake(35.0f, 50.0f, scale*logo.frame.size.width, scale*logo.frame.size.height);
     [logoView addSubview:logo];
     self.sectionsTable.tableHeaderView = logoView;
     
@@ -270,7 +270,7 @@
     
     if ([section isEqualToString:@"Results"])
         cell.imageView.image = [UIImage imageNamed:@"resultsIcon.png"];
-    else if ([section isEqualToString:@"Create A New Group"])
+    else if ([section isEqualToString:@"Add A New Group"])
         cell.imageView.image = [UIImage imageNamed:@"plusIcon.png"];
     else
         cell.imageView.image = nil;
@@ -345,7 +345,7 @@
     }
     
     
-    if ([section isEqualToString:@"Create A New Group"]){
+    if ([section isEqualToString:@"Add A New Group"]){
         if (!self.createGroupVc)
             self.createGroupVc = [[SSCreateGroupViewController alloc] init];
         [self slideOut:self.createGroupVc];

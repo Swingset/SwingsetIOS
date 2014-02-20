@@ -78,6 +78,7 @@
 		5CF3C4A518B6798200A41A67 /* groupsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3C4A418B6798200A41A67 /* groupsIcon@2x.png */; };
 		5CF3C4A718B679C900A41A67 /* resultsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3C4A618B679C900A41A67 /* resultsIcon@2x.png */; };
 		5CF3C4A918B67C1700A41A67 /* plusIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3C4A818B67C1700A41A67 /* plusIcon@2x.png */; };
+		5CF3C4AB18B68ACC00A41A67 /* swingsetBanner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CF3C4AA18B68ACC00A41A67 /* swingsetBanner@2x.png */; };
 		5CF8513018AF013C006ACFDA /* libUAirship-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CF850CD18AF013C006ACFDA /* libUAirship-3.0.2.a */; };
 		5CF8513218AF013D006ACFDA /* UABarButtonSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF850DA18AF013C006ACFDA /* UABarButtonSegmentedControl.m */; };
 		5CF8513318AF013D006ACFDA /* UABeveledLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CF850DC18AF013C006ACFDA /* UABeveledLoadingIndicator.m */; };
@@ -363,6 +364,7 @@
 		5CF3C4A418B6798200A41A67 /* groupsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groupsIcon@2x.png"; sourceTree = "<group>"; };
 		5CF3C4A618B679C900A41A67 /* resultsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resultsIcon@2x.png"; sourceTree = "<group>"; };
 		5CF3C4A818B67C1700A41A67 /* plusIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plusIcon@2x.png"; sourceTree = "<group>"; };
+		5CF3C4AA18B68ACC00A41A67 /* swingsetBanner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swingsetBanner@2x.png"; sourceTree = "<group>"; };
 		5CF8509E18AF013C006ACFDA /* NSJSONSerialization+UAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+UAAdditions.h"; sourceTree = "<group>"; };
 		5CF8509F18AF013C006ACFDA /* UAAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAAnalytics.h; sourceTree = "<group>"; };
 		5CF850A018AF013C006ACFDA /* UAAnalyticsDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAAnalyticsDBManager.h; sourceTree = "<group>"; };
@@ -917,6 +919,7 @@
 				5CFAC704188B882300940A00 /* submityourquestion 2.png */,
 				5CFAC705188B882300940A00 /* submityourquestion.png */,
 				5CFAC706188B882300940A00 /* SwingsetJournal.png */,
+				5CF3C4AA18B68ACC00A41A67 /* swingsetBanner@2x.png */,
 				5CFAC707188B882300940A00 /* SwingsetWordmark.png */,
 				5CFAC708188B882300940A00 /* TextAnswersButton.png */,
 				5CFAC709188B882300940A00 /* ViewAllButton.png */,
@@ -1433,6 +1436,7 @@
 				5CF8517C18AF0284006ACFDA /* AirshipConfig.plist in Resources */,
 				5CFAC71C188B882300940A00 /* DashboardIcon.png in Resources */,
 				5CFAC76E188B885400940A00 /* ProximaNovaCond-Semibold.otf in Resources */,
+				5CF3C4AB18B68ACC00A41A67 /* swingsetBanner@2x.png in Resources */,
 				5CFAC731188B882300940A00 /* MenuButton.png in Resources */,
 				5CFAC747188B882300940A00 /* SwingsetWordmark.png in Resources */,
 				5CFAC728188B882300940A00 /* HomeButton.png in Resources */,
