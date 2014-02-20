@@ -52,7 +52,7 @@
     CGFloat y = 0.0f;
     self.lblGroupName = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, y, frame.size.width/2.0f, 30.0f)];
     self.lblGroupName.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
-    self.lblGroupName.text = @"GROUP NAME";
+    self.lblGroupName.text = self.group[@"name"];
     self.lblGroupName.textColor = [UIColor blackColor];
     self.lblGroupName.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:16.0f];
     [self.topView addSubview:self.lblGroupName];
@@ -62,7 +62,8 @@
     self.lblGroupMembers.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     self.lblGroupMembers.textColor = [UIColor grayColor];
     self.lblGroupMembers.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:13.0f];
-    self.lblGroupMembers.text = [NSString stringWithFormat:@"15 members"];
+    NSArray *members = self.group[@"members"];
+    self.lblGroupMembers.text = [NSString stringWithFormat:@"%d members", (int)members.count];
     self.lblGroupMembers.backgroundColor = [UIColor clearColor];
     [self.topView addSubview:self.lblGroupMembers];
 
