@@ -77,6 +77,14 @@
                                                                             target:navController
                                                                             action:@selector(toggle)];
 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStyleBordered target:self action:@selector(logout:)];
+
+}
+
+- (void)logout:(UIBarButtonItem *)btn
+{
+    NSLog(@"logout:");
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"Logout" object:nil]];
 }
 
 
