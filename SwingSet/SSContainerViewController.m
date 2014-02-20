@@ -51,6 +51,9 @@
         self.sections = @[@"Front Page", @"Groups", @"Create A New Group", @"Results"];
         self.icons = @[@"Front Pageicon.png", @"GroupsIcon.png", @"plusicon.png", @"Resultsicon.png"];
         self.span = 416.0f-160.0f;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:@"Logout" object:nil];
+
     }
     return self;
 }
@@ -191,6 +194,19 @@
     
     [self.sectionsTable reloadData];
     
+}
+
+- (void)logout
+{
+    SSRegisterViewController *registerVc = [[SSRegisterViewController alloc] init];
+    SSNavigationController *registerNavController = [[SSNavigationController alloc] initWithRootViewController:registerVc];
+    [self presentViewController:registerNavController
+                       animated:YES
+                     completion:^{
+                         [self.profile clear];
+                         [self.navCtr popToRootViewControllerAnimated:NO];
+                     }];
+
 }
 
 - (void)createQuestion:(UIButton *)btn

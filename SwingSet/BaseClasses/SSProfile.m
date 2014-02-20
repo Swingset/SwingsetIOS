@@ -62,6 +62,22 @@
     return shared;
 }
 
+- (void)clear
+{
+    self.uniqueId = @"none";
+    self.deviceToken = @"none";
+    self.email = @"";
+    self.phone = @"";
+    self.name = @"";
+    self.sex = @"m";
+    self.pw = @"";
+    self.groups = [NSMutableArray array];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"user"];
+    [defaults synchronize];
+}
+
 - (void)setDeviceToken:(NSString *)deviceToken
 {
     NSLog(@"SET DEVICE TOKEN: %@ - - - - - %@", _deviceToken, deviceToken);
