@@ -108,13 +108,15 @@
     [self.view removeObserver:self forKeyPath:@"userInteractionEnabled"];
     [self.topPreview removeObserver:self forKeyPath:@"center"];
 
-    for (SSQuestion *question in self.questions) {
-        if (question.isObserved){
-            question.isObserved = NO;
-            [question removeObserver:self forKeyPath:@"image"];
-            [question removeObserver:self forKeyPath:@"imagesCount"];
-        }
-    }
+    [self removeObservers];
+
+//    for (SSQuestion *question in self.questions) {
+//        if (question.isObserved){
+//            question.isObserved = NO;
+//            [question removeObserver:self forKeyPath:@"image"];
+//            [question removeObserver:self forKeyPath:@"imagesCount"];
+//        }
+//    }
 
 }
 
@@ -137,6 +139,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSLog(@"VIEW DID APPEAR: %@", [self.class description]);
     
     if (self.questions.count > 0)
         return;
@@ -182,6 +185,33 @@
             [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
         }
     }];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    if ([self.group[@"isPublic"] isEqualToString:@"no"])
+        return;
+    
+    // reset on public questions so that it loads a new set of questions every time
+    [self removeObservers];
+    
+    _currentQuestion = nil;
+    [self.questions removeAllObjects];
+    self.questionIndex = 0;
+    [self.view bringSubviewToFront:self.loadingIndicator];
+}
+
+- (void)removeObservers
+{
+    for (SSQuestion *question in self.questions) {
+        if (question.isObserved){
+            question.isObserved = NO;
+            [question removeObserver:self forKeyPath:@"image"];
+            [question removeObserver:self forKeyPath:@"imagesCount"];
+        }
+    }
 }
 
 
