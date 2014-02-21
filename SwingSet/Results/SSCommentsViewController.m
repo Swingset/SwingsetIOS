@@ -11,6 +11,7 @@
 @interface SSCommentsViewController ()
 @property (strong, nonatomic) UITableView *commentsTable;
 @property (strong, nonatomic) SSTextField *commentField;
+@property (strong, nonatomic) UIButton *btnLoadMore;
 @end
 
 @implementation SSCommentsViewController
@@ -57,16 +58,14 @@
     self.commentsTable.tableHeaderView = headerView;
     
     
-    UIButton *btnLoadMore = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLoadMore.frame = CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f);
-    [btnLoadMore setTitleColor:kGreenNext forState:UIControlStateNormal];
-    [btnLoadMore setTitle:@"Load More Comments" forState:UIControlStateNormal];
-    self.commentsTable.tableFooterView = btnLoadMore;
-
+    self.btnLoadMore = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.btnLoadMore.frame = CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f);
+    [self.btnLoadMore setTitleColor:kGreenNext forState:UIControlStateNormal];
+    [self.btnLoadMore setTitle:@"Load More Comments" forState:UIControlStateNormal];
+    self.commentsTable.tableFooterView = self.btnLoadMore;
+    self.btnLoadMore.alpha = (self.question.comments.count < 10) ? 0 : 1;
 
     [view addSubview:self.commentsTable];
-    
-    
     self.view = view;
 }
 
@@ -106,6 +105,7 @@
                 [self.question populate:updatedQuestion];
                 self.commentField.text = @"";
                 [self.commentsTable reloadData];
+                self.btnLoadMore.alpha = (self.question.comments.count < 10) ? 0 : 1;
             }
             else{
                 [self showAlert:@"Error" withMessage:results[@"message"]];

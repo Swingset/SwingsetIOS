@@ -15,6 +15,7 @@
 @property (strong, nonatomic) SSQuestionPreview *backPreview;
 @property (strong, nonatomic) SSTextField *commentField;
 @property (strong, nonatomic) UITableView *commentsTable;
+@property (strong, nonatomic) UIButton *btnLoadMore;
 @property (nonatomic) int questionIndex;
 @property (nonatomic) CGFloat center;
 @end
@@ -88,11 +89,11 @@
     self.commentsTable.tableHeaderView = headerView;
 
     
-    UIButton *btnLoadMore = [UIButton buttonWithType:UIButtonTypeCustom];
-    btnLoadMore.frame = CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f);
-    [btnLoadMore setTitleColor:kGreenNext forState:UIControlStateNormal];
-    [btnLoadMore setTitle:@"Load More Comments" forState:UIControlStateNormal];
-    self.commentsTable.tableFooterView = btnLoadMore;
+    self.btnLoadMore = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.btnLoadMore.frame = CGRectMake(0, 0, self.commentsTable.frame.size.width, 36.0f);
+    [self.btnLoadMore setTitleColor:kGreenNext forState:UIControlStateNormal];
+    [self.btnLoadMore setTitle:@"Load More Comments" forState:UIControlStateNormal];
+    self.commentsTable.tableFooterView = self.btnLoadMore;
     
     
     [view addSubview:self.commentsTable];
@@ -266,6 +267,7 @@
     }
     
     [self.commentsTable reloadData];
+    self.btnLoadMore.alpha = (self.currentQuestion.comments.count < 10) ? 0 : 1;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -489,6 +491,7 @@
                 [self.currentQuestion populate:updatedQuestion];
                 self.commentField.text = @"";
                 [self.commentsTable reloadData];
+                self.btnLoadMore.alpha = (self.currentQuestion.comments.count < 10) ? 0 : 1;
             }
             else{
                 [self showAlert:@"Error" withMessage:results[@"message"]];
