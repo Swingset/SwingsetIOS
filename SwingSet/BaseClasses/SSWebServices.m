@@ -8,6 +8,7 @@
 
 #import "SSWebServices.h"
 #import "AFNetworking.h"
+#import "SignalCheck.h"
 #include <sys/xattr.h>
 
 
@@ -27,6 +28,7 @@
 #define kPathImages @"/site/images/"
 #define kPathComments @"/api/comments/"
 
+
 + (SSWebServices *)sharedInstance
 {
     static SSWebServices *shared;
@@ -42,6 +44,16 @@
 
 - (void)registerProfile:(SSProfile *)profile completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+    
+    
     NSLog(@"registerProfile: %@", [profile parametersDictionary]);
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
@@ -84,6 +96,15 @@
 
 - (void)updateProfile:(SSProfile *)profile completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -125,6 +146,15 @@
 
 - (void)confirmPIN:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -165,6 +195,15 @@
 
 - (void)login:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -205,6 +244,15 @@
 
 - (void)forgotPassword:(NSDictionary *)pkg completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -247,6 +295,15 @@
 
 - (void)fetchPublicQuestions:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:kPathQuestions
               parameters:nil
@@ -285,6 +342,15 @@
 
 - (void)fetchQuestionsInGroup:(NSString *)groupId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:kPathQuestions
              parameters:@{@"group":groupId}
@@ -323,6 +389,15 @@
 
 - (void)submitVote:(SSProfile *)profile withQuestion:(SSQuestion *)question withSelection:(long)index completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
@@ -367,6 +442,15 @@
 
 - (void)createGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -411,6 +495,15 @@
 
 - (void)fetchProfileInfo:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     SSProfile *profile = [SSProfile sharedProfile];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     
@@ -451,6 +544,15 @@
 
 - (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
 //    NSLog(@"inviteMembers: %@", [invitees description]);
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
@@ -503,6 +605,15 @@
 
 - (void)fetchGroupInfo:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:[kPathGroups stringByAppendingString:group[@"id"]]
              parameters:nil
@@ -541,6 +652,15 @@
 
 - (void)joinGroup:(NSString *)groupName withPin:(NSString *)pin completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -593,6 +713,15 @@
 
 - (void)removeMember:(NSString *)memberId fromGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -639,12 +768,19 @@
 
 - (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kSecureBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
     
-//    SSProfile *profile = [SSProfile sharedProfile];
-//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [httpClient postPath:kPathQuestions
               parameters:[question parametersDictionary]
                  success:^(AFHTTPRequestOperation *operation, id responseObject){
@@ -681,6 +817,15 @@
 
 - (void)fetchUploadString:(int)count completion:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient getPath:kPathUpload
              parameters:@{@"count":[NSString stringWithFormat:@"%d", count]}
@@ -723,6 +868,15 @@
 
 - (void)uploadImage:(NSDictionary *)image toUrl:(NSString *)uploadUrl completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     NSData *imageData = image[@"data"];
     NSString *imageName = image[@"name"];
     
@@ -761,6 +915,7 @@
 
 - (void)fetchImage:(NSString *)imageId completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    
     //check cache first:
     NSString *filePath = [self createFilePath:imageId];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
@@ -804,6 +959,15 @@
 
 - (void)postComment:(NSDictionary *)comment completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient setParameterEncoding:AFJSONParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -844,6 +1008,15 @@
 
 - (void)deleteQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
+    SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
+    if (![signalCheck checkSignal]){
+        NSDictionary *results = @{@"confirmation":@"fail", @"message":@"No Connection. Please find an internet connection."};
+        if (completionBlock)
+            completionBlock(results, nil);
+        
+        return;
+    }
+
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
     [httpClient deletePath:[kPathQuestions stringByAppendingString:question.uniqueId]
              parameters:nil
