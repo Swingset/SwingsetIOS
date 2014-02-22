@@ -432,6 +432,18 @@ static NSString *questionPlaceholder = @"Write your question here.";
         self.option3Icon.image = cameraIcon;
         self.option4Icon.image = cameraIcon;
         
+        
+        if (self.answerType==1){ // swith back to text type answers:
+            UIImage *answerTypeText = [UIImage imageNamed:@"answerTypePics"];
+            [self.btnToggleAnswerType setTitle:@"      Use Pics for Answers" forState:UIControlStateNormal];
+            [self.btnToggleAnswerType setBackgroundImage:answerTypeText forState:UIControlStateNormal];
+            self.question.answerType = @"text";
+            self.answerType = 0;
+            self.question.options = nil;
+            [self rotateBase];
+        }
+
+        
     }];
 
 }
@@ -642,8 +654,6 @@ static NSString *questionPlaceholder = @"Write your question here.";
     self.answerType = 0;
     self.question.options = nil;
     [self rotateBase];
-    
-    
 }
 
 - (void)rotateBase
