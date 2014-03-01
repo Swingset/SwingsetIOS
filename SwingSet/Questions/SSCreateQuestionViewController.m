@@ -829,6 +829,15 @@ static NSString *questionPlaceholder = @"Write your question here.";
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    NSLog(@"textView shouldChangeTextInRange: %@", text);
+    if ([text isEqualToString:@"\n"])
+        return NO;
+    
+    if (self.questionTextField.text.length >= 140 && text.length>0){
+        [self showAlert:@"Error" withMessage:@"140 character limit."];
+        return NO;
+    }
+
     
     return YES;
 }
