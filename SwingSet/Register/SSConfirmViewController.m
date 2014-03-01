@@ -85,13 +85,21 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStyleBordered target:self action:@selector(startOver:)];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 //    self.navigationItem.hidesBackButton = YES;
+}
+
+- (void)startOver:(UIBarButtonItem *)btn
+{
+    NSLog(@"startOver:");
+    [self.profile clear];
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)btnSubmitAction:(UIButton *)btn
@@ -136,6 +144,42 @@
     
 }
 
+
+
+#pragma mark - TextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self shiftUp:40.0f];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [self shiftBack];
+    return YES;
+}
+
+
+- (void)shiftBack
+{
+    NSLog(@"SHIFT BACK: %.2f", self.view.frame.origin.y);
+    if (self.view.frame.origin.y == 0)
+        return;
+    
+    
+    [UIView animateWithDuration:0.25f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         CGRect frame = self.view.frame;
+                         frame.origin.y = 64.0f;
+                         self.view.frame = frame;
+                     }
+                     completion:^(BOOL finished){
+                         
+                     }];
+    
+}
 
 #pragma mark - UIResponder
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
