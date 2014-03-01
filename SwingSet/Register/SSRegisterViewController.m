@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface SSRegisterViewController ()
+@property (strong, nonatomic) UILabel *lblInstructions;
 @property (strong, nonatomic) SSTextField *idField;
 @property (strong, nonatomic) SSTextField *passcodeField;
 @property (strong, nonatomic) SSTextField *nameField;
@@ -56,20 +57,20 @@
     y += lblSignup.frame.size.height;
     
     NSString *instructions = @"Sign up with your phone number to connect with friends.";
-    UILabel *lblInstructions = [[UILabel alloc] initWithFrame:CGRectZero];
-    lblInstructions.font = kBaseFont;
-    lblInstructions.textColor = [UIColor blackColor];
-    lblInstructions.backgroundColor = [UIColor clearColor];
-    lblInstructions.textAlignment = NSTextAlignmentCenter;
-    lblInstructions.lineBreakMode = NSLineBreakByWordWrapping;
-    lblInstructions.numberOfLines = 0;
-    lblInstructions.text = instructions;
+    self.lblInstructions = [[UILabel alloc] initWithFrame:CGRectZero];
+    self.lblInstructions.font = kBaseFont;
+    self.lblInstructions.textColor = [UIColor blackColor];
+    self.lblInstructions.backgroundColor = [UIColor clearColor];
+    self.lblInstructions.textAlignment = NSTextAlignmentCenter;
+    self.lblInstructions.lineBreakMode = NSLineBreakByWordWrapping;
+    self.lblInstructions.numberOfLines = 0;
+    self.lblInstructions.text = instructions;
     CGFloat w = 0.9f*frame.size.width;
-    CGSize expectedSize = [lblInstructions sizeThatFits:CGSizeMake(w, 300.0f)];
-    lblInstructions.frame = CGRectMake(0.5f*(frame.size.width-w), y, w, expectedSize.height);
-    [view addSubview:lblInstructions];
+    CGSize expectedSize = [self.lblInstructions sizeThatFits:CGSizeMake(w, 300.0f)];
+    self.lblInstructions.frame = CGRectMake(0.5f*(frame.size.width-w), y, w, expectedSize.height);
+    [view addSubview:self.lblInstructions];
     CGFloat padding = 10.0f;
-    y += lblInstructions.frame.size.height+2*padding;
+    y += self.lblInstructions.frame.size.height+2*padding;
     
     w = 0.7f*frame.size.width;
     h = 36.0f;
@@ -234,12 +235,15 @@
         [self.btnToggle setTitle:@"Or signup with email" forState:UIControlStateNormal];
         self.idField.text = self.profile.phone;
         self.idField.keyboardType = UIKeyboardTypePhonePad;
+        self.lblInstructions.text = @"Sign up with your phone number to connect with friends.";
+
     }
     else{
         self.idField.placeholder = @"Email";
         [self.btnToggle setTitle:@"Or signup with phone number" forState:UIControlStateNormal];
         self.idField.text = self.profile.email;
         self.idField.keyboardType = UIKeyboardTypeDefault;
+        self.lblInstructions.text = @"Sign up with your email to connect with friends.";
     }
     
     [UIView transitionWithView:self.view
