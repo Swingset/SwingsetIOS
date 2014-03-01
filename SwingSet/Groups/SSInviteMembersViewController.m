@@ -201,7 +201,9 @@
             
             NSString *confirmation = [results objectForKey:@"confirmation"];
             if ([confirmation isEqualToString:@"success"]){
-                [self showAlert:@"It Worked!" withMessage:@"We texted invites to your group members. Tell them to sign up with phone number to automatically join."];
+                
+                [self showAlert:@"It Worked!" withMessage:@"We texted invites to your group members. Tell them to log in with their phone number to automatically join."];
+                
                 [self.navigationController popViewControllerAnimated:YES];
             }
             else{
