@@ -10,4 +10,5 @@
 
 @interface SSCreateGroupViewController : SSViewController <UITextFieldDelegate>
 
+@property (nonatomic) BOOL withBackButton;
 @end

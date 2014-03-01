@@ -139,6 +139,7 @@
 {
     
     SSCreateGroupViewController *createGroupVc = [[SSCreateGroupViewController alloc] init];
+    createGroupVc.withBackButton = YES;
     [self.navigationController pushViewController:createGroupVc animated:YES];
     
 }

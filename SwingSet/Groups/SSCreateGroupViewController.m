@@ -19,12 +19,14 @@
 @end
 
 @implementation SSCreateGroupViewController
+@synthesize withBackButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.edgesForExtendedLayout = UIRectEdgeAll;
+        self.withBackButton = NO;
         
     }
     return self;
@@ -171,15 +173,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if(self.withBackButton){
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goBack)];
+        return;
+    }
+    
     SSNavigationController *navController = (SSNavigationController *)self.navigationController;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"btnMenu.png"]
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:navController
                                                                             action:@selector(toggle)];
-
-    
 }
 
+- (void)goBack
+{
+    self.passwordEntryView.alpha = 0.0f;
+    self.darkScreen.alpha = 0.0f;
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 - (void)shiftUp
