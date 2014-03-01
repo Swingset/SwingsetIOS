@@ -117,8 +117,8 @@ CGFloat randomRGB(){
         }
         
         UIImage *cameraIcon = [UIImage imageNamed:@"selectPhotoIcon.png"];
-        iconDimen = 82.0f;
-        static CGFloat indent = 57.0f;
+        iconDimen = 102.0f;
+        static CGFloat indent = 37.0f;
         for (int i=0; i<4; i++) {
             CGFloat originY = self.lblVotes.frame.origin.y+self.lblVotes.frame.size.height+10.0f;
             CGRect iconFrame;
