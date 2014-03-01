@@ -97,6 +97,7 @@ CGFloat randomRGB(){
         self.lblVotes.textColor = [UIColor whiteColor];
         self.lblVotes.textAlignment = NSTextAlignmentRight;
         self.lblVotes.backgroundColor = self.lblDate.backgroundColor;
+        self.lblVotes.alpha = 0.0f;
         [self addSubview:self.lblVotes];
         y += self.lblVotes.frame.size.height+10.0f;
         
@@ -358,8 +359,9 @@ CGFloat randomRGB(){
         percentView.frame = frame;
     }
     
-    self.lblFemale.alpha = 0;
-    self.lblMale.alpha = 0;
+    self.lblVotes.alpha = 0.0f;
+    self.lblFemale.alpha = 0.0f;
+    self.lblMale.alpha = 0.0f;
     self.btnComments.alpha = 0.60f;
     [self.btnSkip setTitle:@"SKIP" forState:UIControlStateNormal];
 
@@ -369,6 +371,7 @@ CGFloat randomRGB(){
 {
     [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
     self.btnComments.alpha = 1.0f;
+    self.lblVotes.alpha = 1.0f;
 }
 
 #pragma mark - SSOptionViewDelegate
