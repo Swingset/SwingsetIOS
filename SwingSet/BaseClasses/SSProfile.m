@@ -72,6 +72,7 @@
     self.sex = @"m";
     self.pw = @"";
     self.groups = [NSMutableArray array];
+    self.populated = NO;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:@"user"];
