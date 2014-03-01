@@ -179,7 +179,7 @@ CGFloat randomRGB(){
         
         self.btnSkip = [UIButton buttonWithType:UIButtonTypeCustom];
         self.btnSkip.frame = CGRectMake(0.5f*frame.size.width, frame.size.height-h-kPadding, 0.5f*frame.size.width, 34.0f);
-        self.btnSkip.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:26.0f];
+        self.btnSkip.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0f];
         [self.btnSkip setBackgroundColor:kGreenNext];
         [self.btnSkip setTitle:@"SKIP" forState:UIControlStateNormal];
         [self.btnSkip setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

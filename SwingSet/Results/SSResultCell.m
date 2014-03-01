@@ -158,7 +158,7 @@
         
         self.btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
         self.btnDelete.frame = CGRectMake(0.5f*base.frame.size.width, base.frame.size.height-h-10.0f, 0.5f*base.frame.size.width, 34.0f);
-        self.btnDelete.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:26.0f];
+        self.btnDelete.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Regular" size:18.0f];
         [self.btnDelete setBackgroundColor:kRed];
         [self.btnDelete setTitle:@"DELETE" forState:UIControlStateNormal];
         [self.btnDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
