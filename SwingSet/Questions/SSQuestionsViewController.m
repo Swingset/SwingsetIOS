@@ -654,6 +654,7 @@
 
 - (void)exitComments
 {
+    [self.commentField resignFirstResponder];
     [UIView transitionWithView:self.topPreview
                       duration:0.6f
                        options:UIViewAnimationOptionTransitionFlipFromLeft
