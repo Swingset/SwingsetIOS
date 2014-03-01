@@ -176,8 +176,19 @@
     }
     
     [self.loadingIndicator startLoading];
-    [[SSWebServices sharedInstance] inviteMembers:self.selectedContacts toGroup:self.group completionBlock:^(id result, NSError *error){
-        
+    
+    NSMutableArray *invitees = [NSMutableArray array];
+    for (NSDictionary *invitee in self.selectedContacts) {
+        NSMutableDictionary *formattedContact = [NSMutableDictionary dictionaryWithDictionary:invitee];
+        for (NSString *key in formattedContact.allKeys){ // remove 'image' key if present
+            if ([key isEqualToString:@"image"])
+                [formattedContact removeObjectForKey:key];
+        }
+        [invitees addObject:formattedContact];
+    }
+    
+    [[SSWebServices sharedInstance] inviteMembers:invitees toGroup:self.group completionBlock:^(id result, NSError *error){
+    
         [self.loadingIndicator stopLoading];
         if (error){
             //TODO: handle error
