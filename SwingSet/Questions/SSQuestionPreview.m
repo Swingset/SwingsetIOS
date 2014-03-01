@@ -170,10 +170,11 @@ CGFloat randomRGB(){
         scale = 34.0f/imgComment.frame.size.height;
         
         imgComment.frame = CGRectMake(0, -0.5f, scale*imgComment.frame.size.width, 35.0f);
-        [btnComments addSubview:imgComment];
+        [self.btnComments addSubview:imgComment];
         
-        btnComments.backgroundColor = [UIColor whiteColor];
-        [self addSubview:btnComments];
+        self.btnComments.backgroundColor = [UIColor whiteColor];
+        self.btnComments.alpha = 0.60f;
+        [self addSubview:self.btnComments];
         
         
         self.btnSkip = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -309,7 +310,13 @@ CGFloat randomRGB(){
 
 - (void)btnCommentsAction:(UIButton *)btn
 {
-    [self.delegate viewComments];
+    if (self.btnComments.alpha < 1.0f) {
+        [self.delegate viewComments:NO];
+        return;
+    }
+
+    [self.delegate viewComments:YES];
+
 }
 
 
@@ -353,8 +360,15 @@ CGFloat randomRGB(){
     
     self.lblFemale.alpha = 0;
     self.lblMale.alpha = 0;
+    self.btnComments.alpha = 0.60f;
     [self.btnSkip setTitle:@"SKIP" forState:UIControlStateNormal];
 
+}
+
+- (void)activateButtons
+{
+    [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
+    self.btnComments.alpha = 1.0f;
 }
 
 #pragma mark - SSOptionViewDelegate
@@ -362,8 +376,7 @@ CGFloat randomRGB(){
 {
 //    NSLog(@"optionViewSelected: %d", tag);
     [self.delegate optionSelected:tag];
-    
-    [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
+    [self activateButtons];
 }
 
 #pragma mark - SSOptionIconDelegate
@@ -371,10 +384,7 @@ CGFloat randomRGB(){
 {
     NSLog(@"optionIconSelected: %lu", (long)tag);
     [self.delegate optionSelected:tag];
-    
-    [self.btnSkip setTitle:@"NEXT" forState:UIControlStateNormal];
-
-    
+    [self activateButtons];
 }
 
 

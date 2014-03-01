@@ -627,9 +627,13 @@
 }
 
 
-- (void)viewComments
+- (void)viewComments:(BOOL)viewable
 {
 //    NSLog(@"viewComments");
+    if (!viewable){
+        [self showAlert:@"Hold Up!" withMessage:@"To look at the comments, you have to answer the question first."];
+        return;
+    }
     
     [UIView transitionWithView:self.topPreview
                       duration:0.6f

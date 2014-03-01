@@ -11,7 +11,7 @@
 
 @protocol SSQuestionPreviewDelegate <NSObject>
 - (void)checkPostion;
-- (void)viewComments;
+- (void)viewComments:(BOOL)viewable;
 - (void)optionSelected:(NSInteger)tag;
 - (void)skip;
 @end
