@@ -84,9 +84,6 @@
 + (SSOptionView *)optionViewWithFrame:(CGRect)frame
 {
     SSOptionView *optionView = [[SSOptionView alloc] initWithFrame:frame];
-    
-    
-    
     return optionView;
 }
 
@@ -195,12 +192,17 @@
     }];
     
     // enlarge the badge to indicate selected status:
-    CGRect frame = self.badge.frame;
-    frame.size.width *= 1.1f;
-    frame.size.height *= 1.1f;
-    frame.origin.x -= 3.0f;
-    frame.origin.y -= 2.0f;
-    self.badge.frame = frame;
+//    CGRect frame = self.badge.frame;
+//    frame.size.width *= 1.1f;
+//    frame.size.height *= 1.1f;
+//    frame.origin.x -= 3.0f;
+//    frame.origin.y -= 2.0f;
+//    self.badge.frame = frame;
+//    self.lblPercentage.frame = CGRectMake(0.0, 0.0, frame.size.width, frame.size.height);
+
+    CGAffineTransform transform = CGAffineTransformMakeScale(1.1f, 1.1f);
+    self.badge.transform = transform;
+    self.lblPercentage.transform = transform;
     
     self.isHilighted = YES;
     if ([self.parent respondsToSelector:@selector(optionViewSelected:)])

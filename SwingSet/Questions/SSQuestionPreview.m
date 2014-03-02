@@ -328,6 +328,8 @@ CGFloat randomRGB(){
         optionView.alpha = 0;
         
         optionView.badge.alpha = 0;
+        optionView.badge.transform = CGAffineTransformIdentity;
+        optionView.lblPercentage.transform = CGAffineTransformIdentity;
         optionView.baseView.layer.borderColor = [[UIColor colorWithRed:0.84f green:0.84f blue:0.84f alpha:1.0f] CGColor];
         
         frame = optionView.percentBar.frame;
@@ -340,6 +342,8 @@ CGFloat randomRGB(){
     for (SSOptionIcon *optionIcon in self.optionsImageViews) {
         optionIcon.alpha = 0;
         optionIcon.badge.alpha = 0;
+        optionIcon.badge.transform = CGAffineTransformIdentity;
+        optionIcon.lblPercentage.transform = CGAffineTransformIdentity;
         optionIcon.userInteractionEnabled = YES;
     }
     
