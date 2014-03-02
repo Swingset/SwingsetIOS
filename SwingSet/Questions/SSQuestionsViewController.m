@@ -137,6 +137,8 @@
     if (self.questions.count > 0)
         return;
 
+    [self.topPreview reset];
+    [self.backPreview reset];
     
     [self.loadingIndicator startLoading];
     if (self.group){ // fetch group questions
