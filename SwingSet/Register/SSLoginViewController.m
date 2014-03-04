@@ -9,11 +9,8 @@
 #import "SSLoginViewController.h"
 
 @interface SSLoginViewController ()
-@property (strong, nonatomic) SSTextField *phoneField;
 @property (strong, nonatomic) SSTextField *emailField;
 @property (strong, nonatomic) SSTextField *passcodeField;
-@property (strong, nonatomic) UIView *passwordEntryView;
-@property (strong, nonatomic) UIView *darkScreen;
 @end
 
 @implementation SSLoginViewController
@@ -53,23 +50,6 @@
     
     CGFloat w = 0.7f*frame.size.width;
     h = 36.0f;
-    self.phoneField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
-                                        placeholder:@"Phone Number"
-                                           keyboard:UIKeyboardTypePhonePad];
-
-    self.phoneField.delegate = self;
-    [bg addSubview:self.phoneField];
-    y += self.phoneField.frame.size.height;
-
-    UILabel *lblOr = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, y, frame.size.width, 40.0f)];
-    lblOr.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    lblOr.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:20.0f];
-    lblOr.text = @"OR";
-    lblOr.textAlignment = NSTextAlignmentCenter;
-    lblOr.textColor = [UIColor blackColor];
-    lblOr.backgroundColor = [UIColor clearColor];
-    [bg addSubview:lblOr];
-    y += lblOr.frame.size.height;
     
     self.emailField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                           placeholder:@"Email"
@@ -78,64 +58,36 @@
     self.emailField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.emailField.delegate = self;
     [bg addSubview:self.emailField];
-    
+    y += self.emailField.frame.size.height+10.0f;
 
-    y = bg.frame.origin.y+bg.frame.size.height+10.0f;
-    w = 0.5f*frame.size.width;
-    CGRect tempFrame = CGRectMake(0.5f*(frame.size.width-w), y, w, 44.0f);
-
-    SSButton *btnNext = [SSButton buttonWithFrame:tempFrame title:@"Next" textMode:TextModeUpperCase];
-    [btnNext addTarget:self action:@selector(btnNextAction:) forControlEvents:UIControlEventTouchUpInside];
-    btnNext.backgroundColor = kGreenNext;
-    [view addSubview:btnNext];
     
-    
-    self.darkScreen = [[UIView alloc] initWithFrame:CGRectMake(frame.size.width, 0, frame.size.width, frame.size.height)];
-    self.darkScreen.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
-    self.darkScreen.backgroundColor = [UIColor blackColor];
-    self.darkScreen.alpha = 0.0f;
-    [view addSubview:self.darkScreen];
-    
-    
-    self.passwordEntryView = [[UIView alloc] initWithFrame:CGRectMake(-frame.size.width, 0, frame.size.width, frame.size.height)];
-    self.passwordEntryView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin);
-    self.passwordEntryView.backgroundColor = [UIColor clearColor];
-    w = 0.70f*frame.size.width;
-    UIView *passwordBox = [[UIView alloc] initWithFrame:CGRectMake(0.5f*(frame.size.width-w), 70.0f, w, 120.0f)];
-    passwordBox.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    passwordBox.backgroundColor = kGrayTable;
-    passwordBox.layer.cornerRadius = 4.0f;
-    passwordBox.layer.masksToBounds = YES;
-    
-    
-    self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(10.0f, 30.0f, passwordBox.frame.size.width-20.0f, 36.0f) placeholder:@"Password" keyboard:UIKeyboardTypeDefault];
+    self.passcodeField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
+                                             placeholder:@"Password"
+                                                keyboard:UIKeyboardTypeDefault];
     self.passcodeField.delegate = self;
+    self.passcodeField.secureTextEntry = YES;
     self.passcodeField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     self.passcodeField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.passcodeField.returnKeyType = UIReturnKeyDone;
-    [passwordBox addSubview:self.passcodeField];
-    y += self.passcodeField.frame.size.height+5.0f;
+    [bg addSubview:self.passcodeField];
+    y += self.passcodeField.frame.size.height+10.0f;
     
     UIButton *btnForgot = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnForgot setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     btnForgot.frame = CGRectMake(self.passcodeField.frame.origin.x, self.passcodeField.frame.origin.y+self.passcodeField.frame.size.height+5.0f, self.passcodeField.frame.size.width, 36.0f);
     [btnForgot setTitle:@"Forgot Password?" forState:UIControlStateNormal];
     [btnForgot addTarget:self action:@selector(btnForgotAction:) forControlEvents:UIControlEventTouchUpInside];
-    [passwordBox addSubview:btnForgot];
-
-    
-    [self.passwordEntryView addSubview:passwordBox];
-    
+    [bg addSubview:btnForgot];
 
 
-    y = passwordBox.frame.origin.y+passwordBox.frame.size.height+20.0f;
-    SSButton *btnLogin = [SSButton buttonWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h) title:@"Log In" textMode:TextModeUpperCase];
-    btnLogin.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [btnLogin addTarget:self action:@selector(btnLoginAction:) forControlEvents:UIControlEventTouchUpInside];
-    btnLogin.backgroundColor = kGreenNext;
-    [self.passwordEntryView addSubview:btnLogin];
-    self.passwordEntryView.alpha = 0.0f;
-    [view addSubview:self.passwordEntryView];
+    y = bg.frame.origin.y+bg.frame.size.height+10.0f;
+    w = 0.5f*frame.size.width;
+    CGRect tempFrame = CGRectMake(0.5f*(frame.size.width-w), y, w, 44.0f);
+
+    SSButton *btnNext = [SSButton buttonWithFrame:tempFrame title:@"Login" textMode:TextModeUpperCase];
+//    [btnNext addTarget:self action:@selector(btnNextAction:) forControlEvents:UIControlEventTouchUpInside];
+    btnNext.backgroundColor = kGreenNext;
+    [view addSubview:btnNext];
     
     self.view = view;
 }
@@ -149,7 +101,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.passwordEntryView.alpha = 1.0f;
+//    self.passwordEntryView.alpha = 1.0f;
 }
 
 - (void)btnForgotAction:(UIButton *)btn
@@ -158,25 +110,29 @@
     [self.loadingIndicator startLoading];
     
     NSMutableDictionary *pkg = [NSMutableDictionary dictionary];
-    if (self.phoneField.text.length > 0){     //defer to phone first
-        pkg[@"type"] = @"phone";
-        
-        // format the phone number (remove hyphens, dashes, etc):
-        NSString *formattedNumber = @"";
-        static NSString *numbers = @"0123456789";
-        NSString *ph = self.phoneField.text;
-        for (int i=0; i<ph.length; i++) {
-            NSString *character = [ph substringWithRange:NSMakeRange(i, 1)];
-            if ([numbers rangeOfString:character].location!=NSNotFound)
-                formattedNumber = [formattedNumber stringByAppendingString:character];
-        }
-        pkg[@"phone"] = formattedNumber;
-    }
-    else{
-        pkg[@"type"] = @"email";
-        pkg[@"email"] = self.emailField.text;
-    }
+//    if (self.phoneField.text.length > 0){     //defer to phone first
+//        pkg[@"type"] = @"phone";
+//        
+//        // format the phone number (remove hyphens, dashes, etc):
+//        NSString *formattedNumber = @"";
+//        static NSString *numbers = @"0123456789";
+//        NSString *ph = self.phoneField.text;
+//        for (int i=0; i<ph.length; i++) {
+//            NSString *character = [ph substringWithRange:NSMakeRange(i, 1)];
+//            if ([numbers rangeOfString:character].location!=NSNotFound)
+//                formattedNumber = [formattedNumber stringByAppendingString:character];
+//        }
+//        pkg[@"phone"] = formattedNumber;
+//    }
+//    else{
+//        pkg[@"type"] = @"email";
+//        pkg[@"email"] = self.emailField.text;
+//    }
+
     
+    pkg[@"type"] = @"email";
+    pkg[@"email"] = self.emailField.text;
+
     
     [[SSWebServices sharedInstance] forgotPassword:pkg completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
@@ -191,10 +147,6 @@
             if ([confirmation isEqualToString:@"success"]){
                 
                 [self showAlert:@"Password Reset" withMessage:@"A new password was assigned to your profile and sent to you via text or email. Please try logging in again with the new password."];
-
-//                NSDictionary *profileInfo = [results objectForKey:@"profile"];
-//                [self.profile populate:profileInfo];
-//                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
             }
             else{ // incorrect PIN or user not found:
                 [self showAlert:@"Error" withMessage:results[@"message"]];
@@ -209,53 +161,7 @@
 
 - (void)goBack:(UIBarButtonItem *)btn
 {
-    self.darkScreen.alpha = 0.0f;
-    self.passwordEntryView.alpha = 0.0f;
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)btnNextAction:(UIButton *)btn
-{
-    
-    if (self.emailField.text.length==0 && self.phoneField.text.length==0){
-        [self showAlert:@"Missing Value" withMessage:@"Please enter an email or phone number."];
-        return;
-    }
-
-    [UIView animateWithDuration:0.20f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         self.darkScreen.alpha = 0.45f;
-                         
-                         CGRect frame = self.darkScreen.frame;
-                         frame.origin.x = -10.0f;
-                         self.darkScreen.frame = frame;
-                         
-                         frame = self.passwordEntryView.frame;
-                         frame.origin.x = 10.0f;
-                         self.passwordEntryView.frame = frame;
-                     }
-                     completion:^(BOOL finished){
-                         
-                         [UIView animateWithDuration:0.14f
-                                               delay:0.06f
-                                             options:UIViewAnimationOptionCurveLinear
-                                          animations:^{
-                                              CGRect frame = self.darkScreen.frame;
-                                              frame.origin.x = 0.0f;
-                                              self.darkScreen.frame = frame;
-                                              
-                                              self.passwordEntryView.frame = frame;
-                                              
-                                          }
-                                          completion:^(BOOL finished){
-                                              
-                                              
-                                          }];
-                         
-                         
-                     }];
 }
 
 
@@ -271,24 +177,27 @@
     [self.loadingIndicator startLoading];
     
     NSMutableDictionary *pkg = [NSMutableDictionary dictionary];
-    if (self.phoneField.text.length > 0){     //defer to phone first
-        pkg[@"type"] = @"phone";
-        
-        // format the phone number (remove hyphens, dashes, etc):
-        NSString *formattedNumber = @"";
-        static NSString *numbers = @"0123456789";
-        NSString *ph = self.phoneField.text;
-        for (int i=0; i<ph.length; i++) {
-            NSString *character = [ph substringWithRange:NSMakeRange(i, 1)];
-            if ([numbers rangeOfString:character].location!=NSNotFound)
-                formattedNumber = [formattedNumber stringByAppendingString:character];
-        }
-        pkg[@"phone"] = formattedNumber;
-    }
-    else{
-        pkg[@"type"] = @"email";
-        pkg[@"email"] = self.emailField.text;
-    }
+//    if (self.phoneField.text.length > 0){     //defer to phone first
+//        pkg[@"type"] = @"phone";
+//        
+//        // format the phone number (remove hyphens, dashes, etc):
+//        NSString *formattedNumber = @"";
+//        static NSString *numbers = @"0123456789";
+//        NSString *ph = self.phoneField.text;
+//        for (int i=0; i<ph.length; i++) {
+//            NSString *character = [ph substringWithRange:NSMakeRange(i, 1)];
+//            if ([numbers rangeOfString:character].location!=NSNotFound)
+//                formattedNumber = [formattedNumber stringByAppendingString:character];
+//        }
+//        pkg[@"phone"] = formattedNumber;
+//    }
+//    else{
+//        pkg[@"type"] = @"email";
+//        pkg[@"email"] = self.emailField.text;
+//    }
+    
+    pkg[@"type"] = @"email";
+    pkg[@"email"] = self.emailField.text;
     pkg[@"pin"] = self.passcodeField.text;
 
     
@@ -356,7 +265,8 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchesEnded:");
-    for (UITextField *textField in @[self.emailField, self.phoneField, self.passcodeField])
+//    for (UITextField *textField in @[self.emailField, self.phoneField, self.passcodeField])
+    for (UITextField *textField in @[self.emailField, self.passcodeField])
         [textField resignFirstResponder];
     
 }
