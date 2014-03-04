@@ -18,7 +18,6 @@
 @property (strong, nonatomic) SSTextField *nameField;
 @property (strong, nonatomic) UIImageView *idConfirmation;
 @property (strong, nonatomic) UIImageView *passcodeConfirmation;
-@property (strong, nonatomic) UIButton *btnToggle;
 @property (strong, nonatomic) UIButton *btnMale;
 @property (strong, nonatomic) UIButton *btnFemale;
 @property (nonatomic) int mode; //0=phone, 1=email
@@ -30,7 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.mode = 0;
+        self.mode = 1;
         
     }
     return self;
@@ -56,7 +55,7 @@
     [view addSubview:lblSignup];
     y += lblSignup.frame.size.height;
     
-    NSString *instructions = @"Sign up with your phone number to connect with friends.";
+    NSString *instructions = @"Sign up with your email to connect with friends.";
     self.lblInstructions = [[UILabel alloc] initWithFrame:CGRectZero];
     self.lblInstructions.font = kBaseFont;
     self.lblInstructions.textColor = [UIColor blackColor];
@@ -75,8 +74,8 @@
     w = 0.7f*frame.size.width;
     h = 36.0f;
     self.idField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
-                                       placeholder:@"Phone Number"
-                                          keyboard:UIKeyboardTypePhonePad];
+                                       placeholder:@"Email"
+                                          keyboard:UIKeyboardTypeDefault];
     
     self.idField.delegate = self;
     self.idField.text = self.profile.phone;
@@ -157,19 +156,6 @@
     [view addSubview:btnNext];
     y += btnNext.frame.size.height+padding;
     
-    
-    w = 0.8f*frame.size.width;
-    self.btnToggle = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btnToggle.titleLabel.font = kBaseFont;
-    [self.btnToggle addTarget:self action:@selector(toggleMode) forControlEvents:UIControlEventTouchUpInside];
-    [self.btnToggle setBackgroundColor:[UIColor clearColor]];
-    [self.btnToggle setTitleColor:kGreenNext forState:UIControlStateNormal];
-    [self.btnToggle setTitle:@"Or signup with email" forState:UIControlStateNormal];
-    h = 44.0f;
-    self.btnToggle.frame = CGRectMake(0.5f*(frame.size.width-w), frame.size.height-h, w, h);
-    [view addSubview:self.btnToggle];
-    
-    
     self.view = view;
 }
 
@@ -227,35 +213,6 @@
     }
 }
 
-- (void)setMode:(int)mode
-{
-    _mode = mode;
-    if (_mode==0){
-        self.idField.placeholder = @"Phone Number";
-        [self.btnToggle setTitle:@"Or signup with email" forState:UIControlStateNormal];
-        self.idField.text = self.profile.phone;
-        self.idField.keyboardType = UIKeyboardTypePhonePad;
-        self.lblInstructions.text = @"Sign up with your phone number to connect with friends.";
-
-    }
-    else{
-        self.idField.placeholder = @"Email";
-        [self.btnToggle setTitle:@"Or signup with phone number" forState:UIControlStateNormal];
-        self.idField.text = self.profile.email;
-        self.idField.keyboardType = UIKeyboardTypeDefault;
-        self.lblInstructions.text = @"Sign up with your email to connect with friends.";
-    }
-    
-    [UIView transitionWithView:self.view
-                      duration:0.65f
-                       options:UIViewAnimationOptionTransitionFlipFromLeft
-                    animations:^{
-                        self.view.alpha = 1.0f;
-                    }
-                    completion:^(BOOL finisehd){
-                        
-                    }];
-}
 
 - (void)showLogin
 {
@@ -265,7 +222,6 @@
 
 - (void)btnMaleAction:(UIButton *)btn
 {
-    //NSString *gender = [btn titleForState:UIControlStateNormal];
     self.profile.sex = [@"M" lowercaseString];
     NSLog(@"btnGenderAction: %@", self.profile.sex);
     [self.btnMale setBackgroundImage:[UIImage imageNamed:@"checkedBoxRegister.png"] forState:UIControlStateNormal];
@@ -276,7 +232,6 @@
 }
 - (void)btnFemaleAction:(UIButton *)btn
 {
-    //NSString *gender = [btn titleForState:UIControlStateNormal];
     self.profile.sex = [@"F" lowercaseString];
     NSLog(@"btnGenderAction: %@", self.profile.sex);
     [self.btnFemale setBackgroundImage:[UIImage imageNamed:@"checkedBoxRegister.png"] forState:UIControlStateNormal];
@@ -440,8 +395,7 @@
     NSString *lastFour;
     NSRange  tempRange;
     
-    if ( self.profile.email.length < 4 )
-    {
+    if ( self.profile.email.length < 4 ){
         return NO;
     }
     
@@ -449,8 +403,7 @@
     
     tempRange = [self.profile.email rangeOfString:@"@"];
     
-    if ( tempRange.location == NSNotFound )
-    {
+    if ( tempRange.location == NSNotFound ){
         return NO;
     }
     
@@ -460,8 +413,7 @@
     
     tempRange = [lastFour rangeOfString:@"."];
     
-    if ( tempRange.location == NSNotFound )
-    {
+    if ( tempRange.location == NSNotFound ){
         return NO;
     }
     
@@ -471,9 +423,7 @@
 
 - (BOOL)isValidPasscode
 {
-    if ( self.passcodeField.text.length > 15 ||
-        self.passcodeField.text.length < 5 )
-    {
+    if (self.passcodeField.text.length > 15 || self.passcodeField.text.length < 5 ){
         return NO;
     }
     
@@ -484,7 +434,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
