@@ -85,7 +85,7 @@
     CGRect tempFrame = CGRectMake(0.5f*(frame.size.width-w), y, w, 44.0f);
 
     SSButton *btnNext = [SSButton buttonWithFrame:tempFrame title:@"Login" textMode:TextModeUpperCase];
-//    [btnNext addTarget:self action:@selector(btnNextAction:) forControlEvents:UIControlEventTouchUpInside];
+    [btnNext addTarget:self action:@selector(btnLoginAction:) forControlEvents:UIControlEventTouchUpInside];
     btnNext.backgroundColor = kGreenNext;
     [view addSubview:btnNext];
     
