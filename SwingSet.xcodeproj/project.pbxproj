@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C01E9BE18CD096300E51C94 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C01E9B818CD096300E51C94 /* libTestFlight.a */; };
+		5C01E9BF18CD096300E51C94 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C01E9B918CD096300E51C94 /* README.md */; };
+		5C01E9C018CD096300E51C94 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C01E9BA18CD096300E51C94 /* release_notes.md */; };
 		5C0578CF18AFDC420054CF6D /* checkedbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0578CD18AFDC420054CF6D /* checkedbox@2x.png */; };
 		5C0578D018AFDC420054CF6D /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C0578CE18AFDC420054CF6D /* unchecked@2x.png */; };
 		5C0BA84A18B7ACD300B5016F /* SignalCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0BA84818B7ACD300B5016F /* SignalCheck.m */; };
@@ -230,9 +233,6 @@
 		5CFAC773188B93D300940A00 /* SSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAC772188B93D300940A00 /* SSViewController.m */; };
 		5CFAC776188B9E8400940A00 /* SSProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAC775188B9E8400940A00 /* SSProfile.m */; };
 		5CFAC779188BAED900940A00 /* SSWebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFAC778188BAED800940A00 /* SSWebServices.m */; };
-		5CFC7D0718AFA67C0063F5AD /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFC7D0118AFA67C0063F5AD /* libTestFlight.a */; };
-		5CFC7D0818AFA67D0063F5AD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC7D0218AFA67C0063F5AD /* README.md */; };
-		5CFC7D0918AFA67D0063F5AD /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5CFC7D0318AFA67C0063F5AD /* release_notes.md */; };
 		5CFDB31218B1222300EEB2FA /* SSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CFDB31118B1222300EEB2FA /* SSLoginViewController.m */; };
 		A0B96FC618B034D00002922F /* uncheckedBox.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC518B034D00002922F /* uncheckedBox.png */; };
 		A0B96FC818B034DE0002922F /* checkedBoxRegister.png in Resources */ = {isa = PBXBuildFile; fileRef = A0B96FC718B034DE0002922F /* checkedBoxRegister.png */; };
@@ -255,6 +255,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C01E9B818CD096300E51C94 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		5C01E9B918CD096300E51C94 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		5C01E9BA18CD096300E51C94 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		5C01E9BB18CD096300E51C94 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		5C01E9BC18CD096300E51C94 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		5C01E9BD18CD096300E51C94 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		5C0578CD18AFDC420054CF6D /* checkedbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkedbox@2x.png"; sourceTree = "<group>"; };
 		5C0578CE18AFDC420054CF6D /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
 		5C0BA84718B7ACD300B5016F /* SignalCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignalCheck.h; sourceTree = "<group>"; };
@@ -597,12 +603,6 @@
 		5CFAC775188B9E8400940A00 /* SSProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSProfile.m; sourceTree = "<group>"; };
 		5CFAC777188BAED800940A00 /* SSWebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSWebServices.h; sourceTree = "<group>"; };
 		5CFAC778188BAED800940A00 /* SSWebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSWebServices.m; sourceTree = "<group>"; };
-		5CFC7D0118AFA67C0063F5AD /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		5CFC7D0218AFA67C0063F5AD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		5CFC7D0318AFA67C0063F5AD /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		5CFC7D0418AFA67C0063F5AD /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		5CFC7D0518AFA67C0063F5AD /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		5CFC7D0618AFA67C0063F5AD /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		5CFDB31018B1222200EEB2FA /* SSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoginViewController.h; sourceTree = "<group>"; };
 		5CFDB31118B1222300EEB2FA /* SSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoginViewController.m; sourceTree = "<group>"; };
 		A0B96FC518B034D00002922F /* uncheckedBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheckedBox.png; sourceTree = "<group>"; };
@@ -630,7 +630,7 @@
 				5CF8516E18AF01AF006ACFDA /* libz.dylib in Frameworks */,
 				5CF8516C18AF019E006ACFDA /* Security.framework in Frameworks */,
 				5CF8516A18AF018F006ACFDA /* CFNetwork.framework in Frameworks */,
-				5CFC7D0718AFA67C0063F5AD /* libTestFlight.a in Frameworks */,
+				5C01E9BE18CD096300E51C94 /* libTestFlight.a in Frameworks */,
 				5CF8513018AF013C006ACFDA /* libUAirship-3.0.2.a in Frameworks */,
 				5C228DC7189F749B00389C87 /* AddressBook.framework in Frameworks */,
 				5C228DC8189F749B00389C87 /* AddressBookUI.framework in Frameworks */,
@@ -655,6 +655,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C01E9B718CD096300E51C94 /* TestFlightSDK3 */ = {
+			isa = PBXGroup;
+			children = (
+				5C01E9B818CD096300E51C94 /* libTestFlight.a */,
+				5C01E9B918CD096300E51C94 /* README.md */,
+				5C01E9BA18CD096300E51C94 /* release_notes.md */,
+				5C01E9BB18CD096300E51C94 /* TestFlight+AsyncLogging.h */,
+				5C01E9BC18CD096300E51C94 /* TestFlight+ManualSessions.h */,
+				5C01E9BD18CD096300E51C94 /* TestFlight.h */,
+			);
+			path = TestFlightSDK3;
+			sourceTree = "<group>";
+		};
 		5C0BA84418B7ACD300B5016F /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,8 +827,8 @@
 		5C4CEE80188B5289000B1BFD /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				5C01E9B718CD096300E51C94 /* TestFlightSDK3 */,
 				5C0BA84418B7ACD300B5016F /* Reachability */,
-				5CFC7D0018AFA67C0063F5AD /* TestFlightSDK2 */,
 				5CF8509C18AF013C006ACFDA /* Airship */,
 				5C4CEE9E188B52CD000B1BFD /* AFNetworking */,
 			);
@@ -1287,19 +1300,6 @@
 			path = BaseClasses;
 			sourceTree = "<group>";
 		};
-		5CFC7D0018AFA67C0063F5AD /* TestFlightSDK2 */ = {
-			isa = PBXGroup;
-			children = (
-				5CFC7D0118AFA67C0063F5AD /* libTestFlight.a */,
-				5CFC7D0218AFA67C0063F5AD /* README.md */,
-				5CFC7D0318AFA67C0063F5AD /* release_notes.md */,
-				5CFC7D0418AFA67C0063F5AD /* TestFlight+AsyncLogging.h */,
-				5CFC7D0518AFA67C0063F5AD /* TestFlight+ManualSessions.h */,
-				5CFC7D0618AFA67C0063F5AD /* TestFlight.h */,
-			);
-			path = TestFlightSDK2;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1385,8 +1385,10 @@
 				5CFAC71D188B882300940A00 /* FeaturedButton.png in Resources */,
 				5CFAC72C188B882300940A00 /* Invitememberstoflock.png in Resources */,
 				5CFAC71B188B882300940A00 /* dashboard2.png in Resources */,
+				5C01E9BF18CD096300E51C94 /* README.md in Resources */,
 				5CFAC768188B885400940A00 /* ProximaNova-Semibold.otf in Resources */,
 				5C0E4CAB18AD8F6800E3EE44 /* dropShadow@2x.png in Resources */,
+				5C01E9C018CD096300E51C94 /* release_notes.md in Resources */,
 				5C1E0F0918A80E130059F170 /* nextarrow.png in Resources */,
 				5CF8515C18AF013D006ACFDA /* top-detail.png in Resources */,
 				5C4CEEC3188B54A4000B1BFD /* Default@2x.png in Resources */,
@@ -1394,7 +1396,6 @@
 				5CFAC730188B882300940A00 /* largeredpercentage.png in Resources */,
 				5CF8513F18AF013D006ACFDA /* down.png in Resources */,
 				5CF3C4A118B6708200A41A67 /* icon80.png in Resources */,
-				5CFC7D0918AFA67D0063F5AD /* release_notes.md in Resources */,
 				5CF8516118AF013D006ACFDA /* UAPushMoreSettingsView.xib in Resources */,
 				5CF8514118AF013D006ACFDA /* overlayCloseBtn.png in Resources */,
 				5CFAC75E188B885400940A00 /* ProximaNova-Black.otf in Resources */,
@@ -1471,7 +1472,6 @@
 				5C4CEE60188B485F000B1BFD /* Images.xcassets in Resources */,
 				5CFAC761188B885400940A00 /* ProximaNova-Extrabold.otf in Resources */,
 				5CFAC710188B882300940A00 /* bird.png in Resources */,
-				5CFC7D0818AFA67D0063F5AD /* README.md in Resources */,
 				5CFAC766188B885400940A00 /* ProximaNova-Regular.otf in Resources */,
 				5CF8515818AF013D006ACFDA /* bottom-detail.png in Resources */,
 				5CF8516418AF013D006ACFDA /* UAPushSettingsSoundsViewController.xib in Resources */,
@@ -1741,6 +1741,7 @@
 					"$(inherited)",
 					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/Airship,
 					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
+					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1766,6 +1767,7 @@
 					"$(inherited)",
 					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/Airship,
 					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
+					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1866,6 +1868,7 @@
 					"$(inherited)",
 					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/Airship,
 					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
+					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
