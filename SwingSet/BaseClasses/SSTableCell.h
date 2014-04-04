@@ -10,4 +10,5 @@
 
 @interface SSTableCell : UITableViewCell
 
+@property (strong, nonatomic) UILabel *lblBadge;
 @end
