@@ -36,6 +36,7 @@
 		5C35FE7E188EF86F00827D67 /* SSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE7C188EF86F00827D67 /* SSRegisterViewController.m */; };
 		5C35FE84188F094A00827D67 /* SSTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE83188F094A00827D67 /* SSTableCell.m */; };
 		5C49DCC618EF2B86003E7405 /* redDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C49DCC518EF2B86003E7405 /* redDot@2x.png */; };
+		5C49DCC918EF2DF9003E7405 /* SSGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C49DCC818EF2DF9003E7405 /* SSGroup.m */; };
 		5C4CEE4E188B485F000B1BFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE4D188B485F000B1BFD /* Foundation.framework */; };
 		5C4CEE50188B485F000B1BFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE4F188B485F000B1BFD /* CoreGraphics.framework */; };
 		5C4CEE52188B485F000B1BFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE51188B485F000B1BFD /* UIKit.framework */; };
@@ -302,6 +303,8 @@
 		5C35FE82188F094A00827D67 /* SSTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTableCell.h; sourceTree = "<group>"; };
 		5C35FE83188F094A00827D67 /* SSTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTableCell.m; sourceTree = "<group>"; };
 		5C49DCC518EF2B86003E7405 /* redDot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redDot@2x.png"; sourceTree = "<group>"; };
+		5C49DCC718EF2DF9003E7405 /* SSGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSGroup.h; sourceTree = "<group>"; };
+		5C49DCC818EF2DF9003E7405 /* SSGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSGroup.m; sourceTree = "<group>"; };
 		5C4CEE4A188B485F000B1BFD /* SwingSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwingSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4CEE4D188B485F000B1BFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C4CEE4F188B485F000B1BFD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -965,6 +968,8 @@
 		5CB4C1E3188F77E50059B332 /* Groups */ = {
 			isa = PBXGroup;
 			children = (
+				5C49DCC718EF2DF9003E7405 /* SSGroup.h */,
+				5C49DCC818EF2DF9003E7405 /* SSGroup.m */,
 				5CB4C1E4188F78030059B332 /* SSGroupsViewController.h */,
 				5CB4C1E5188F78030059B332 /* SSGroupsViewController.m */,
 				5C85DEB41894F05500B7F580 /* SSGroupViewController.h */,
@@ -1609,6 +1614,7 @@
 				5C35FE7D188EF86F00827D67 /* SSConfirmViewController.m in Sources */,
 				5C4CEEB3188B52CD000B1BFD /* AFHTTPRequestOperation.m in Sources */,
 				5C35FE7E188EF86F00827D67 /* SSRegisterViewController.m in Sources */,
+				5C49DCC918EF2DF9003E7405 /* SSGroup.m in Sources */,
 				5C4CEEB2188B52CD000B1BFD /* AFHTTPClient.m in Sources */,
 				5C74FAC7188CB28B0010FA58 /* SSContentBackground.m in Sources */,
 				5C0BA84D18B7AE9400B5016F /* Reachability.m in Sources */,
