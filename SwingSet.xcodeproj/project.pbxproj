@@ -35,6 +35,7 @@
 		5C35FE7D188EF86F00827D67 /* SSConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE7A188EF86F00827D67 /* SSConfirmViewController.m */; };
 		5C35FE7E188EF86F00827D67 /* SSRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE7C188EF86F00827D67 /* SSRegisterViewController.m */; };
 		5C35FE84188F094A00827D67 /* SSTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C35FE83188F094A00827D67 /* SSTableCell.m */; };
+		5C49DCC618EF2B86003E7405 /* redDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5C49DCC518EF2B86003E7405 /* redDot@2x.png */; };
 		5C4CEE4E188B485F000B1BFD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE4D188B485F000B1BFD /* Foundation.framework */; };
 		5C4CEE50188B485F000B1BFD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE4F188B485F000B1BFD /* CoreGraphics.framework */; };
 		5C4CEE52188B485F000B1BFD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C4CEE51188B485F000B1BFD /* UIKit.framework */; };
@@ -300,6 +301,7 @@
 		5C35FE7C188EF86F00827D67 /* SSRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSRegisterViewController.m; sourceTree = "<group>"; };
 		5C35FE82188F094A00827D67 /* SSTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSTableCell.h; sourceTree = "<group>"; };
 		5C35FE83188F094A00827D67 /* SSTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSTableCell.m; sourceTree = "<group>"; };
+		5C49DCC518EF2B86003E7405 /* redDot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redDot@2x.png"; sourceTree = "<group>"; };
 		5C4CEE4A188B485F000B1BFD /* SwingSet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwingSet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C4CEE4D188B485F000B1BFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5C4CEE4F188B485F000B1BFD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -864,6 +866,7 @@
 		5C4CEEBF188B549D000B1BFD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5C49DCC518EF2B86003E7405 /* redDot@2x.png */,
 				5CF3C49A18B66D9E00A41A67 /* btnMenu@2x.png */,
 				5CF3C49C18B6708200A41A67 /* icon120.png */,
 				5CF3C49D18B6708200A41A67 /* icon58.png */,
@@ -1407,6 +1410,7 @@
 				5CFAC722188B882300940A00 /* hb_bg_ask@2x.png in Resources */,
 				5C8C599E1895DC6100A1CAF0 /* placeholder.png in Resources */,
 				5CF8515F18AF013D006ACFDA /* UAMapPresentationViewController.xib in Resources */,
+				5C49DCC618EF2B86003E7405 /* redDot@2x.png in Resources */,
 				5CFAC72D188B882300940A00 /* largebluepercentage.png in Resources */,
 				5CFAC762188B885400940A00 /* ProximaNova-Light 2.otf in Resources */,
 				5CFAC72E188B882300940A00 /* largeorangepercentage.png in Resources */,
@@ -1739,9 +1743,9 @@
 				INFOPLIST_FILE = "SwingSet/SwingSet-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/Airship,
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/Airship,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1765,9 +1769,9 @@
 				INFOPLIST_FILE = "SwingSet/SwingSet-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/Airship,
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/Airship,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1866,9 +1870,9 @@
 				INFOPLIST_FILE = "SwingSet/SwingSet-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/Airship,
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
-					/Users/dennykwon/Desktop/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/Airship,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK2,
+					/Users/dennykwon/Desktop/TheGrid/freelance/SwingsetIOS/SwingSet/ThirdParty/TestFlightSDK3,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
