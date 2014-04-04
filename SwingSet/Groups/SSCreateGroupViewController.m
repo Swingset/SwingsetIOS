@@ -270,7 +270,6 @@
         [self.loadingIndicator stopLoading];
         self.groupNameField.text = @"";
         NSDictionary *results = (NSDictionary *)result;
-//        NSLog(@"%@", [results description]);
         
         NSString *confirmation = [results objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"success"]) {
@@ -281,7 +280,6 @@
             
             // go to invite members view controller.
             SSInviteMembersViewController *inviteVc = [[SSInviteMembersViewController alloc] init];
-//            NSDictionary *groupInfo = [results objectForKey:@"group"];
             inviteVc.group = [SSGroup groupWithInfo:results[@"group"]];
             [self.navigationController pushViewController:inviteVc animated:YES];
         }
@@ -385,16 +383,15 @@
         [self.loadingIndicator stopLoading];
         
         NSDictionary *results = (NSDictionary *)result;
-//        NSLog(@"%@", [results description]);
         NSString *confirmation = [results objectForKey:@"confirmation"];
         if ([confirmation isEqualToString:@"success"]){
             
             NSMutableArray *updatedGroups = [NSMutableArray arrayWithArray:self.profile.groups];
-            NSDictionary *newGroup = [results objectForKey:@"group"];
+            SSGroup *newGroup = [SSGroup groupWithInfo:results[@"group"]];
             [updatedGroups addObject:newGroup];
             self.profile.groups = updatedGroups;
             
-            NSString *msg = [NSString stringWithFormat:@"You are the newest member of @%@ group. Try asking your first question!", newGroup[@"displayName"]];
+            NSString *msg = [NSString stringWithFormat:@"You are the newest member of @%@ group. Try asking your first question!", newGroup.displayName];
             [self showAlert:@"Welcome!" withMessage:msg];
         }
         else{
