@@ -7,8 +7,9 @@
 //
 
 #import "SSViewController.h"
+#import "SSGroup.h"
 
 @interface SSInviteMembersViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
-@property (strong, nonatomic) NSDictionary *group;
+@property (strong, nonatomic) SSGroup *group;
 @end

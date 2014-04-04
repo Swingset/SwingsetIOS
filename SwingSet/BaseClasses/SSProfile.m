@@ -8,6 +8,7 @@
 
 #import "SSProfile.h"
 #import "SSWebServices.h"
+#import "SSGroup.h"
 
 @implementation SSProfile
 @synthesize uniqueId;
@@ -157,8 +158,14 @@
         if ([key isEqualToString:@"confirmed"])
             self.confirmed = [[info objectForKey:key] isEqualToString:@"yes"];
         
-        if ([key isEqualToString:@"groups"])
-            self.groups = [NSMutableArray arrayWithArray:[info objectForKey:key]];
+        if ([key isEqualToString:@"groups"]){
+            NSMutableArray *updatedGroups = [NSMutableArray array];
+            NSArray *g = [info objectForKey:key];
+            for (int i=0; i<g.count; i++)
+                [updatedGroups addObject:[SSGroup groupWithInfo:g[i]]];
+            
+            self.groups = updatedGroups;
+        }
         
         if ([key isEqualToString:@"deviceToken"])
             self.deviceToken = [info objectForKey:key];
@@ -174,14 +181,14 @@
 - (void)removeGroup:(NSDictionary *)groupInfo
 {
     NSMutableArray *updatedGroups = [NSMutableArray array];
-    for (NSDictionary *group in self.groups) {
-        if ([group[@"id"] isEqualToString:groupInfo[@"id"]]==NO){
+    
+    for (SSGroup *group in self.groups) {
+        if ([group.groupId isEqualToString:groupInfo[@"id"]]==NO)
             [updatedGroups addObject:group];
-        }
+        
     }
-    
+
     self.groups = updatedGroups;
-    
 }
 
 

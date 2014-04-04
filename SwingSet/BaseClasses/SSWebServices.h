@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "SSProfile.h"
 #import "SSQuestion.h"
+#import "SSGroup.h"
 
 
 typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
@@ -36,11 +37,11 @@ typedef void (^SSWebServiceRequestCompletionBlock)(id result, NSError *error);
 
 
 // Groups
-- (void)fetchGroupInfo:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)fetchGroupInfo:(SSGroup *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)createGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
-- (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)inviteMembers:(NSArray *)invitees toGroup:(SSGroup *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 - (void)joinGroup:(NSString *)groupName withPin:(NSString *)pin completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
-- (void)removeMember:(NSString *)memberId fromGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
+- (void)removeMember:(NSString *)memberId fromGroup:(SSGroup *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;
 
 // Questions
 - (void)submitQuestion:(SSQuestion *)question completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock;

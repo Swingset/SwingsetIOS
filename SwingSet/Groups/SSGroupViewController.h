@@ -7,8 +7,9 @@
 //
 
 #import "SSViewController.h"
+#import "SSGroup.h"
 
 @interface SSGroupViewController : SSViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (strong, nonatomic) NSDictionary *group;
+@property (strong, nonatomic) SSGroup *group;
 @end

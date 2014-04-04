@@ -11,6 +11,7 @@
 #import "SSButton.h"
 #import "SSNavigationController.h"
 #import "SSCreateGroupViewController.h"
+#import "SSGroup.h"
 
 @interface SSGroupsViewController ()
 
@@ -122,8 +123,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSDictionary *group = self.profile.groups[indexPath.row];
-    cell.textLabel.text = group[@"name"];
+    SSGroup *group = self.profile.groups[indexPath.row];
+    cell.textLabel.text = group.displayName;
     return cell;
 }
 

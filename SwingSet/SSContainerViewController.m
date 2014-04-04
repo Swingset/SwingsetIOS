@@ -16,6 +16,7 @@
 #import "SSCreateGroupViewController.h"
 #import "SSCreateQuestionViewController.h"
 #import "SSResultsViewController.h"
+#import "SSGroup.h"
 
 
 @interface SSContainerViewController ()
@@ -240,12 +241,14 @@
     
     cell.indentationLevel = 0.0f;
     if (indexPath.row == 0){ // Home, Groups
+        cell.lblBadge.alpha = 0;
         cell.textLabel.text = self.sections[indexPath.row];
         cell.imageView.image = [UIImage imageNamed:@"frontPageIcon.png"];
         return cell;
     }
     
     if (indexPath.row == 1){ // Home, Groups
+        cell.lblBadge.alpha = 0;
         cell.textLabel.text = self.sections[indexPath.row];
         cell.imageView.image = [UIImage imageNamed:@"groupsIcon.png"];
         return cell;
@@ -255,16 +258,24 @@
     NSUInteger groupSize = self.profile.groups.count;
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
-        NSDictionary *group = self.profile.groups[i];
-        cell.textLabel.text = [NSString stringWithFormat:@"@%@", group[@"displayName"]];
+//        NSDictionary *group = self.profile.groups[i];
+//        NSLog(@"GROUP: %@", [group description]);
+
+        SSGroup *group = self.profile.groups[i];
+
+//        cell.textLabel.text = [NSString stringWithFormat:@"@%@", group[@"displayName"]];
+        cell.textLabel.text = group.displayName;
         cell.indentationLevel = 4.0f;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
         cell.imageView.image = nil;
+        cell.lblBadge.alpha = 1;
+        cell.lblBadge.text = @"5";
         return cell;
     }
     
-    int index = indexPath.row-groupSize;
+    cell.lblBadge.alpha = 0;
+    int index = (int)(indexPath.row-groupSize);
     NSString *section = self.sections[index];
     cell.textLabel.text = section;
     
@@ -291,7 +302,8 @@
     
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
-        NSDictionary *group = self.profile.groups[i];
+//        NSDictionary *group = self.profile.groups[i];
+        SSGroup *group = self.profile.groups[i];
         [self navigateToGroup:group];
         [self performSelector:@selector(resetTable) withObject:nil afterDelay:1.0f];
         return;
@@ -310,16 +322,17 @@
     [self.sectionsTable reloadData];
 }
 
-- (void)navigateToGroup:(NSDictionary *)group
+- (void)navigateToGroup:(SSGroup *)group
 {
-    NSLog(@"NAVIGATE TO GROUP: %@", group[@"displayName"]);
+    NSLog(@"NAVIGATE TO GROUP: %@", group.displayName);
     
     //    if (!self.groupQuestionsVc)
     //        self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
     
     self.currentVC = nil;
     self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
-    self.groupQuestionsVc.group = [NSMutableDictionary dictionaryWithDictionary:group];
+//    self.groupQuestionsVc.group = [NSMutableDictionary dictionaryWithDictionary:group];
+    self.groupQuestionsVc.group = group;
     [self slideOut:self.groupQuestionsVc];
 }
 

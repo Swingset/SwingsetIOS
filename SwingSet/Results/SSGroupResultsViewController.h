@@ -7,9 +7,10 @@
 //
 
 #import "SSViewController.h"
+#import "SSGroup.h"
 
 @interface SSGroupResultsViewController : SSViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) NSDictionary *group;
+@property (strong, nonatomic) SSGroup *group;
 @property (nonatomic) BOOL canGoBack;
 @end

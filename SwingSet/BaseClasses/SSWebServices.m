@@ -542,7 +542,7 @@
 }
 
 
-- (void)inviteMembers:(NSArray *)invitees toGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+- (void)inviteMembers:(NSArray *)invitees toGroup:(SSGroup *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
     SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
     if (![signalCheck checkSignal]){
@@ -566,7 +566,7 @@
     
     NSLog(@"inviteMembers: %@", [params description]);
 
-    [httpClient putPath:[kPathGroups stringByAppendingString:group[@"id"]]
+    [httpClient putPath:[kPathGroups stringByAppendingString:group.groupId]
               parameters:params
                  success:^(AFHTTPRequestOperation *operation, id responseObject){
                      NSError *error = nil;
@@ -603,7 +603,7 @@
 }
 
 
-- (void)fetchGroupInfo:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+- (void)fetchGroupInfo:(SSGroup *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
     SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
     if (![signalCheck checkSignal]){
@@ -615,7 +615,7 @@
     }
 
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:kBaseUrl]];
-    [httpClient getPath:[kPathGroups stringByAppendingString:group[@"id"]]
+    [httpClient getPath:[kPathGroups stringByAppendingString:group.groupId]
              parameters:nil
                 success:^(AFHTTPRequestOperation *operation, id responseObject){
                     NSError *error = nil;
@@ -711,7 +711,7 @@
 }
 
 
-- (void)removeMember:(NSString *)memberId fromGroup:(NSDictionary *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
+- (void)removeMember:(NSString *)memberId fromGroup:(SSGroup *)group completionBlock:(SSWebServiceRequestCompletionBlock)completionBlock
 {
     SignalCheck *signalCheck = [SignalCheck signalWithDelegate:self];
     if (![signalCheck checkSignal]){
@@ -730,7 +730,7 @@
     params[@"member"] = memberId;
     params[@"action"] = @"remove";
     
-    [httpClient putPath:[kPathGroups stringByAppendingString:group[@"id"]]
+    [httpClient putPath:[kPathGroups stringByAppendingString:group.groupId]
              parameters:params
                 success:^(AFHTTPRequestOperation *operation, id responseObject){
                     NSError *error = nil;

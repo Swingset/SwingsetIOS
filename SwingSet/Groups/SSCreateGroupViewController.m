@@ -281,8 +281,8 @@
             
             // go to invite members view controller.
             SSInviteMembersViewController *inviteVc = [[SSInviteMembersViewController alloc] init];
-            NSDictionary *groupInfo = [results objectForKey:@"group"];
-            inviteVc.group = groupInfo;
+//            NSDictionary *groupInfo = [results objectForKey:@"group"];
+            inviteVc.group = [SSGroup groupWithInfo:results[@"group"]];
             [self.navigationController pushViewController:inviteVc animated:YES];
         }
         else{

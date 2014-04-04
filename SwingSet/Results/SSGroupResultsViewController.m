@@ -91,7 +91,7 @@
         return;
     
     [self.loadingIndicator startLoading];
-    [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group[@"id"] completionBlock:^(id result, NSError *error){
+    [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group.groupId completionBlock:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         
         if (error){

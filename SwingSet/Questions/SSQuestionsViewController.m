@@ -142,7 +142,7 @@
     
     [self.loadingIndicator startLoading];
     if (self.group){ // fetch group questions
-        [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group[@"id"] completionBlock:^(id result, NSError *error){
+        [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.group.groupId completionBlock:^(id result, NSError *error){
             [self.loadingIndicator stopLoading];
             if (error){
                 [self showAlert:@"Error" withMessage:[error localizedDescription]];
@@ -150,12 +150,10 @@
             }
             
             NSDictionary *results = (NSDictionary *)result;
-            if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
+            if ([results[@"confirmation"] isEqualToString:@"success"]==YES)
                 [self processQuestions:results[@"questions"]];
-            }
-            else{
+            else
                 [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];
-            }
         }];
         
         return;
@@ -170,10 +168,8 @@
         
         NSDictionary *results = (NSDictionary *)result;
         if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
-            NSDictionary *publicGroup = results[@"group"];
-            self.group = [NSMutableDictionary dictionaryWithDictionary:publicGroup];
-            self.group[@"isPublic"] = @"yes";
-            
+            NSDictionary *publicGroupInfo = results[@"group"];
+            self.group = [SSGroup groupWithInfo:publicGroupInfo];
             [self processQuestions:results[@"questions"]];
         }
         else{
@@ -186,7 +182,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    if ([self.group[@"isPublic"] isEqualToString:@"no"])
+    if (!self.group.isPublic)
         return;
     
     // reset on public questions so that it loads a new set of questions every time
@@ -225,6 +221,7 @@
         if ([question.votes containsObject:self.profile.uniqueId]==NO)
             [self.questions addObject:question];
     }
+    
     
     if (self.questions.count==0){ // all questions answered, go to results page:
         SSGroupResultsViewController *resultsVc = [[SSGroupResultsViewController alloc] init];
@@ -585,7 +582,8 @@
 
     }
     
-    if ([self.group[@"isPublic"] isEqualToString:@"yes"]){
+//    if ([self.group[@"isPublic"] isEqualToString:@"yes"]){
+    if (self.group.isPublic){
         for (UIView *pctView in self.topPreview.malePercentViews)
             pctView.alpha = 1.0f;
         

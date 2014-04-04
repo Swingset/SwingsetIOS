@@ -52,7 +52,7 @@
     CGFloat y = 0.0f;
     self.lblGroupName = [[UILabel alloc] initWithFrame:CGRectMake(20.0f, y, frame.size.width/2.0f, 30.0f)];
     self.lblGroupName.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
-    self.lblGroupName.text = self.group[@"name"];
+    self.lblGroupName.text = self.group.displayName;
     self.lblGroupName.textColor = [UIColor blackColor];
     self.lblGroupName.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:16.0f];
     [self.topView addSubview:self.lblGroupName];
@@ -62,7 +62,7 @@
     self.lblGroupMembers.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin);
     self.lblGroupMembers.textColor = [UIColor grayColor];
     self.lblGroupMembers.font = [UIFont fontWithName:@"ProximaNova-Semibold" size:13.0f];
-    NSArray *members = self.group[@"members"];
+    NSArray *members = self.group.members;
     self.lblGroupMembers.text = [NSString stringWithFormat:@"%d members", (int)members.count];
     self.lblGroupMembers.backgroundColor = [UIColor clearColor];
     [self.topView addSubview:self.lblGroupMembers];
@@ -163,7 +163,7 @@
             NSString *confirmation = [results objectForKey:@"confirmation"];
             
             if ([confirmation isEqualToString:@"success"]){
-                self.group = [results objectForKey:@"group"];
+                [self.group populate:results[@"group"]];
                 [self.theTableView reloadData];
             }
             else{
@@ -183,8 +183,10 @@
 #pragma mark UITable Delegate/Datasource methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *membersArray = self.group[@"members"];
-    return membersArray.count;
+//    NSArray *membersArray = self.group[@"members"];
+//    return membersArray.count;
+    
+    return self.group.members.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -214,8 +216,11 @@
     cell.tag = indexPath.row;
     UIButton *btnDelete = (UIButton *)[cell.contentView viewWithTag:1000];
     btnDelete.alpha = (self.isDeleteMode) ? 1.0f : 0.0f;
-    NSArray *membersArray = self.group[@"members"];
-    id member = [membersArray objectAtIndex:indexPath.row];
+//    NSArray *membersArray = self.group[@"members"];
+//    id member = [membersArray objectAtIndex:indexPath.row];
+    
+    id member = [self.group.members objectAtIndex:indexPath.row];
+
 //    NSLog(@"MEMBER: %@", [member description]);
     if ([[member class] isSubclassOfClass:[NSDictionary class]]){
         cell.textLabel.text = member[@"username"];
@@ -256,7 +261,8 @@
 - (void)btnDeleteAction:(UIButton *)btn
 {
     int index = (int)btn.superview.superview.superview.tag;
-    NSDictionary *member = self.group[@"members"][index];
+//    NSDictionary *member = self.group[@"members"][index];
+    NSDictionary *member = self.group.members[index];
     
     NSLog(@"btnDeleteAction: %@", [member description]);
     
@@ -272,7 +278,7 @@
             NSString *confirmation = [results objectForKey:@"confirmation"];
             if ([confirmation isEqualToString:@"success"]){
                 NSDictionary *groupInfo = [results objectForKey:@"group"];
-                self.group = groupInfo;
+                self.group = [SSGroup groupWithInfo:groupInfo];
                 [self.theTableView reloadData];
             }
             else{
