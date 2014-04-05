@@ -119,6 +119,7 @@
     ctr.x = 1.3f*self.navCtr.view.frame.size.width;
     self.navCtr.view.center = ctr;
     self.navCtr.slidOut = YES;
+    self.navCtr.visibleViewController.view.userInteractionEnabled = NO;
 
     [self.navCtr.view addObserver:self forKeyPath:@"center" options:0 context:NULL];
     
