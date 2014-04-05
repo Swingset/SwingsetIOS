@@ -219,9 +219,6 @@ static NSString *questionPlaceholder = @"Write your question here.";
     [self.btnToggleAnswerType setBackgroundImage:answerTypePics forState:UIControlStateNormal];
     [base addSubview:self.btnToggleAnswerType];
     
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
-    [base addGestureRecognizer:tap];
     [view addSubview:base];
     
     
@@ -230,6 +227,10 @@ static NSString *questionPlaceholder = @"Write your question here.";
     self.btnSubmit.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.btnSubmit.backgroundColor = kGreenNext;
     [view addSubview:self.btnSubmit];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    [view addGestureRecognizer:tap];
     
     self.view = view;
 }
