@@ -285,10 +285,8 @@
         cell.textLabel.font = [UIFont systemFontOfSize:14];
         cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
         cell.imageView.image = nil;
-        cell.lblBadge.alpha = 1;
-        
+        cell.lblBadge.alpha = (group.unansweredQuestionsCount > 0);
         cell.lblBadge.text = [NSString stringWithFormat:@"%d", group.unansweredQuestionsCount];
-        
         return cell;
     }
     
