@@ -217,8 +217,11 @@ CGFloat randomRGB(){
         
         CGFloat x = w+kPadding;
         for (int i=0; i<self.colors.count; i++) {
-            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblMale.frame.size.height)];
+            UILabel *pctView = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblMale.frame.size.height)];
             pctView.backgroundColor = self.colors[i];
+            pctView.textColor = [UIColor whiteColor];
+            pctView.textAlignment = NSTextAlignmentLeft;
+            pctView.font = [UIFont fontWithName:@"ProximaNova-Regular" size:10.0f];
             [self addSubview:pctView];
             [self.malePercentViews addObject:pctView];
         }
@@ -235,8 +238,11 @@ CGFloat randomRGB(){
         [self addSubview:self.lblFemale];
 
         for (int i=0; i<self.colors.count; i++) {
-            UIView *pctView = [[UIView alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblFemale.frame.size.height)];
+            UILabel *pctView = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblFemale.frame.size.height)];
             pctView.backgroundColor = self.colors[i];
+            pctView.textColor = [UIColor whiteColor];
+            pctView.textAlignment = NSTextAlignmentLeft;
+            pctView.font = [UIFont fontWithName:@"ProximaNova-Regular" size:10.0f];
             [self addSubview:pctView];
             [self.femalePercentViews addObject:pctView];
         }
@@ -252,18 +258,18 @@ CGFloat randomRGB(){
     CGFloat fullWidth = self.frame.size.width-x-kPadding; // this is 100% width
     
     NSArray *malePercents = percents[@"male"];
-//    NSUInteger max = (malePercents.count >= 4) ? 3 : malePercents.count;
     NSUInteger max = (malePercents.count >= 4) ? 4 : malePercents.count;
     for (int i=0; i<max; i++) {
         NSNumber *pct = [malePercents objectAtIndex:i];
         double p = [pct doubleValue];
-        UIView *percentView = [self.malePercentViews objectAtIndex:i];
+        UILabel *percentView = (UILabel *)[self.malePercentViews objectAtIndex:i];
         
         CGRect frame = percentView.frame;
         frame.size.width = p*fullWidth;
         frame.origin.x = x;
         x += frame.size.width;
         
+        percentView.text = [NSString stringWithFormat:@"%.1f", (p*100)];
         [UIView animateWithDuration:0.25f
                               delay:0
                             options:UIViewAnimationOptionCurveLinear
@@ -278,18 +284,18 @@ CGFloat randomRGB(){
     
     x = 45.0f+kPadding;
     NSArray *femalePercents = percents[@"female"];
-//    max = (femalePercents.count >= 4) ? 3 : femalePercents.count;
     max = (femalePercents.count >= 4) ? 4 : femalePercents.count;
     for (int i=0; i<max; i++) {
         NSNumber *pct = [femalePercents objectAtIndex:i];
         double p = [pct doubleValue];
-        UIView *percentView = [self.femalePercentViews objectAtIndex:i];
+        UILabel *percentView = (UILabel *)[self.femalePercentViews objectAtIndex:i];
         
         CGRect frame = percentView.frame;
         frame.size.width = p*fullWidth;
         frame.origin.x = x;
         x += frame.size.width;
         
+        percentView.text = [NSString stringWithFormat:@"%.1f", (p*100)];
         [UIView animateWithDuration:0.25f
                               delay:0
                             options:UIViewAnimationOptionCurveLinear
@@ -349,18 +355,20 @@ CGFloat randomRGB(){
     
     
     CGFloat x = 45.0f+kPadding;
-    for (UIView *percentView in self.malePercentViews) {
+    for (UILabel *percentView in self.malePercentViews) {
         frame = percentView.frame;
         frame.size.width = 0;
         frame.origin.x = x;
         percentView.frame = frame;
+        percentView.text = @"";
     }
     
-    for (UIView *percentView in self.femalePercentViews) {
+    for (UILabel *percentView in self.femalePercentViews) {
         frame = percentView.frame;
         frame.size.width = 0;
         frame.origin.x = x;
         percentView.frame = frame;
+        percentView.text = @"";
     }
     
     self.lblVotes.alpha = 0.0f;
