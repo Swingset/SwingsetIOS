@@ -17,6 +17,8 @@
 @property (strong, nonatomic) NSArray *members;
 @property (strong, nonatomic) NSMutableArray *questions;
 @property (nonatomic) BOOL isPublic;
+@property (nonatomic) int unansweredQuestionsCount;
 - (void)populate:(NSDictionary *)info;
 + (SSGroup *)groupWithInfo:(NSDictionary *)info;
+- (void)fetchQuestions;
 @end

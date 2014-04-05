@@ -7,6 +7,8 @@
 //
 
 #import "SSGroup.h"
+#import "SSWebServices.h"
+#import "SSProfile.h"
 
 @implementation SSGroup
 @synthesize groupId;
@@ -15,6 +17,7 @@
 @synthesize members;
 @synthesize questions;
 @synthesize isPublic;
+@synthesize unansweredQuestionsCount;
 
 - (id)init
 {
@@ -22,6 +25,7 @@
     if (self){
         self.questions = [NSMutableArray array];
         self.isPublic = NO;
+        self.unansweredQuestionsCount = 0;
     }
     return self;
 }
@@ -36,7 +40,7 @@
 
 - (void)populate:(NSDictionary *)info
 {
-    NSLog(@"POPULATE GROUP: %@", [info description]);
+//    NSLog(@"POPULATE GROUP: %@", [info description]);
     for (NSString *key in info.allKeys) {
         
         if ([key isEqualToString:@"id"])
@@ -58,6 +62,39 @@
     }
     
     
+}
+
+- (void)fetchQuestions
+{
+    [[SSWebServices sharedInstance] fetchQuestionsInGroup:self.groupId completionBlock:^(id result, NSError *error){
+        if (error){
+            NSLog(@"FETCH QUESTIONS: Error - %@", [error localizedDescription]);
+            return;
+        }
+        
+        NSDictionary *results = (NSDictionary *)result;
+        if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
+            NSLog(@"FETCH QUESTIONS: Process Questions - %@", [results description]);
+            self.unansweredQuestionsCount = 0;
+            SSProfile *profile = [SSProfile sharedProfile];
+            
+            NSMutableArray *groupQuestions = [NSMutableArray array];
+            NSArray *q = result[@"questions"];
+            for (int i=0; i<q.count; i++) {
+                SSQuestion *question = [SSQuestion questionWithInfo:q[i]];
+                [groupQuestions addObject:question];
+                if ([question.votes containsObject:profile.uniqueId]==NO)
+                    self.unansweredQuestionsCount++;
+            }
+            
+            self.questions = groupQuestions;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"GroupQuestionsReady" object:nil];
+            
+        }
+        else
+            NSLog(@"FETCH QUESTIONS: Error - %@", [error localizedDescription]);
+    }];
+
 }
 
 @end
