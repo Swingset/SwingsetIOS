@@ -113,6 +113,13 @@
     self.navCtr = [[SSNavigationController alloc] initWithRootViewController:self.homeVc];
     self.navCtr.view.frame = CGRectMake(0.0f, 0.0f, frame.size.width, frame.size.height);
     self.navCtr.container = self;
+    
+    // Start in slide out position:
+    CGPoint ctr = self.navCtr.view.center;
+    ctr.x = 1.3f*self.navCtr.view.frame.size.width;
+    self.navCtr.view.center = ctr;
+    self.navCtr.slidOut = YES;
+
     [self.navCtr.view addObserver:self forKeyPath:@"center" options:0 context:NULL];
     
     
@@ -128,7 +135,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.baseView.transform = CGAffineTransformMakeScale(0.9f, 0.9f);
     
     [[SSWebServices sharedInstance] fetchProfileInfo:^(id result, NSError *error){
         NSDictionary *results = (NSDictionary *)result;
@@ -145,6 +151,8 @@
             }
         }
     }];
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
