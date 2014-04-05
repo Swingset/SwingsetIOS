@@ -519,6 +519,7 @@
     }
     
     [question addVote:(int)i]; // this updates the question statistics locally
+    self.topPreview.lblVotes.text = [NSString stringWithFormat:@"%d votes", question.votes.count];
     NSDictionary *option = (NSDictionary *)[question.options objectAtIndex:i];
     NSLog(@"optionSelected: %@", option[@"text"]);
     
@@ -584,7 +585,6 @@
 
     }
     
-//    if ([self.group[@"isPublic"] isEqualToString:@"yes"]){
     if (self.group.isPublic==YES){
         for (UIView *pctView in self.topPreview.malePercentViews)
             pctView.alpha = 1.0f;
@@ -621,9 +621,6 @@
                 NSDictionary *questionInfo = [results objectForKey:@"question"];
                 [question populate:questionInfo];
             }
-
-            
-            //TODO: populate question with updated info
         }
     }];
 }
