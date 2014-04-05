@@ -86,21 +86,16 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSDictionary *group = self.profile.groups[indexPath.row];
-    cell.textLabel.text = group[@"name"];
-    
-    if ([group[@"id"] isEqualToString:self.question.group])
-        cell.textLabel.textColor = kGreenNext;
-    else
-        cell.textLabel.textColor = [UIColor blackColor];
-    
+    SSGroup *group = self.profile.groups[indexPath.row];
+    cell.textLabel.text = group.displayName;
+    cell.textLabel.textColor = ([group.groupId isEqualToString:self.question.group]) ? kGreenNext : [UIColor blackColor];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *group = self.profile.groups[indexPath.row];
-    self.question.group = group[@"id"];
+    SSGroup *group = self.profile.groups[indexPath.row];
+    self.question.group = group.groupId;
     [self.groupsTableView reloadData];
 }
 
