@@ -276,6 +276,23 @@
         return;
     }
     
+    NSString *msg = [NSString stringWithFormat:@"Is Your Email Address Spelled Correctly: %@", self.profile.email];
+    UIAlertView *confirmationAlert = [[UIAlertView alloc] initWithTitle:@"Confirm"
+                                                                message:msg
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Go Back"
+                                                      otherButtonTitles:@"Yes It Is", nil];
+    
+    [confirmationAlert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"alertView clickedButtonAtIndex: %d", buttonIndex);
+    if (buttonIndex==0)
+        return;
+    
     
     [self.loadingIndicator startLoading];
     [[SSWebServices sharedInstance] registerProfile:self.profile
@@ -291,10 +308,8 @@
                                             if ([confirmation isEqualToString:@"success"]){
                                                 NSDictionary *profileInfo = [results objectForKey:@"profile"];
                                                 [self.profile populate:profileInfo];
-                                                
-                                                SSConfirmViewController *confirmVc = [[SSConfirmViewController alloc] init];
-                                                confirmVc.mode = self.mode;
-                                                [self.navigationController pushViewController:confirmVc animated:YES];
+                                                self.profile.confirmed = YES;
+                                                [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
                                             }
                                             else{
                                                 [self showAlert:@"Error" withMessage:[results objectForKey:@"message"]];

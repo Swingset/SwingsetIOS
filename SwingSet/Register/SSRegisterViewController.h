@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SSViewController.h"
 
-@interface SSRegisterViewController : SSViewController <UITextFieldDelegate>
+@interface SSRegisterViewController : SSViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @end
