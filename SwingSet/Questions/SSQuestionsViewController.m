@@ -159,6 +159,7 @@
         return;
     }
     
+    // No group assigned, get public group questions:
     [[SSWebServices sharedInstance] fetchPublicQuestions:^(id result, NSError *error){
         [self.loadingIndicator stopLoading];
         if (error){
@@ -209,7 +210,7 @@
 - (void)processQuestions:(NSArray *)questions
 {
     NSLog(@"GROUP: %@", [self.group description]);
-    NSLog(@"PROCESS QUESTIONS: %@", [questions description]);
+//    NSLog(@"PROCESS QUESTIONS: %@", [questions description]);
     if (questions.count==0){ // no questions
         [self showAlert:@"No Questions" withMessage:@"This group has no questions."];
         return;
