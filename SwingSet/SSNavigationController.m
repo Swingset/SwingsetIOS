@@ -11,11 +11,11 @@
 @interface SSNavigationController ()
 @property (nonatomic) CGPoint start;
 @property (nonatomic) NSTimeInterval startTime;
-@property (nonatomic) BOOL slidOut;
 @end
 
 @implementation SSNavigationController
 @synthesize isMovable;
+@synthesize slidOut;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

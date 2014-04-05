@@ -16,6 +16,7 @@
 @interface SSNavigationController : UINavigationController
 
 @property (nonatomic) BOOL isMovable;
+@property (nonatomic) BOOL slidOut;
 @property (assign) id<SSNavigationControllerProtocol> container;
 - (void)slideOut;
 - (void)slideIn;
