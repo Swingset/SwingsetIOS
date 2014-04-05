@@ -171,6 +171,7 @@
         if ([results[@"confirmation"] isEqualToString:@"success"]==YES){
             NSDictionary *publicGroupInfo = results[@"group"];
             self.group = [SSGroup groupWithInfo:publicGroupInfo];
+            self.group.isPublic = YES;
             [self processQuestions:results[@"questions"]];
         }
         else{
@@ -584,7 +585,7 @@
     }
     
 //    if ([self.group[@"isPublic"] isEqualToString:@"yes"]){
-    if (self.group.isPublic){
+    if (self.group.isPublic==YES){
         for (UIView *pctView in self.topPreview.malePercentViews)
             pctView.alpha = 1.0f;
         
