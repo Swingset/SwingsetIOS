@@ -94,7 +94,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.profile.groups.count;
+    return self.profile.groups.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,16 +109,30 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    SSGroup *group = self.profile.groups[indexPath.row];
+    if (indexPath.row==0){
+        cell.textLabel.text = @"Front Page";
+        return cell;
+    }
+    
+    SSGroup *group = self.profile.groups[indexPath.row-1];
     cell.textLabel.text = group.displayName;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SSGroup *group = self.profile.groups[indexPath.row];
     SSGroupResultsViewController *groupResults = [[SSGroupResultsViewController alloc] init];
-    groupResults.group = group;
+
+    if (indexPath.row==0){ // Public Group
+        SSGroup *publicGroup = [[SSGroup alloc] init];
+        publicGroup.groupId = @"63914737"; // fixed public group ID
+        groupResults.group = publicGroup;
+    }
+    else{
+        SSGroup *group = self.profile.groups[indexPath.row-1];
+        groupResults.group = group;
+    }
+
     [self.navigationController pushViewController:groupResults animated:YES];
 }
 
