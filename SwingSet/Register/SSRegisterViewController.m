@@ -75,7 +75,7 @@
     h = 36.0f;
     self.idField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                        placeholder:@"Email"
-                                          keyboard:UIKeyboardTypeDefault];
+                                          keyboard:UIKeyboardTypeEmailAddress];
     
     self.idField.delegate = self;
     self.idField.text = self.profile.phone;
@@ -100,6 +100,7 @@
     self.nameField = [SSTextField textFieldWithFrame:CGRectMake(0.5f*(frame.size.width-w), y, w, h)
                                          placeholder:@"Full Name"
                                             keyboard:UIKeyboardTypeDefault];
+    self.nameField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
     self.nameField.delegate = self;
     [view addSubview:self.nameField];
