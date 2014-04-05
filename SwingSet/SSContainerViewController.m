@@ -258,12 +258,8 @@
     NSUInteger groupSize = self.profile.groups.count;
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
-//        NSDictionary *group = self.profile.groups[i];
-//        NSLog(@"GROUP: %@", [group description]);
-
         SSGroup *group = self.profile.groups[i];
 
-//        cell.textLabel.text = [NSString stringWithFormat:@"@%@", group[@"displayName"]];
         cell.textLabel.text = group.displayName;
         cell.indentationLevel = 4.0f;
         cell.textLabel.font = [UIFont systemFontOfSize:14];
@@ -302,7 +298,6 @@
     
     long i = indexPath.row-2;
     if (i < self.profile.groups.count){
-//        NSDictionary *group = self.profile.groups[i];
         SSGroup *group = self.profile.groups[i];
         [self navigateToGroup:group];
         [self performSelector:@selector(resetTable) withObject:nil afterDelay:1.0f];
@@ -331,7 +326,6 @@
     
     self.currentVC = nil;
     self.groupQuestionsVc = [[SSQuestionsViewController alloc] init];
-//    self.groupQuestionsVc.group = [NSMutableDictionary dictionaryWithDictionary:group];
     self.groupQuestionsVc.group = group;
     [self slideOut:self.groupQuestionsVc];
 }
