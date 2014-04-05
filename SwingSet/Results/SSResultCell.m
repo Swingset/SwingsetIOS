@@ -102,10 +102,10 @@
         }
         
         
-        static CGFloat iconDimen = 82.0f;
-        static CGFloat indent = 57.0f;
+        static CGFloat iconDimen = 103.0f;
+        static CGFloat indent = 41.5f;
         for (int i=0; i<4; i++) {
-            CGFloat originY = top.frame.origin.y+top.frame.size.height+10.0f;
+            CGFloat originY = top.frame.origin.y+top.frame.size.height+3.0f;
             CGRect iconFrame;
             if (i==0)
                 iconFrame = CGRectMake(indent, originY, iconDimen, iconDimen);
@@ -114,11 +114,10 @@
                 iconFrame = CGRectMake(base.frame.size.width-iconDimen-indent, originY, iconDimen, iconDimen);
             
             if (i==2)
-                iconFrame = CGRectMake(indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+                iconFrame = CGRectMake(indent, originY+iconDimen+1.0f, iconDimen, iconDimen);
             
             if (i==3)
-                iconFrame = CGRectMake(base.frame.size.width-iconDimen-indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
-            
+                iconFrame = CGRectMake(base.frame.size.width-iconDimen-indent, originY+iconDimen+1.0f, iconDimen, iconDimen);
             
             SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
             optionIcon.userInteractionEnabled = YES;
@@ -127,6 +126,10 @@
             [base addSubview:optionIcon];
             [self.optionsImageViews addObject:optionIcon];
         }
+        
+        // reorganize icons so that percentage bubbles display properly:
+        [base bringSubviewToFront:self.optionsImageViews[0]];
+        [base bringSubviewToFront:self.optionsImageViews[2]];
         
         
         
