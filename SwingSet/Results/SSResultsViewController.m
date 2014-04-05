@@ -8,6 +8,7 @@
 
 #import "SSResultsViewController.h"
 #import "SSGroupResultsViewController.h"
+#import "SSGroup.h"
 
 
 @interface SSResultsViewController ()
@@ -108,14 +109,14 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    NSDictionary *group = self.profile.groups[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"@%@", group[@"name"]];
+    SSGroup *group = self.profile.groups[indexPath.row];
+    cell.textLabel.text = group.displayName;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *group = self.profile.groups[indexPath.row];
+    SSGroup *group = self.profile.groups[indexPath.row];
     SSGroupResultsViewController *groupResults = [[SSGroupResultsViewController alloc] init];
     groupResults.group = group;
     [self.navigationController pushViewController:groupResults animated:YES];
