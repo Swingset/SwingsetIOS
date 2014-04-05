@@ -54,6 +54,8 @@
         self.span = 416.0f-160.0f;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:@"Logout" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"GroupQuestionsReady" object:nil];
+        
 
     }
     return self;
@@ -136,6 +138,11 @@
         if ([confirmation isEqualToString:@"success"]){
             NSDictionary *profileInfo = [results objectForKey:@"profile"];
             [self.profile populate:profileInfo];
+            
+            if (self.profile.groups.count > 0){
+                for (SSGroup *group in self.profile.groups)
+                    [group fetchQuestions];
+            }
         }
     }];
 }
@@ -213,6 +220,11 @@
 
 }
 
+- (void)refresh
+{
+    [self.sectionsTable reloadData];
+}
+
 - (void)createQuestion:(UIButton *)btn
 {
     NSLog(@"createQuestion:");
@@ -266,7 +278,9 @@
         cell.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hb_bg_grey01.png"]];
         cell.imageView.image = nil;
         cell.lblBadge.alpha = 1;
-        cell.lblBadge.text = @"5";
+        
+        cell.lblBadge.text = [NSString stringWithFormat:@"%d", group.unansweredQuestionsCount];
+        
         return cell;
     }
     
