@@ -118,10 +118,10 @@ CGFloat randomRGB(){
         }
         
         UIImage *cameraIcon = [UIImage imageNamed:@"selectPhotoIcon.png"];
-        iconDimen = 102.0f;
-        static CGFloat indent = 37.0f;
+        iconDimen = 114.0f;
+        static CGFloat indent = 30.5f;
         for (int i=0; i<4; i++) {
-            CGFloat originY = self.lblVotes.frame.origin.y+self.lblVotes.frame.size.height+10.0f;
+            CGFloat originY = self.lblVotes.frame.origin.y+self.lblVotes.frame.size.height+1.0f;
             CGRect iconFrame;
             if (i==0)
                 iconFrame = CGRectMake(indent, originY, iconDimen, iconDimen);
@@ -130,10 +130,10 @@ CGFloat randomRGB(){
                 iconFrame = CGRectMake(self.frame.size.width-iconDimen-indent, originY, iconDimen, iconDimen);
 
             if (i==2)
-                iconFrame = CGRectMake(indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+                iconFrame = CGRectMake(indent, originY+iconDimen+1.0f, iconDimen, iconDimen);
 
             if (i==3)
-                iconFrame = CGRectMake(self.frame.size.width-iconDimen-indent, originY+iconDimen+10.0f, iconDimen, iconDimen);
+                iconFrame = CGRectMake(self.frame.size.width-iconDimen-indent, originY+iconDimen+1.0f, iconDimen, iconDimen);
 
             
             SSOptionIcon *optionIcon = [[SSOptionIcon alloc] initWithFrame:iconFrame];
@@ -147,6 +147,9 @@ CGFloat randomRGB(){
             [self.optionsImageViews addObject:optionIcon];
         }
         
+        // reorganize icons so that percentage bubbles display properly:
+        [self bringSubviewToFront:self.optionsImageViews[0]];
+        [self bringSubviewToFront:self.optionsImageViews[2]];
         
         UIImage *imgComments = [UIImage imageNamed:@"CommentsButton.png"];
         double scale = 0.4f;
