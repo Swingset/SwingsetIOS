@@ -139,7 +139,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option1Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option1Field.placeholder = @"Option 1";
             self.option1Field.delegate = self;
-            self.option1Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option1Field.autocapitalizationType = UITextAutocapitalizationTypeWords;
             self.option1Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option1Field];
             
@@ -155,7 +155,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option2Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option2Field.placeholder = @"Option 2";
             self.option2Field.delegate = self;
-            self.option2Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option2Field.autocapitalizationType = UITextAutocapitalizationTypeWords;
             self.option3Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option2Field];
             
@@ -172,7 +172,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option3Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option3Field.placeholder = @"Option 3 (optional)";
             self.option3Field.delegate = self;
-            self.option3Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option3Field.autocapitalizationType = UITextAutocapitalizationTypeWords;
             self.option4Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option3Field];
             
@@ -188,7 +188,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
             self.option4Field.font = [UIFont fontWithName:@"ProximaNova-RegularIt" size:16.0f];
             self.option4Field.placeholder = @"Option 4 (optional)";
             self.option4Field.delegate = self;
-            self.option4Field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            self.option4Field.autocapitalizationType = UITextAutocapitalizationTypeWords;
             self.option4Field.autocorrectionType = UITextAutocorrectionTypeNo;
             [optionView addSubview:self.option4Field];
             
@@ -301,10 +301,7 @@ static NSString *questionPlaceholder = @"Write your question here.";
 - (void)selectIcon:(UITapGestureRecognizer *)tap
 {
     NSLog(@"selectIcon:");
-//    tap.view
-    
-    [self launchImageSelector];
-    
+    [self showActionSheet];
 }
 
 - (void)selectImage:(UITapGestureRecognizer *)tap
@@ -312,7 +309,29 @@ static NSString *questionPlaceholder = @"Write your question here.";
     NSLog(@"selectImage:");
     
     self.selected = (UIImageView *)tap.view;
-    [self launchImageSelector];
+    [self showActionSheet];
+}
+
+- (void)showActionSheet
+{
+    UIActionSheet *actionsheet = [[UIActionSheet alloc] initWithTitle:@"Select Source" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:@"photo library", @"take photo", nil];
+    actionsheet.frame = CGRectMake(0, 150, self.view.frame.size.width, 100);
+    actionsheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionsheet showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"actionSheet clickedButtonAtIndex: %d", buttonIndex);
+    if (buttonIndex==0){
+        [self launchImageSelector:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+
+    if (buttonIndex==1){
+        [self launchImageSelector:UIImagePickerControllerSourceTypeCamera];
+    }
+
 }
 
 - (void)selectGroup
@@ -323,17 +342,19 @@ static NSString *questionPlaceholder = @"Write your question here.";
 }
 
 
-- (void)launchImageSelector
+- (void)launchImageSelector:(UIImagePickerControllerSourceType)sourceType
 {
     [self.loadingIndicator startLoading];
     UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePicker.sourceType = sourceType;
     imagePicker.delegate = self;
     imagePicker.allowsEditing = YES;
     
     [self presentViewController:imagePicker animated:YES completion:^{
         [self.loadingIndicator stopLoading];
     }];
+   
 }
 
 
