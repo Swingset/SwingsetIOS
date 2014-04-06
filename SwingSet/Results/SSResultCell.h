@@ -25,6 +25,9 @@
 @property (strong, nonatomic) NSMutableArray *optionsImageViews;
 @property (strong, nonatomic) UIButton *btnComments;
 @property (strong, nonatomic) UIButton *btnDelete;
+@property (strong, nonatomic) NSMutableArray *malePercentViews;
+@property (strong, nonatomic) NSMutableArray *femalePercentViews;
 @property (assign) id delegate;
 + (CGFloat)standardHeight;
+- (void)displayGenderPercents:(NSDictionary *)percents;
 @end

@@ -12,8 +12,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "SSOptionView.h"
 
-@interface SSResultCell ()
+#define kPadding 10.0f
 
+@interface SSResultCell ()
+@property (strong, nonatomic) NSArray *colors;
+@property (strong, nonatomic) UILabel *lblMale;
+@property (strong, nonatomic) UILabel *lblFemale;
 @end
 
 @implementation SSResultCell
@@ -26,6 +30,8 @@
 @synthesize btnComments;
 @synthesize btnDelete;
 @synthesize delegate;
+@synthesize malePercentViews;
+@synthesize femalePercentViews;
 
 + (CGFloat)standardHeight
 {
@@ -40,6 +46,10 @@
     if (self) {
         self.optionViews = [NSMutableArray array];
         self.optionsImageViews = [NSMutableArray array];
+        self.malePercentViews = [NSMutableArray array];
+        self.femalePercentViews = [NSMutableArray array];
+        self.colors = @[kPurple, kRed, kOrange, kGreen];
+
         CGRect frame = [UIScreen mainScreen].applicationFrame;
         
         
@@ -89,12 +99,12 @@
         
         y = top.frame.origin.y+top.frame.size.height+10.0f;
         
-        NSArray *colors = @[kPurple, kRed, kOrange, kGreen];
+//        NSArray *colors = @[kPurple, kRed, kOrange, kGreen];
         NSArray *badges = @[@"largepurplepercentage.png", @"largeredpercentage.png", @"largeorangepercentage.png", @"largebluepercentage.png"];
         for (int i=0; i<4; i++) {
             SSOptionView *optionView = [SSOptionView optionViewWithFrame:CGRectMake(10.0f, y, base.frame.size.width-20.0f, 36.0f)];
             optionView.userInteractionEnabled = NO;
-            optionView.barColor = colors[i];
+            optionView.barColor = self.colors[i];
             optionView.badge.image = [UIImage imageNamed:badges[i]];
             [base addSubview:optionView];
             [self.optionViews addObject:optionView];
@@ -171,9 +181,70 @@
 
 
         
+        // Male / Female labels:
+        CGFloat w = 45.0f;
+        h = self.btnDelete.frame.size.height-8.0f;
+
+        y = base.frame.size.height-h-kPadding-40.0f;
+        self.lblMale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
+        self.lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        self.lblMale.text = @"Male";
+        self.lblMale.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
+        self.lblMale.backgroundColor = [UIColor greenColor];
+        self.lblMale.textColor = [UIColor colorWithRed:56.0f/255.0f green:62.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
+//        self.lblMale.alpha = 0;
+        [base addSubview:self.lblMale];
+        
+        CGFloat x = w+kPadding;
+        for (int i=0; i<self.colors.count; i++) {
+            UILabel *pctView = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblMale.frame.size.height)];
+            pctView.backgroundColor = self.colors[i];
+            pctView.textColor = [UIColor whiteColor];
+            pctView.textAlignment = NSTextAlignmentLeft;
+            pctView.font = [UIFont fontWithName:@"ProximaNova-Regular" size:10.0f];
+            [base addSubview:pctView];
+            [self.malePercentViews addObject:pctView];
+        }
+        
+        y += self.lblMale.frame.size.height;
+
+        
+        self.lblFemale = [[UILabel alloc] initWithFrame:CGRectMake(kPadding, y, w, 15.0f)];
+        self.lblFemale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        self.lblFemale.backgroundColor = [UIColor clearColor];
+        self.lblFemale.font = self.lblMale.font;
+        self.lblFemale.text = @"Female";
+        self.lblFemale.textColor = self.lblMale.textColor;
+//        self.lblFemale.alpha = 0;
+        [base addSubview:self.lblFemale];
+
+        
+        for (int i=0; i<self.colors.count; i++) {
+            UILabel *pctView = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 0.0f, self.lblFemale.frame.size.height)];
+            pctView.backgroundColor = self.colors[i];
+            pctView.textColor = [UIColor whiteColor];
+            pctView.textAlignment = NSTextAlignmentLeft;
+            pctView.font = [UIFont fontWithName:@"ProximaNova-Regular" size:10.0f];
+            [base addSubview:pctView];
+            [self.femalePercentViews addObject:pctView];
+        }
+
+        
         [self.contentView addSubview:base];
         
-        CGFloat x = frame.size.width-dimen-12.0f;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        x = frame.size.width-dimen-12.0f;
         y = 12.0f;
         self.iconBase = [[UIView alloc] initWithFrame:CGRectMake(x, y, dimen, dimen)];
         self.iconBase.backgroundColor = [UIColor blackColor];
@@ -186,10 +257,6 @@
         self.icon.layer.borderColor = [[UIColor whiteColor] CGColor];
         self.icon.layer.borderWidth = 3.0f;
         [self.contentView addSubview:self.icon];
-        
-        
-
-
     }
     return self;
 }
@@ -233,6 +300,53 @@
     [self.delegate deleteQuestion:(int)self.tag];
 }
 
+
+
+- (void)displayGenderPercents:(NSDictionary *)percents
+{
+    CGRect frame = [UIScreen mainScreen].applicationFrame;
+
+    CGFloat x = 45.0f+kPadding;
+    CGFloat fullWidth = frame.size.width-x-4*kPadding; // this is 100% width
+    
+    NSArray *malePercents = percents[@"male"];
+    NSUInteger max = (malePercents.count >= 4) ? 4 : malePercents.count;
+    for (int i=0; i<max; i++) {
+        NSNumber *pct = [malePercents objectAtIndex:i];
+        double p = [pct doubleValue];
+        UILabel *percentView = (UILabel *)[self.malePercentViews objectAtIndex:i];
+        
+        CGRect frame = percentView.frame;
+        frame.size.width = p*fullWidth;
+        frame.origin.x = x;
+        x += frame.size.width;
+        
+        percentView.frame = frame;
+        self.lblMale.alpha = 1;
+
+        percentView.text = [NSString stringWithFormat:@"%.1f", (p*100)];
+    }
+    
+    x = 45.0f+kPadding;
+    NSArray *femalePercents = percents[@"female"];
+    max = (femalePercents.count >= 4) ? 4 : femalePercents.count;
+    for (int i=0; i<max; i++) {
+        NSNumber *pct = [femalePercents objectAtIndex:i];
+        double p = [pct doubleValue];
+        UILabel *percentView = (UILabel *)[self.femalePercentViews objectAtIndex:i];
+        
+        CGRect frame = percentView.frame;
+        frame.size.width = p*fullWidth;
+        frame.origin.x = x;
+        x += frame.size.width;
+        
+        percentView.frame = frame;
+        self.lblFemale.alpha = 1;
+        
+        percentView.text = [NSString stringWithFormat:@"%.1f", (p*100)];
+    }
+    
+}
 
 
 

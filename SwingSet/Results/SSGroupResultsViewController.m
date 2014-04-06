@@ -154,6 +154,41 @@
         cell.iconBase.alpha = 0.0f;
     }
     
+    
+    NSMutableArray *malePercents = [NSMutableArray array];
+    NSMutableArray *femalePercents = [NSMutableArray array];
+    
+    static NSString *maleVotes = @"maleVotes";
+    static NSString *femaleVotes = @"femaleVotes";
+    for (int j=0; j<question.options.count; j++) {
+        NSDictionary *option = (NSDictionary *)question.options[j];
+        
+        if (option[maleVotes]){
+            if (question.totalMaleVotes > 0){
+                double malePct = [option[maleVotes] doubleValue] / (double)question.totalMaleVotes;
+                [malePercents addObject:[NSNumber numberWithDouble:malePct]];
+            }
+            else{
+                [malePercents addObject:[NSNumber numberWithDouble:0.0f]];
+            }
+        }
+        
+        if (option[femaleVotes]){
+            if (question.totalFemaleVotes > 0){
+                double femalePct = [option[femaleVotes] doubleValue] / (double)question.totalFemaleVotes;
+                [femalePercents addObject:[NSNumber numberWithDouble:femalePct]];
+            }
+            else{
+                [femalePercents addObject:[NSNumber numberWithDouble:0.0f]];
+            }
+        }
+    }
+    
+    [cell displayGenderPercents:@{@"male":malePercents, @"female":femalePercents}];
+    
+    
+    
+    
     // Text Answers
     if ([question.answerType isEqualToString:@"text"]) {
         for (int i=0; i<4; i++) {
