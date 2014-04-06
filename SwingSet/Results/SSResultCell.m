@@ -190,7 +190,7 @@
         self.lblMale.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
         self.lblMale.text = @"Male";
         self.lblMale.font = [UIFont fontWithName:@"ProximaNova-Regular" size:12.0f];
-        self.lblMale.backgroundColor = [UIColor greenColor];
+        self.lblMale.backgroundColor = [UIColor clearColor];
         self.lblMale.textColor = [UIColor colorWithRed:56.0f/255.0f green:62.0f/255.0f blue:64.0f/255.0f alpha:1.0f];
 //        self.lblMale.alpha = 0;
         [base addSubview:self.lblMale];
@@ -231,17 +231,6 @@
 
         
         [self.contentView addSubview:base];
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         x = frame.size.width-dimen-12.0f;
